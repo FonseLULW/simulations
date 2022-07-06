@@ -25,16 +25,54 @@ class Position {
 }
 
 class Velocity {
+    #x;
+    #y;
+
     constructor(velX, velY) {
-        this.x = velX;
-        this.y = velY;
+        this.#x = velX;
+        this.#y = velY;
+    }
+
+    get x() {
+        return this.#x;
+    }
+
+    get y() {
+        return this.#y;
+    }
+
+    set x(x) {
+        this.#x = x;
+    }
+
+    set y(y) {
+        this.#y = y;
     }
 }
 
 class Acceleration {
+    #x;
+    #y;
+
     constructor(aX, aY) {
         this.x = aX;
         this.y = aY;
+    }
+
+    get x() {
+        return this.#x;
+    }
+
+    get y() {
+        return this.#y;
+    }
+
+    set x(x) {
+        this.#x = x;
+    }
+
+    set y(y) {
+        this.#y = y;
     }
 }
 
