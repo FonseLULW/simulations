@@ -12,14 +12,22 @@ class Velocity {
     }
 }
 
+class Acceleration {
+    constructor(aX, aY) {
+        this.x = aX;
+        this.y = aY;
+    }
+}
+
 class AbstractPhysicsObject {
-    constructor(x, y, velX, velY) {
+    constructor(x, y, velX, velY, aX, aY) {
         if (this.constructor == AbstractPhysicsObject) {
             throw new Error("Cannot instantiate Abstract Class Objects");
         }
 
         this.position = new Position(x, y);
         this.velocity = new Velocity(velX, velY);
+        this.acceleration = new Acceleration(aX, aY);
     }
 
     draw(canvas) {
@@ -28,12 +36,13 @@ class AbstractPhysicsObject {
 }
 
 class Circle extends AbstractPhysicsObject {
-    constructor(x, y, velX, velY, diameter) {
-        super(x, y, velX, velY);
+    constructor(x, y, velX, velY, aX, aY, diameter) {
+        super(x, y, velX, velY, aX, aY);
         this.diameter = diameter;
 
         console.log(`Created circle at (${this.position.x}, ${this.position.y})
-        \nwith v0 = (${this.velocity.x}, ${this.velocity.y})`)
+        with v0 = (${this.velocity.x}, ${this.velocity.y})
+        with a = (${this.acceleration.x}, ${this.acceleration.y})`)
     }
 
     draw(canvas) {
@@ -41,8 +50,8 @@ class Circle extends AbstractPhysicsObject {
         canvas.circle(this.position.x, this.position.y, this.diameter);
 
         // px/s = px/s + px/s^2 * ms / 1000
-        this.velocity.x = this.velocity.x + 0 * canvas.deltaTime / 1000;
-        this.velocity.y = this.velocity.y + 415 * canvas.deltaTime / 1000;
+        this.velocity.x = this.velocity.x + this.acceleration.x * canvas.deltaTime / 1000;
+        this.velocity.y = this.velocity.y + this.acceleration.y * canvas.deltaTime / 1000;
 
         // m = mp + px/s * ms / 1000
         this.position.x = this.position.x + this.velocity.x * canvas.deltaTime / 1000;
@@ -62,13 +71,6 @@ class World {
 
         this.objects.forEach((physObj) => {
             physObj.draw(canvas);
-
-            if (this.t >= 10000) {
-                console.log(`Position: (${physObj.position.x}, ${physObj.position.y})
-                \nVelocity: (${physObj.velocity.x}, ${physObj.velocity.y})
-                \nAcceleration: (0, 9.87), at 10s`)
-                this.t = 0;
-            }
         })
 
         this.t += canvas.deltaTime
@@ -98,6 +100,6 @@ let simulation = new p5((p) => {
     };
 
     p.mouseClicked = (e) => {
-        p.world.add(new Circle(e.clientX, e.clientY, 500, -700, 50));
+        p.world.add(new Circle(e.clientX, e.clientY, 500, -700, 0, 415, 50));
     };
 });
