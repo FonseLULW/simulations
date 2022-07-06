@@ -65,7 +65,7 @@ let simulation = new p5((p) => {
         p.world.draw(p);
     };
 
-    p.mouseClicked = () => {
-        p.world.add(new Circle(p.random(0, p.windowWidth), p.random(0, p.windowHeight), 35));
+    p.mouseClicked = (e) => {
+        p.world.add(new Circle(e.clientX, e.clientY, 35));
     };
 });
