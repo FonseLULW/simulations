@@ -69,5 +69,3 @@ let simulation = new p5((p) => {
         p.world.add(new Circle(e.clientX, e.clientY, 35));
     };
 });
-
-console.log("Hello");
