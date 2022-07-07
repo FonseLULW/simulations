@@ -27,22 +27,29 @@ class Point {
 class Body {
     #position;
     #color; // graphics
-
     #collider; // physics
-    #isStatic;
 
-    constructor(position, color, collider) {
+    constructor(position, collider, color) {
         this.#position = position;
-        this.#color = color;
         this.#collider = collider;
+        this.#color = color;
     }
 
     draw (canvas) {
     
     }
-    
-    get isStatic() {
-        return this.#isStatic;
+}
+
+class Rigidbody extends Body {
+    #velocity;
+    #force;
+    #mass;
+
+    constructor(position, velocity, force, mass, collider, color) {
+        super(position, collider, color);
+        this.#velocity = velocity;
+        this.#force = force;
+        this.#mass = mass;
     }
 }
 
