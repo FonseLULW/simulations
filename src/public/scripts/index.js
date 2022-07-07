@@ -24,6 +24,58 @@ class Position {
     }
 }
 
+class Dynamics {
+    #velX;
+    #velY;
+    #accelerationX;
+    #accelerationY;
+
+    constructor(velX, velY, accelerationX, accelerationY) {
+        this.#velX = velX;
+        this.#velY = velY;
+        this.#accelerationX = accelerationX;
+        this.#accelerationY = accelerationY;
+    }
+
+    get velX() {
+        return this.#velX;
+    }
+
+    get velY() {
+        return this.#velY;
+    }
+
+    get accelerationX() {
+        return this.#accelerationX;
+    }
+    
+    get accelerationY() {
+        return this.#accelerationY;
+    }
+
+    set velX(velX) {
+        this.#velX = velX;
+    }
+
+    set velY(velY) {
+        this.#velY = velY;
+    }
+
+    set accelerationX(accelerationX) {
+        this.#accelerationX = accelerationX;
+    }
+    
+    set accelerationY(accelerationY) {
+        this.#accelerationY = accelerationY;
+    }
+
+    update(deltaTimeMS) {
+        // px/s = px/s + px/s^2 * ms / 1000
+        this.velX += this.accelerationX * deltaTimeMS / 1000;
+        this.velY += this.accelerationY * deltaTimeMS / 1000;
+    }
+}
+
 class Velocity {
     #x;
     #y;
@@ -83,8 +135,7 @@ class AbstractPhysicsObject {
         }
 
         this.position = new Position(x, y);
-        this.velocity = new Velocity(velX, velY);
-        this.acceleration = new Acceleration(aX, aY);
+        this.dynamics = new Dynamics(velX, velY, aX, aY);
     }
 
     draw(canvas) {
@@ -100,8 +151,8 @@ class Circle extends AbstractPhysicsObject {
         this.#diameter = diameter;
 
         console.log(`Created circle at (${this.position.x}, ${this.position.y})
-        with v0 = (${this.velocity.x}, ${this.velocity.y})
-        with a = (${this.acceleration.x}, ${this.acceleration.y})`)
+        with v0 = (${this.dynamics.velX}, ${this.dynamics.velY})
+        with a = (${this.dynamics.accelerationX}, ${this.dynamics.accelerationY})`)
     }
 
     draw(canvas) {
@@ -112,21 +163,17 @@ class Circle extends AbstractPhysicsObject {
     }
 
     update(deltaTimeMS) {
-        // px/s = px/s + px/s^2 * ms / 1000
-        this.velocity.x = this.velocity.x + this.acceleration.x * deltaTimeMS / 1000;
-        this.velocity.y = this.velocity.y + this.acceleration.y * deltaTimeMS / 1000;
+        this.dynamics.update(deltaTimeMS);
 
         // m = mp + px/s * ms / 1000
-        this.position.x = this.position.x + this.velocity.x * deltaTimeMS / 1000;
-        this.position.y = this.position.y + this.velocity.y * deltaTimeMS / 1000;
+        this.position.x += this.dynamics.velX * deltaTimeMS / 1000;
+        this.position.y += this.dynamics.velY * deltaTimeMS / 1000;
     }
 }
 
 class World {
     constructor() {
         this.objects = new Set();
-
-        this.t = 0;
     }
 
     draw(canvas) {
@@ -135,8 +182,6 @@ class World {
         this.objects.forEach((physObj) => {
             physObj.draw(canvas);
         })
-
-        this.t += canvas.deltaTime
     }
 
     add(physObj) {
