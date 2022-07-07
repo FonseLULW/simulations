@@ -25,19 +25,41 @@ class Point {
 }
 
 class Body {
-    constructor(x, y, velX, velY, aX, aY) {
-        if (this.constructor == Body) {
-            throw new Error("Cannot instantiate Abstract Class Objects");
-        }
+    #position;
+    #color; // graphics
 
-        this.position = new Position(x, y);
-        this.dynamics = new Dynamics(velX, velY, aX, aY);
+    #collider; // physics
+    #isStatic;
+
+    constructor(position, color, collider) {
+        this.#position = position;
+        this.#color = color;
+        this.#collider = collider;
     }
 
-    draw(canvas) {
-        throw new Error("Draw is not implemented");
+    draw (canvas) {
+    
+    }
+    
+    get isStatic() {
+        return this.#isStatic;
     }
 }
+
+// class Body {
+//     constructor(x, y, velX, velY, aX, aY) {
+//         if (this.constructor == Body) {
+//             throw new Error("Cannot instantiate Abstract Class Objects");
+//         }
+
+//         this.position = new Position(x, y);
+//         this.dynamics = new Dynamics(velX, velY, aX, aY);
+//     }
+
+//     draw(canvas) {
+//         throw new Error("Draw is not implemented");
+//     }
+// }
 
 class Circle extends Body {
     #diameter;
