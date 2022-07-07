@@ -24,9 +24,9 @@ class Point {
     }
 }
 
-class AbstractPhysicsObject {
+class Body {
     constructor(x, y, velX, velY, aX, aY) {
-        if (this.constructor == AbstractPhysicsObject) {
+        if (this.constructor == Body) {
             throw new Error("Cannot instantiate Abstract Class Objects");
         }
 
@@ -39,7 +39,7 @@ class AbstractPhysicsObject {
     }
 }
 
-class Circle extends AbstractPhysicsObject {
+class Circle extends Body {
     #diameter;
 
     constructor(x, y, velX, velY, aX, aY, diameter) {
