@@ -1,32 +1,4 @@
-class Vector2D {
-    #x;
-    #y;
-
-    constructor(x, y) {
-        this.#x = x;
-        this.#y = y;
-    }
-
-    get x() {
-        return this.#x;
-    }
-
-    get y() {
-        return this.#y;
-    }
-
-    set x(x) {
-        this.#x = x;
-    }
-
-    set y(y) {
-        this.#y = y;
-    }
-
-    toString() {
-        return `Vector2D(${this.#x}, ${this.#y})`
-    }
-}
+import { Vector2D } from './modules/vector2D.js';
 
 class Graphic {
     #position;
@@ -236,7 +208,7 @@ let simulation = new p5((p) => {
                 new Vector2D(e.clientX, e.clientY), null, p.color(206, 100, 245),
                 new Square(new Vector2D(e.clientX, e.clientY), 35)))
         } else {
-            mass = 1000;
+            let mass = 1000;
             p.world.add(new Rigidbody(
                 new Vector2D(e.clientX, e.clientY),
                 new Vector2D(533.4, -233.7),
