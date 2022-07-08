@@ -1,12 +1,14 @@
 class Graphic {
     #position;
+    #color;
 
-    constructor(position) {
+    constructor(position, color) {
         if (this.constructor === Graphic) {
             throw new Error("Cannot instantiate an Abstract class");
         }
 
         this.#position = position;
+        this.#color = color;
     }
 
     render(canvas) {
@@ -20,18 +22,27 @@ class Graphic {
     set position(position) {
         this.#position = position;
     }
+
+    get color() {
+        return this.#color;
+    }
+
+    set color(color) {
+        this.#color = color;
+    }
 }
 
 class Circle extends Graphic {
     #diameter;
 
-    constructor(position, diameter) {
-        super(position);
+    constructor(position, color, diameter) {
+        super(position, color);
 
         this.#diameter = diameter;
     }
 
     render(canvas) {
+        canvas.fill(super.color);
         canvas.circle(super.position.x, super.position.y, this.#diameter);
     }
 }
@@ -39,14 +50,15 @@ class Circle extends Graphic {
 class Square extends Graphic {
     #side;
 
-    constructor(position, side) {
-        super(position);
+    constructor(position, color, side) {
+        super(position, color);
 
         this.#side = side;
     }
 
     render(canvas) {
-        canvas.square(super.position.x, super.position.y, this.#side);
+        canvas.fill(this.color);
+        canvas.square(this.position.x, this.position.y, this.#side);
     }
 }
 

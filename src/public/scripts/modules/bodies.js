@@ -2,20 +2,16 @@ import { Vector2D } from './vector2D.js';
 
 class Body {
     #position;
-    #color; // graphics
     #collider; // physics
-    #graphic;
+    #graphic; // graphics
 
-    constructor(position, collider, color, graphic) {
+    constructor(position, collider, graphic) {
         this.#position = position;
         this.#collider = collider;
-        this.#color = color;
         this.#graphic = graphic;
     }
 
     _createGraphic(canvas) {
-        canvas.fill(this.#color);
-        // canvas.circle(this.#position.x, this.#position.y, 50);
         this.#graphic.position = new Vector2D(this.#position.x, this.#position.y);
         this.#graphic.render(canvas);
     }
@@ -32,10 +28,6 @@ class Body {
         this.#position = position;
     }
 
-    get color() {
-        return this.#color;
-    }
-
     get collider() {
         return this.#collider;
     }
@@ -47,7 +39,6 @@ class Body {
     toString() {
         return `Body
         Position: ${this.#position}
-        Color: ${this.#color}
         Collider: ${this.#collider}`;
     }
     
@@ -58,8 +49,8 @@ class Rigidbody extends Body {
     #force;
     #mass;
 
-    constructor(position, velocity, force, mass, collider, color, graphic) {
-        super(position, collider, color, graphic);
+    constructor(position, velocity, force, mass, collider, graphic) {
+        super(position, collider, graphic);
         this.#velocity = velocity;
         this.#force = force;
         this.#mass = mass;
@@ -92,7 +83,6 @@ class Rigidbody extends Body {
     toString() {
         return `Rigidbody
         Position: ${this.position}
-        Color: ${this.color}
         Collider: ${this.collider}
         Velocity: ${this.velocity}
         Force: ${this.force}
