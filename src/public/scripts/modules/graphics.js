@@ -15,12 +15,20 @@ class Graphic {
         throw new Error("This methods has not been implemented");
     }
 
-    get position() {
-        return this.#position;
+    get x() {
+        return this.#position.x;
     }
 
-    set position(position) {
-        this.#position = position;
+    set x(x) {
+        this.#position.x = x;
+    }
+
+    get y() {
+        return this.#position.y;
+    }
+
+    set y(y) {
+        this.#position.y = y;
     }
 
     get color() {
@@ -43,7 +51,7 @@ class Circle extends Graphic {
 
     render(canvas) {
         canvas.fill(super.color);
-        canvas.circle(super.position.x, super.position.y, this.#diameter);
+        canvas.circle(this.x, this.y, this.#diameter);
     }
 }
 
@@ -58,7 +66,7 @@ class Square extends Graphic {
 
     render(canvas) {
         canvas.fill(this.color);
-        canvas.square(this.position.x, this.position.y, this.#side);
+        canvas.square(this.x, this.y, this.#side);
     }
 }
 

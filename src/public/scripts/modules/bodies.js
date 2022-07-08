@@ -1,18 +1,13 @@
-import { Vector2D } from './vector2D.js';
-
 class Body {
-    #position;
-    #collider; // physics
     #graphic; // graphics
-
-    constructor(position, collider, graphic) {
-        this.#position = position;
-        this.#collider = collider;
+    #collider; // physics
+    
+    constructor(graphic, collider) {
         this.#graphic = graphic;
+        this.#collider = collider;
     }
 
     _createGraphic(canvas) {
-        this.#graphic.position = new Vector2D(this.#position.x, this.#position.y);
         this.#graphic.render(canvas);
     }
 
@@ -20,12 +15,20 @@ class Body {
         this._createGraphic(canvas);
     }
 
-    get position() {
-        return this.#position;
+    get x() {
+        return this.#graphic.x;
     }
 
-    set position(position) {
-        this.#position = position;
+    set x(x) {
+        this.#graphic.x = x;
+    }
+
+    get y() {
+        return this.#graphic.y;
+    }
+
+    set y(y) {
+        this.#graphic.y = y;
     }
 
     get collider() {
@@ -38,7 +41,6 @@ class Body {
 
     toString() {
         return `Body
-        Position: ${this.#position}
         Collider: ${this.#collider}`;
     }
     
@@ -49,31 +51,47 @@ class Rigidbody extends Body {
     #force;
     #mass;
 
-    constructor(position, velocity, force, mass, collider, graphic) {
-        super(position, collider, graphic);
+    constructor(graphic, collider, velocity, force, mass) {
+        super(graphic, collider);
         this.#velocity = velocity;
         this.#force = force;
         this.#mass = mass;
     }
 
-    get velocity() {
-        return this.#velocity;
+    get velocityX() {
+        return this.#velocity.x;
     }
 
-    get force() {
-        return this.#force;
+    get velocityY() {
+        return this.#velocity.y;
+    }
+
+    get forceX() {
+        return this.#force.x;
+    }
+
+    get forceY() {
+        return this.#force.y;
     }
 
     get mass() {
         return this.#mass;
     }
 
-    set velocity(velocity) {
-        this.#velocity = velocity;
+    set velocityX(velocityX) {
+        this.#velocity.x = velocityX;
     }
 
-    set force(force) {
-        this.#force = force;
+    set velocityY(velocityY) {
+        this.#velocity.y = velocityY;
+    }
+
+    set forceX(forceX) {
+        this.#force.x = forceX;
+    }
+
+    set forceY(forceY) {
+        this.#force.y = forceY;
     }
 
     isDynamic() {
@@ -82,11 +100,7 @@ class Rigidbody extends Body {
 
     toString() {
         return `Rigidbody
-        Position: ${this.position}
-        Collider: ${this.collider}
-        Velocity: ${this.velocity}
-        Force: ${this.force}
-        Mass: ${this.mass}`;
+        Collider: ${this.collider}`;
     }
 }
 

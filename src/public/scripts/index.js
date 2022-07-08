@@ -20,15 +20,15 @@ let simulation = new p5((p) => {
     p.mousePressed = (e) => {
         if (e.button == 1) {
             p.world.add(new Body(
-                new Vector2D(e.clientX, e.clientY), null,
-                new Square(new Vector2D(e.clientX, e.clientY), p.color(206, 100, 245), 35)))
+                new Square(new Vector2D(e.clientX, e.clientY), p.color(206, 100, 245), 35), null
+                ))
         } else {
             let mass = 1000;
             p.world.add(new Rigidbody(
-                new Vector2D(e.clientX, e.clientY),
+                new Circle(new Vector2D(e.clientX, e.clientY), p.color(104, 240, 237), 50),
+                null,
                 new Vector2D(533.4, -233.7),
-                new Vector2D(400 * mass, 487 * mass),
-                mass, null, new Circle(new Vector2D(e.clientX, e.clientY), p.color(104, 240, 237), 50)
+                new Vector2D(400 * mass, 487 * mass), mass 
             ))
         }
     };
