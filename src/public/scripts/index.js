@@ -32,6 +32,10 @@ class Graphic {
     #position;
 
     constructor(position) {
+        if (this.constructor === Graphic) {
+            throw new Error("Cannot instantiate an Abstract class");
+        }
+
         this.#position = position;
     }
 
