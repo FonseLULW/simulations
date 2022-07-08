@@ -22,6 +22,10 @@ class Point {
     set y(y) {
         this.#y = y;
     }
+
+    toString() {
+        return `Vector2D(${this.#x}, ${this.#y})`
+    }
 }
 
 class Body {
@@ -51,6 +55,25 @@ class Body {
     set position(position) {
         this.#position = position;
     }
+
+    get color() {
+        return this.#color;
+    }
+
+    get collider() {
+        return this.#collider;
+    }
+
+    isDynamic() {
+        return false;
+    }
+
+    toString() {
+        return `Body
+        Position: ${this.#position}
+        Color: ${this.#color}
+        Collider: ${this.#collider}`;
+    }
     
 }
 
@@ -64,15 +87,6 @@ class Rigidbody extends Body {
         this.#velocity = velocity;
         this.#force = force;
         this.#mass = mass;
-    }
-
-    #update() {
-
-    }
-
-    draw(canvas) {
-        this._createGraphic(canvas);
-        this.#update();
     }
 
     get velocity() {
@@ -93,6 +107,20 @@ class Rigidbody extends Body {
 
     set force(force) {
         this.#force = force;
+    }
+
+    isDynamic() {
+        return true;
+    }
+
+    toString() {
+        return `Rigidbody
+        Position: ${this.position}
+        Color: ${this.color}
+        Collider: ${this.collider}
+        Velocity: ${this.velocity}
+        Force: ${this.force}
+        Mass: ${this.mass}`;
     }
 }
 
@@ -149,11 +177,25 @@ class World {
 
         this.objects.forEach((physObj) => {
             physObj.draw(canvas);
+
+
+            if (physObj.isDynamic()) {
+                physObj.velocity = new Point(
+                    physObj.velocity.x + physObj.force.x / physObj.mass * canvas.deltaTime / 1000,
+                    physObj.velocity.y + physObj.force.y / physObj.mass * canvas.deltaTime / 1000
+                )
+
+                physObj.position = new Point(
+                    physObj.position.x + physObj.velocity.x * canvas.deltaTime / 1000,
+                    physObj.position.y + physObj.velocity.y * canvas.deltaTime / 1000
+                )
+            }
         })
     }
 
     add(physObj) {
         this.objects.add(physObj);
+        console.log(`Created ${physObj}`)
     }
 
     remove(physObj) {
@@ -175,7 +217,18 @@ let simulation = new p5((p) => {
         p.world.draw(p);
     };
 
-    p.mouseClicked = (e) => {
-        p.world.add(new Body(new Point(e.clientX, e.clientY), null, p.color(50, 55, 100)));
+    p.mousePressed = (e) => {
+        if (e.button == 1) {
+            p.world.add(new Body(
+                new Point(e.clientX, e.clientY), null, p.color(206, 100, 245)))
+        } else {
+            mass = 1000;
+            p.world.add(new Rigidbody(
+                new Point(e.clientX, e.clientY),
+                new Point(-533.4, -233.7),
+                new Point(400 * mass, 487 * mass),
+                mass, null, p.color(104, 240, 237)
+            ))
+        }
     };
 });
