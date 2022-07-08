@@ -36,7 +36,8 @@ class Body {
     }
 
     toString() {
-        return `Body
+        return `${this.constructor.name}
+        ${this.#graphic.toString()}
         Collider: ${this.#collider}`;
     }
     
@@ -95,8 +96,10 @@ class Rigidbody extends Body {
     }
 
     toString() {
-        return `Rigidbody
-        Collider: ${this.collider}`;
+        return `${super.toString()}
+        Velocity: ${this.#velocity.toString()}
+        Force: ${this.#force.toString()}
+        Mass: ${this.#mass}`;
     }
 }
 

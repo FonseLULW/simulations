@@ -30,6 +30,7 @@ let simulation = new p5((p) => {
                 new Vector2D(533.4, -233.7),
                 new Vector2D(400 * mass, 487 * mass), mass 
             ))
+
         }
     };
 });

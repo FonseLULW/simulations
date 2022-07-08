@@ -38,6 +38,11 @@ class Graphic {
     set color(color) {
         this.#color = color;
     }
+
+    toString() {
+        return `${this.#position.toString()}
+        Color: ${this.#color}`;
+    }
 }
 
 class Circle extends Graphic {
@@ -53,6 +58,11 @@ class Circle extends Graphic {
         canvas.fill(super.color);
         canvas.circle(this.x, this.y, this.#diameter);
     }
+
+    toString() {
+        return `${super.toString()}
+        Diameter: ${this.#diameter}`;
+    }
 }
 
 class Square extends Graphic {
@@ -67,6 +77,11 @@ class Square extends Graphic {
     render(canvas) {
         canvas.fill(this.color);
         canvas.square(this.x, this.y, this.#side);
+    }
+
+    toString() {
+        return `${super.toString()}
+        Side: ${this.#side}`;
     }
 }
 
