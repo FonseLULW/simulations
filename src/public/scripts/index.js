@@ -35,9 +35,23 @@ class Body {
         this.#color = color;
     }
 
-    draw (canvas) {
-    
+    _createGraphic(canvas) {
+        canvas.fill(this.#color);
+        canvas.circle(this.#position.x, this.#position.y, 50);
     }
+
+    draw(canvas) {
+        this._createGraphic(canvas);
+    }
+
+    get position() {
+        return this.#position;
+    }
+
+    set position(position) {
+        this.#position = position;
+    }
+    
 }
 
 class Rigidbody extends Body {
@@ -50,6 +64,35 @@ class Rigidbody extends Body {
         this.#velocity = velocity;
         this.#force = force;
         this.#mass = mass;
+    }
+
+    #update() {
+
+    }
+
+    draw(canvas) {
+        this._createGraphic(canvas);
+        this.#update();
+    }
+
+    get velocity() {
+        return this.#velocity;
+    }
+
+    get force() {
+        return this.#force;
+    }
+
+    get mass() {
+        return this.#mass;
+    }
+
+    set velocity(velocity) {
+        this.#velocity = velocity;
+    }
+
+    set force(force) {
+        this.#force = force;
     }
 }
 
@@ -68,33 +111,33 @@ class Rigidbody extends Body {
 //     }
 // }
 
-class Circle extends Body {
-    #diameter;
+// class Circle extends Body {
+//     #diameter;
 
-    constructor(x, y, velX, velY, aX, aY, diameter) {
-        super(x, y, velX, velY, aX, aY);
-        this.#diameter = diameter;
+//     constructor(x, y, velX, velY, aX, aY, diameter) {
+//         super(x, y, velX, velY, aX, aY);
+//         this.#diameter = diameter;
 
-        console.log(`Created circle at (${this.position.x}, ${this.position.y})
-        with v0 = (${this.dynamics.velX}, ${this.dynamics.velY})
-        with a = (${this.dynamics.accelerationX}, ${this.dynamics.accelerationY})`)
-    }
+//         console.log(`Created circle at (${this.position.x}, ${this.position.y})
+//         with v0 = (${this.dynamics.velX}, ${this.dynamics.velY})
+//         with a = (${this.dynamics.accelerationX}, ${this.dynamics.accelerationY})`)
+//     }
 
-    draw(canvas) {
-        canvas.fill(65, 223, 250);
-        canvas.circle(this.position.x, this.position.y, this.#diameter);
+//     draw(canvas) {
+//         canvas.fill(65, 223, 250);
+//         canvas.circle(this.position.x, this.position.y, this.#diameter);
 
-        this.update(canvas.deltaTime)
-    }
+//         this.update(canvas.deltaTime)
+//     }
 
-    update(deltaTimeMS) {
-        this.dynamics.update(deltaTimeMS);
+//     update(deltaTimeMS) {
+//         this.dynamics.update(deltaTimeMS);
 
-        // m = mp + px/s * ms / 1000
-        this.position.x += this.dynamics.velX * deltaTimeMS / 1000;
-        this.position.y += this.dynamics.velY * deltaTimeMS / 1000;
-    }
-}
+//         // m = mp + px/s * ms / 1000
+//         this.position.x += this.dynamics.velX * deltaTimeMS / 1000;
+//         this.position.y += this.dynamics.velY * deltaTimeMS / 1000;
+//     }
+// }
 
 class World {
     constructor() {
@@ -133,6 +176,6 @@ let simulation = new p5((p) => {
     };
 
     p.mouseClicked = (e) => {
-        p.world.add(new Circle(e.clientX, e.clientY, 500, -700, 0, 415, 50.4));
+        p.world.add(new Body(new Point(e.clientX, e.clientY), null, p.color(50, 55, 100)));
     };
 });
