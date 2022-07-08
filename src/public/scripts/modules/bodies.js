@@ -28,20 +28,8 @@ class Body {
         this.#graphic.y = y;
     }
 
-    get colliderX() {
-        return this.#collider.x;
-    }
-
-    set colliderX(x) {
-        this.#collider.x = x;
-    }
-
-    get colliderY() {
-        return this.#collider.y;
-    }
-
-    set colliderY(y) {
-        this.#collider.y = y;
+    get collider() {
+        return this.#collider;
     }
 
     isDynamic() {

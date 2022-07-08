@@ -6,7 +6,13 @@ class World {
     }
 
     resolveCollisions() {
-        console.log("solving")
+        for (let objA of this.#objects) {
+            for (let objB of this.#objects) {
+                if (objA === objB) { break; }
+
+                objA.collider.testCollision(objB.collider);
+            }
+        }
     }
 
     draw(canvas) {
@@ -14,7 +20,7 @@ class World {
 
         this.resolveCollisions();
 
-        this.#objects.forEach((physObj) => {
+        this.#objects.forEach(physObj => {
             physObj.draw(canvas);
 
             if (physObj.isDynamic()) {

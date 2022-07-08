@@ -12,6 +12,22 @@ class Collider {
         throw new Error("Abstract method is not implemented");
     }
 
+    testCollision(otherCollider) {
+        if (otherCollider.constructor === CircleCollider) {
+            this.testCollisionWithCircle(otherCollider);
+        } else if (otherCollider.constructor === SquareCollider) {
+            this.testCollisionWithSquare(otherCollider);
+        }
+    }
+
+    testCollisionWithCircle(otherCollider) {
+        throw new Error("Abstract method is not implemented");
+    }
+
+    testCollisionWithSquare(otherCollider) {
+        throw new Error("Abstract method is not implemented");
+    }
+
     get x() {
         return this.#position.x;
     }
@@ -44,6 +60,14 @@ class CircleCollider extends Collider {
         canvas.circle(this.x, this.y, this.#diameter);
     }
 
+    testCollisionWithCircle(otherCollider) {
+        console.log(`Testing Circle v Circle`);
+    }
+
+    testCollisionWithSquare(otherCollider) {
+        console.log(`Testing Circle v Square`);
+    }
+
     get diameter() {
         return this.#diameter;
     }
@@ -64,7 +88,13 @@ class SquareCollider extends Collider {
         canvas.square(this.x, this.y, this.#side);
     }
 
-    testCollision()
+    testCollisionWithCircle(otherCollider) {
+        console.log(`Testing Square v Circle`);
+    }
+
+    testCollisionWithSquare(otherCollider) {
+        console.log(`Testing Square v Square`);
+    }
 
     get side() {
         return this.#side;
