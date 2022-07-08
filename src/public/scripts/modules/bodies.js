@@ -7,12 +7,8 @@ class Body {
         this.#collider = collider;
     }
 
-    _createGraphic(canvas) {
-        this.#graphic.render(canvas);
-    }
-
     draw(canvas) {
-        this._createGraphic(canvas);
+        this.#graphic.render(canvas);
     }
 
     get x() {
