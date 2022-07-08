@@ -1,14 +1,21 @@
 class World {
+    #objects;
+
     constructor() {
-        this.objects = new Set();
+        this.#objects = new Set();
+    }
+
+    resolveCollisions() {
+        console.log("solving")
     }
 
     draw(canvas) {
         canvas.background(247, 245, 246);
 
-        this.objects.forEach((physObj) => {
-            physObj.draw(canvas);
+        this.resolveCollisions();
 
+        this.#objects.forEach((physObj) => {
+            physObj.draw(canvas);
 
             if (physObj.isDynamic()) {
                 // v+1 = v + F/m * t
@@ -23,12 +30,12 @@ class World {
     }
 
     add(physObj) {
-        this.objects.add(physObj);
+        this.#objects.add(physObj);
         console.log(`Created ${physObj}`)
     }
 
     remove(physObj) {
-        this.objects.remove(physObj);
+        this.#objects.remove(physObj);
     }
 }
 

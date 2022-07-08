@@ -1,5 +1,6 @@
 import { Vector2D } from './modules/vector2D.js';
 import { Square, Circle } from './modules/graphics.js';
+import { CircleCollider, SquareCollider } from './modules/colliders.js';
 import { Body, Rigidbody } from './modules/bodies.js';
 import { World } from './modules/world.js';
 
@@ -18,15 +19,19 @@ let simulation = new p5((p) => {
     };
 
     p.mousePressed = (e) => {
+        let pos = new Vector2D(e.clientX, e.clientY);
         if (e.button == 1) {
+            let side = 35;
             p.world.add(new Body(
-                new Square(new Vector2D(e.clientX, e.clientY), p.color(206, 100, 245), 35), null
+                new Square(pos, p.color(206, 100, 245), side),
+                new SquareCollider(pos, side)
                 ))
         } else {
             let mass = 1000;
+            let diameter = 50;
             p.world.add(new Rigidbody(
-                new Circle(new Vector2D(e.clientX, e.clientY), p.color(104, 240, 237), 50),
-                null,
+                new Circle(pos, p.color(104, 240, 237), diameter),
+                new CircleCollider(pos, diameter),
                 new Vector2D(533.4, -233.7),
                 new Vector2D(400 * mass, 487 * mass), mass 
             ))
