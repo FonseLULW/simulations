@@ -28,20 +28,72 @@ class Vector2D {
     }
 }
 
+class Graphic {
+    #position;
+
+    constructor(position) {
+        this.#position = position;
+    }
+
+    render(canvas) {
+        throw new Error("This methods has not been implemented");
+    }
+
+    get position() {
+        return this.#position;
+    }
+
+    set position(position) {
+        this.#position = position;
+    }
+}
+
+class Circle extends Graphic {
+    #diameter;
+
+    constructor(position, diameter) {
+        super(position);
+
+        this.#diameter = diameter;
+    }
+
+    render(canvas) {
+        canvas.circle(super.position.x, super.position.y, this.#diameter);
+    }
+}
+
+class Square extends Graphic {
+    #side;
+
+    constructor(position, side) {
+        super(position);
+
+        this.#side = side;
+    }
+
+    render(canvas) {
+        canvas.square(super.position.x, super.position.y, this.#side);
+    }
+}
+
 class Body {
     #position;
     #color; // graphics
     #collider; // physics
+    #graphic;
 
-    constructor(position, collider, color) {
+    constructor(position, collider, color, graphic) {
         this.#position = position;
         this.#collider = collider;
         this.#color = color;
+        this.#graphic = graphic;
     }
 
     _createGraphic(canvas) {
         canvas.fill(this.#color);
-        canvas.circle(this.#position.x, this.#position.y, 50);
+        // canvas.circle(this.#position.x, this.#position.y, 50);
+        this.#graphic.position = new Vector2D(this.#position.x, this.#position.y);
+        this.#graphic.render(canvas);
     }
 
     draw(canvas) {
@@ -82,8 +134,8 @@ class Rigidbody extends Body {
     #force;
     #mass;
 
-    constructor(position, velocity, force, mass, collider, color) {
-        super(position, collider, color);
+    constructor(position, velocity, force, mass, collider, color, graphic) {
+        super(position, collider, color, graphic);
         this.#velocity = velocity;
         this.#force = force;
         this.#mass = mass;
@@ -177,14 +229,15 @@ let simulation = new p5((p) => {
     p.mousePressed = (e) => {
         if (e.button == 1) {
             p.world.add(new Body(
-                new Vector2D(e.clientX, e.clientY), null, p.color(206, 100, 245)))
+                new Vector2D(e.clientX, e.clientY), null, p.color(206, 100, 245),
+                new Square(new Vector2D(e.clientX, e.clientY), 35)))
         } else {
             mass = 1000;
             p.world.add(new Rigidbody(
                 new Vector2D(e.clientX, e.clientY),
                 new Vector2D(533.4, -233.7),
                 new Vector2D(400 * mass, 487 * mass),
-                mass, null, p.color(104, 240, 237)
+                mass, null, p.color(104, 240, 237), new Circle(new Vector2D(e.clientX, e.clientY), 50)
             ))
         }
     };
