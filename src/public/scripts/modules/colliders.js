@@ -64,7 +64,7 @@ class CircleCollider extends Collider {
 
     testCollisionWithCircle(otherCollider) {
         console.log(`Testing Circle v Circle`);
-        console.log(CollisionTester.testCircleCircleCollision(this, otherCollider));
+        return CollisionTester.testCircleCircleCollision(this, otherCollider);
     }
 
     testCollisionWithSquare(otherCollider) {

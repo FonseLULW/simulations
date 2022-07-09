@@ -6,11 +6,13 @@ class World {
     }
 
     resolveCollisions() {
+        let collisions = new Set();
+
         for (let objA of this.#objects) {
             for (let objB of this.#objects) {
                 if (objA === objB) { break; }
 
-                objA.collider.testCollision(objB.collider);
+                collisions.add(new Collision(objA, objB, objA.collider.testCollision(objB.collider)));
             }
         }
     }
