@@ -1,3 +1,5 @@
+import { Collision } from './collisions.js';
+
 class World {
     #objects;
 
@@ -12,7 +14,7 @@ class World {
             for (let objB of this.#objects) {
                 if (objA === objB) { break; }
 
-                collisions.add(new Collision(objA, objB, objA.collider.testCollision(objB.collider)));
+                collisions.add(new Collision(objA.collider, objB.collider, objA.collider.testCollision(objB.collider)));
             }
         }
     }

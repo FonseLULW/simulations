@@ -4,6 +4,24 @@ class Collision {
     #colliderA;
     #colliderB;
     #collisionPoint;
+
+    constructor(colliderA, colliderB, collisionPoint) {
+        this.#colliderA = colliderA;
+        this.#colliderB = colliderB;
+        this.#collisionPoint = collisionPoint;
+    }
+
+    get colliderA() {
+        return this.#colliderA;
+    }
+
+    get colliderB() {
+        return this.#colliderB;
+    }
+
+    get collisionPoint() {
+        return this.#collisionPoint;
+    }
 }
 
 class CollisionPoint {
@@ -59,4 +77,4 @@ class CollisionTester {
     }
 }
 
-export { CollisionTester };
+export { CollisionTester, Collision};
