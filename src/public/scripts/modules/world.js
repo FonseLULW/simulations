@@ -2,27 +2,40 @@ import { Collision } from './collisions.js';
 
 class World {
     #objects;
+    #solvers;
 
     constructor() {
         this.#objects = new Set();
+        this.#solvers = new Array();
     }
 
-    resolveCollisions() {
+    resolveCollisions(deltaTime) {
         let collisions = new Set();
 
         for (let objA of this.#objects) {
             for (let objB of this.#objects) {
                 if (objA === objB) { break; }
 
-                collisions.add(new Collision(objA.collider, objB.collider, objA.collider.testCollision(objB.collider)));
+                let collided = objA.collider.testCollision(objB.collider);
+                console.log(collided)
+                if (collided) {
+                    collisions.add(new Collision(objA, objB, collided));
+                    console.log("HIT")
+                }
             }
         }
+
+        collisions.forEach(collision => {
+            this.#solvers.forEach(solver => {
+                solver.solve(collision, deltaTime);
+            })
+        })
     }
 
     draw(canvas) {
         canvas.background(247, 245, 246);
 
-        this.resolveCollisions();
+        this.resolveCollisions(canvas.deltaTime);
 
         this.#objects.forEach(physObj => {
             physObj.draw(canvas);
@@ -46,6 +59,10 @@ class World {
 
     remove(physObj) {
         this.#objects.remove(physObj);
+    }
+
+    addSolver(solver) {
+        this.#solvers.push(solver);
     }
 }
 

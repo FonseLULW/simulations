@@ -16,9 +16,9 @@ class Collider {
 
     testCollision(otherCollider) {
         if (otherCollider.constructor === CircleCollider) {
-            this.testCollisionWithCircle(otherCollider);
+            return this.testCollisionWithCircle(otherCollider);
         } else if (otherCollider.constructor === SquareCollider) {
-            this.testCollisionWithSquare(otherCollider);
+            return this.testCollisionWithSquare(otherCollider);
         }
     }
 

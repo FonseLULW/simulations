@@ -3,6 +3,7 @@ import { Square, Circle } from './modules/graphics.js';
 import { CircleCollider, SquareCollider } from './modules/colliders.js';
 import { Body, Rigidbody } from './modules/bodies.js';
 import { World } from './modules/world.js';
+import { SimpleSolver } from './modules/solvers.js';
 
 let simulation = new p5((p) => {
     p.world = new World();
@@ -10,6 +11,7 @@ let simulation = new p5((p) => {
     p.setup = () => {
         p.frameRate(60);
         p.createCanvas(p.windowWidth, p.windowHeight);
+        p.world.addSolver(new SimpleSolver());
         p.print("Created canvas: Width = ", p.width, " ; Height = ", p.height)
     };
 

@@ -1,22 +1,22 @@
 import { Vector2D } from "./vector2D.js";
 
 class Collision {
-    #colliderA;
-    #colliderB;
+    #objA;
+    #objB;
     #collisionPoint;
 
-    constructor(colliderA, colliderB, collisionPoint) {
-        this.#colliderA = colliderA;
-        this.#colliderB = colliderB;
+    constructor(objA, objB, collisionPoint) {
+        this.#objA = objA;
+        this.#objB = objB;
         this.#collisionPoint = collisionPoint;
     }
 
-    get colliderA() {
-        return this.#colliderA;
+    get objA() {
+        return this.#objA;
     }
 
-    get colliderB() {
-        return this.#colliderB;
+    get objB() {
+        return this.#objB;
     }
 
     get collisionPoint() {
@@ -73,6 +73,8 @@ class CollisionTester {
                 new Vector2D(bx, by),
                 Math.sqrt(((ax - bx) ** 2) + ((ay - by) ** 2))
             )
+        } else {
+            return false;
         }
     }
 }
