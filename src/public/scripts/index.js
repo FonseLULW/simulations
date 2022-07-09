@@ -6,7 +6,6 @@ import { World } from './modules/world.js';
 
 let simulation = new p5((p) => {
     p.world = new World();
-    p.t = 0;
 
     p.setup = () => {
         p.frameRate(60);
@@ -23,8 +22,8 @@ let simulation = new p5((p) => {
         if (e.button == 1) {
             let side = 35;
             p.world.add(new Body(
-                new Square(pos, p.color(206, 100, 245), side),
-                new SquareCollider(pos, side)
+                new Circle(pos, p.color(206, 100, 245), side),
+                new CircleCollider(pos, side)
                 ))
         } else {
             let mass = 1000;

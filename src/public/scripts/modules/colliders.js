@@ -1,3 +1,5 @@
+import { CollisionTester } from './collisions.js';
+
 class Collider {
     #position;
 
@@ -62,6 +64,7 @@ class CircleCollider extends Collider {
 
     testCollisionWithCircle(otherCollider) {
         console.log(`Testing Circle v Circle`);
+        console.log(CollisionTester.testCircleCircleCollision(this, otherCollider));
     }
 
     testCollisionWithSquare(otherCollider) {
@@ -93,7 +96,7 @@ class SquareCollider extends Collider {
     }
 
     testCollisionWithSquare(otherCollider) {
-        console.log(`Testing Square v Square`);
+        CollisionTester.testSquareSquareCollision(this, otherCollider);
     }
 
     get side() {
