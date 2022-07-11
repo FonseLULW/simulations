@@ -1,3 +1,5 @@
+@use 'toolbars';
+
 html, body {
     margin: 0px;
     padding: 0px;
@@ -14,17 +16,4 @@ canvas {
     margin: 0px;
     padding: 0px;
     display: block;
-}
-
-/* MENUS */
-.interface {
-    display: none;
-}
-
-#toolbar {
-
-}
-
-#objectSelect {
-
 }

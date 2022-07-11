@@ -1,3 +1,28 @@
+.interface {
+  opacity: 0;
+}
+.interface:hover {
+  opacity: 0.8;
+}
+
+#toolbar {
+  position: absolute;
+  width: 90vw;
+  height: 10vh;
+  top: 0vh;
+  left: 2vh;
+  background-color: aqua;
+}
+
+#objectSelect {
+  position: absolute;
+  width: 5vw;
+  height: 100vh;
+  top: 0vh;
+  right: 0vh;
+  background-color: red;
+}
+
 html, body {
   margin: 0px;
   padding: 0px;
@@ -14,11 +39,6 @@ canvas {
   margin: 0px;
   padding: 0px;
   display: block;
-}
-
-/* MENUS */
-.interface {
-  display: none;
 }
 
 /*# sourceMappingURL=index.css.map */

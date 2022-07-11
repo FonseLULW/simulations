@@ -40,3 +40,8 @@ let simulation = new p5((p) => {
         }
     };
 });
+
+// const toolbar = document.querySelector("#toolbar"); 
+// toolbar.addEventListener("mouseover", (e) => {
+//     toolbar.style.opacity = 1;
+// });

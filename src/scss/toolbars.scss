@@ -1,0 +1,29 @@
+@mixin absolute($width, $height) {
+    position: absolute;
+    width: $width;
+    height: $height;
+}
+
+
+.interface {
+    opacity: 0;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+#toolbar {
+    @include absolute(90vw, 10vh);
+    top: 0vh;
+    left: 2vh;
+    background-color: aqua;
+}
+
+#objectSelect {
+    @include absolute(5vw, 100vh);
+    top: 0vh;
+    right: 0vh;
+    background-color: red;
+    // display: none;
+}
