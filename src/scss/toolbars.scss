@@ -17,7 +17,8 @@
     @include nonstatic-position($width, $height);
     top: -$height;
     left: 2vh;
-    background-color: aqua;
+    background-color: rgb(216, 216, 216);
+    opacity: 0.95;
 
     transition: 0.2s;
     &:hover {
@@ -31,15 +32,32 @@
         @include nonstatic-position($width, $height);
         left: 0px;
         bottom: -$height;
-        background-color: bisque;
+        background-color: silver;
 
         @include center-align();
     }
 
     .toolbox {
-        // @include center-align();
         width: 100%;
         height: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .controls, .toolset {
+        @include center-align();
+    }
+
+    .image-container {
+        width: 128px;
+        height: 100%;
+        margin: 0px;
+        @include center-align();
+
+        &:hover {
+            transition: 0.2s;
+            background-color: rgb(254, 254, 254);
+        }
     }
 }
 
