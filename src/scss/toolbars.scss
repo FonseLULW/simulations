@@ -4,20 +4,46 @@
     height: $height;
 }
 
+@mixin center-align() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .interface {
-    opacity: 0;
-
-    &:hover {
-        opacity: 0.8;
-    }
+        
 }
 
 #toolbar {
-    @include absolute(90vw, 10vh);
-    top: 0vh;
+    $width: 90vw;
+    $height: 10vh;
+
+    @include absolute($width, $height);
+    top: -$height;
     left: 2vh;
     background-color: aqua;
+
+    transition: 0.2s;
+    &:hover {
+        transform: translateY($height);
+    }
+
+    .trigger {
+        $width: 50px;
+        $height: 50px;
+
+        @include absolute($width, $height);
+        bottom: -$height;
+        background-color: bisque;
+
+        @include center-align();
+    }
+
+    .toolbox {
+        @include center-align();
+        height: 100%;
+    }
 }
 
 #objectSelect {
