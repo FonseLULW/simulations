@@ -1,5 +1,5 @@
-@mixin absolute($width, $height) {
-    position: absolute;
+@mixin nonstatic-position($width, $height, $position: absolute) {
+    position: $position;
     width: $width;
     height: $height;
 }
@@ -10,16 +10,11 @@
     align-items: center;
 }
 
-
-.interface {
-        
-}
-
 #toolbar {
     $width: 90vw;
     $height: 10vh;
 
-    @include absolute($width, $height);
+    @include nonstatic-position($width, $height);
     top: -$height;
     left: 2vh;
     background-color: aqua;
@@ -33,7 +28,8 @@
         $width: 50px;
         $height: 50px;
 
-        @include absolute($width, $height);
+        @include nonstatic-position($width, $height);
+        left: 0px;
         bottom: -$height;
         background-color: bisque;
 
@@ -41,15 +37,41 @@
     }
 
     .toolbox {
-        @include center-align();
+        // @include center-align();
+        width: 100%;
         height: 100%;
     }
 }
 
 #objectSelect {
-    @include absolute(5vw, 100vh);
+    $width: 5vw;
+    $height: 100vh;
+
+    @include nonstatic-position($width, $height, fixed);
     top: 0vh;
-    right: 0vh;
+    right: 0vw - $width;
     background-color: red;
-    // display: none;
+    
+    transition: 0.2s;
+    &:hover {
+        transform: translateX(-$width);
+    }
+
+    .trigger {
+        $width: 50px;
+        $height: 50px;
+
+        @include nonstatic-position($width, $height);
+        left: -$width;
+        top: 0px;
+        background-color: bisque;
+
+        @include center-align();
+    }
+
+    .toolbox {
+        // @include center-align();
+        width: 100%;
+        height: 100%;
+    }
 }
