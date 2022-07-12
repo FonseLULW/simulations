@@ -1,12 +1,14 @@
+import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from './errors.js';
+
 class Solver {
     constructor() {
         if (this.constructor === Solver) {
-            throw new Error("Cannot instantiate Abstract object");
+            throw new AbstractObjectInstantiationError();
         }
     }
 
     solve(collision, deltaTime) {
-        throw new Error("This method has not been implemented");
+        throw new UnimplementedAbstractMethodError();
     }
 }
 

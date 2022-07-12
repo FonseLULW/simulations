@@ -1,17 +1,18 @@
 import { CollisionTester } from './collisions.js';
+import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from './errors.js';
 
 class Collider {
     #position;
 
     constructor(position) {
         if (this.constructor === Collider) {
-            throw new Error("Abstract class cannot be instantiated");
+            throw new AbstractObjectInstantiationError();
         }
         this.#position = position;
     }
 
     showHitbox(canvas) {
-        throw new Error("Abstract method is not implemented");
+        throw new UnimplementedAbstractMethodError();
     }
 
     testCollision(otherCollider) {
@@ -23,11 +24,11 @@ class Collider {
     }
 
     testCollisionWithCircle(otherCollider) {
-        throw new Error("Abstract method is not implemented");
+        throw new UnimplementedAbstractMethodError();
     }
 
     testCollisionWithSquare(otherCollider) {
-        throw new Error("Abstract method is not implemented");
+        throw new UnimplementedAbstractMethodError();
     }
 
     get x() {
@@ -101,4 +102,4 @@ class SquareCollider extends Collider {
     }
 }
 
-export { CircleCollider, SquareCollider };
+export { Collider, CircleCollider, SquareCollider };

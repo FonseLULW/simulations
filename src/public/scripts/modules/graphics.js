@@ -1,10 +1,12 @@
+import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from './errors.js';
+
 class Graphic {
     #position;
     #color;
 
     constructor(position, color) {
         if (this.constructor === Graphic) {
-            throw new Error("Cannot instantiate an Abstract class");
+            throw new AbstractObjectInstantiationError();
         }
 
         this.#position = position;
@@ -12,7 +14,7 @@ class Graphic {
     }
 
     render(canvas) {
-        throw new Error("This methods has not been implemented");
+        throw new UnimplementedAbstractMethodError();
     }
 
     get x() {
