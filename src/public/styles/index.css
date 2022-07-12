@@ -93,6 +93,11 @@
   background-color: rgb(254, 254, 254);
 }
 
+#toggleStaticSwitch {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 html, body {
   margin: 0px;
   padding: 0px;
