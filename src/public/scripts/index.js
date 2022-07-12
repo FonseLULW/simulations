@@ -20,6 +20,10 @@ let simulation = new p5((p) => {
     };
 
     p.mousePressed = (e) => {
+        if (!p.allowPlacement) {
+            return;
+        }
+
         let pos = new Vector2D(e.clientX, e.clientY);
         if (e.button == 1) {
             let side = 35;
@@ -43,10 +47,12 @@ let simulation = new p5((p) => {
 
 document.querySelectorAll(".interface").forEach(elem => {
     elem.addEventListener("mouseout", () => {
+        simulation.allowPlacement = true;
         elem.classList.remove("show");
     })
 
     elem.addEventListener("mouseover", () => {
+        simulation.allowPlacement = false;
         elem.classList.add("show");
     })
 });
@@ -60,7 +66,7 @@ function closeSubs(except) {
     })
 }
 
-function handleToolClick(button, event) {
+function handleMainToolClick(button, event) {
     let selectedToolbar;
     switch (button.id) {
         case "cursor":
@@ -86,10 +92,25 @@ function handleToolClick(button, event) {
     }
 }
 
+function handleShapeToolClick(button, event) {
+    switch (button.id) {
+        case "circle":
+            simulation.allowPlacement = true;
+            break;
+        default:
+            console.log("DEFAULT");
+    }
+}
+
 const buttons = document.querySelectorAll(".btn");
 
 buttons.forEach(button => {
     button.addEventListener("click", (e) => {
-        handleToolClick(button, e);
+        if (button.classList.contains("main-btn")) {
+            handleMainToolClick(button, e);
+        } else if (button.classList.contains("shapes-btn")) {
+            handleShapeToolClick(button, e);
+        }
+       
     })
 })
