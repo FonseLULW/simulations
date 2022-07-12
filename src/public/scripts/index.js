@@ -41,7 +41,51 @@ let simulation = new p5((p) => {
     };
 });
 
-// const toolbar = document.querySelector("#toolbar"); 
-// toolbar.addEventListener("mouseover", (e) => {
-//     toolbar.style.opacity = 1;
-// });
+document.querySelectorAll(".interface").forEach(elem => {
+    elem.addEventListener("mouseout", () => {
+        elem.classList.remove("show");
+    })
+
+    elem.addEventListener("mouseover", () => {
+        elem.classList.add("show");
+    })
+});
+
+function closeSubs() {
+    document.querySelectorAll(".sub").forEach(elem => {
+        elem.classList.remove("show");
+        elem.style.display = "none";
+    })
+}
+
+function handleToolClick(button, event) {
+    switch (button.id) {
+        case "cursor":
+            closeSubs()
+            break;
+        case "shapes":
+            closeSubs()
+            document.querySelector("#objectSelect").style.display = "block";
+            document.querySelector("#objectSelect").classList.add("show");
+            break;
+        case "eraser":
+            closeSubs()
+            break;
+        case "settings":
+            closeSubs()
+            break;
+        case "gallery":
+            closeSubs()
+            break;
+        default:
+            console.log("DEFAULT");
+    }
+}
+
+const buttons = document.querySelectorAll(".btn");
+
+buttons.forEach(button => {
+    button.addEventListener("click", (e) => {
+        handleToolClick(button, e);
+    })
+})

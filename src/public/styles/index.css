@@ -6,9 +6,9 @@
   left: 2vh;
   background-color: rgb(216, 216, 216);
   opacity: 0.95;
-  transition: 0.2s;
+  transition: 0.5s;
 }
-#toolbar:hover {
+#toolbar.show {
   transform: translateY(10vh);
 }
 #toolbar .trigger {
@@ -53,9 +53,10 @@
   top: 0vh;
   right: -5vw;
   background-color: red;
-  transition: 0.2s;
+  display: none;
+  transition: 0.5s;
 }
-#objectSelect:hover {
+#objectSelect.show {
   transform: translateX(-5vw);
 }
 #objectSelect .trigger {
