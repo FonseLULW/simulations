@@ -20,39 +20,45 @@ let simulation = new p5((p) => {
     };
 
     p.mousePressed = (e) => {
-        if (!p.allowPlacement) {
+        if (!p.allowPlacing) {
             return;
         }
 
         let pos = new Vector2D(e.clientX, e.clientY);
-        if (e.button == 1) {
-            let side = 35;
-            p.world.add(new Body(
-                new Circle(pos, p.color(206, 100, 245), side),
-                new CircleCollider(pos, side)
-                ))
-        } else {
-            let mass = 1000;
-            let diameter = 50;
-            p.world.add(new Rigidbody(
-                new Circle(pos, p.color(104, 240, 237), diameter),
-                new CircleCollider(pos, diameter),
-                new Vector2D(533.4, -233.7),
-                new Vector2D(400 * mass, 487 * mass), mass 
-            ))
+        let mass = 1000;
+        let size = 50;
 
+        let shape;
+        let collider;
+        if (e.button == 0) {
+            switch (p.placing) {
+                case 'circle':
+                    shape = new Circle(pos, p.color(104, 240, 237), size);
+                    collider = new CircleCollider(pos, size);
+                    break;
+                case 'square':
+                    shape = new Square(pos, p.color(104, 240, 237), size);
+                    collider = new SquareCollider(pos, size);
+                    break;
+                case 'default':
+                    return;
+            }
+
+            p.world.add(new Rigidbody(
+                shape, collider, new Vector2D(533.4, -233.7), new Vector2D(400 * mass, 487 * mass), mass 
+            ));
         }
     };
 });
 
 document.querySelectorAll(".interface").forEach(elem => {
     elem.addEventListener("mouseout", () => {
-        simulation.allowPlacement = true;
+        simulation.allowPlacing = true;
         elem.classList.remove("show");
     })
 
     elem.addEventListener("mouseover", () => {
-        simulation.allowPlacement = false;
+        simulation.allowPlacing = false;
         elem.classList.add("show");
     })
 });
@@ -95,8 +101,10 @@ function handleMainToolClick(button, event) {
 function handleShapeToolClick(button, event) {
     switch (button.id) {
         case "circle":
-            simulation.allowPlacement = true;
+            simulation.placing = 'circle';
             break;
+        case "square":
+            simulation.placing = 'square';
         default:
             console.log("DEFAULT");
     }
