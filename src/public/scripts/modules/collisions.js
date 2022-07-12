@@ -49,13 +49,10 @@ class CollisionPoint {
 }
 
 class CollisionTester {
-    // static testSquareSquareCollision(colliderA, colliderB) {
-    //     console.log(`Testing Square v Square`);
+    static testSquareSquareCollision(colliderA, colliderB) {
 
-    //     let ax = colliderA.x;
-    //     let ay = colliderA.y;
-    //     let aD = colliderA.diameter;
-    // }
+        return false;
+    }
 
     static testCircleCircleCollision(colliderA, colliderB) {
         let ax = colliderA.x;
@@ -76,6 +73,10 @@ class CollisionTester {
         } else {
             return false;
         }
+    }
+
+    static testCircleSquareCollision(colliderA, colliderB) {
+        return false;
     }
 }
 

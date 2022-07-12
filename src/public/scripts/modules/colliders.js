@@ -63,12 +63,10 @@ class CircleCollider extends Collider {
     }
 
     testCollisionWithCircle(otherCollider) {
-        console.log(`Testing Circle v Circle`);
         return CollisionTester.testCircleCircleCollision(this, otherCollider);
     }
 
     testCollisionWithSquare(otherCollider) {
-        console.log(`Testing Circle v Square`);
     }
 
     get diameter() {
@@ -92,7 +90,6 @@ class SquareCollider extends Collider {
     }
 
     testCollisionWithCircle(otherCollider) {
-        console.log(`Testing Square v Circle`);
     }
 
     testCollisionWithSquare(otherCollider) {

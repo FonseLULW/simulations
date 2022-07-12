@@ -20,11 +20,25 @@ let simulation = new p5((p) => {
     };
 
     p.mousePressed = (e) => {
-        if (!p.allowPlacing) {
+        p.startMousePos = new Vector2D(e.clientX, e.clientY);
+        p.startMouseTimeS = p.frameCount * p.deltaTime / 1000;
+        console.log(p.frameCount, p.deltaTime / 1000);
+    }
+
+    p.mouseReleased = (e) => {
+        if (!p.allowPlacing || !p.placing) {
             return;
         }
+        console.log(p.frameCount, p.deltaTime / 1000);
+        
+        let endMouseTimeS = p.frameCount * p.deltaTime / 1000;
+        let t = Math.abs(endMouseTimeS - p.startMouseTimeS);
 
-        let pos = new Vector2D(e.clientX, e.clientY);
+        let velocity = new Vector2D((p.startMousePos.x - e.clientX) * t, (p.startMousePos.y - e.clientY) * t);
+        console.log(`Time: ${endMouseTimeS} - ${p.startMouseTimeS} = ${t}`);
+        console.log(`START: (${p.startMousePos.x}, ${p.startMousePos.y})   END: (${e.clientX}, ${e.clientY})`);
+        console.log(`VEL: ${velocity}`);
+
         let mass = 1000;
         let size = 50;
 
@@ -33,19 +47,19 @@ let simulation = new p5((p) => {
         if (e.button == 0) {
             switch (p.placing) {
                 case 'circle':
-                    shape = new Circle(pos, p.color(104, 240, 237), size);
-                    collider = new CircleCollider(pos, size);
+                    shape = new Circle(p.startMousePos, p.color(104, 240, 237), size);
+                    collider = new CircleCollider(p.startMousePos, size);
                     break;
                 case 'square':
-                    shape = new Square(pos, p.color(104, 240, 237), size);
-                    collider = new SquareCollider(pos, size);
+                    shape = new Square(p.startMousePos, p.color(104, 240, 237), size);
+                    collider = new SquareCollider(p.startMousePos, size);
                     break;
                 case 'default':
-                    return;
+                    return false;
             }
 
             p.world.add(new Rigidbody(
-                shape, collider, new Vector2D(533.4, -233.7), new Vector2D(400 * mass, 487 * mass), mass 
+                shape, collider, velocity, new Vector2D(0 * mass, 0 * mass), mass 
             ));
         }
     };
