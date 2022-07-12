@@ -10,6 +10,12 @@
     align-items: center;
 }
 
+.interface {
+    opacity: 0.95;
+    background-color: rgb(216, 216, 216);
+    transition: 0.5s;
+}
+
 #toolbar {
     $width: 90vw;
     $height: 10vh;
@@ -17,10 +23,7 @@
     @include nonstatic-position($width, $height);
     top: -$height;
     left: 2vh;
-    background-color: rgb(216, 216, 216);
-    opacity: 0.95;
 
-    transition: 0.5s;
     &.show {
         transform: translateY($height);
     }
@@ -68,10 +71,8 @@
     @include nonstatic-position($width, $height, fixed);
     top: 0vh;
     right: 0vw - $width;
-    background-color: red;
     display: none;
     
-    transition: 0.5s;
     &.show {
         transform: translateX(-$width);
     }
@@ -83,7 +84,7 @@
         @include nonstatic-position($width, $height);
         left: -$width;
         top: 0px;
-        background-color: bisque;
+        background-color: silver;
 
         @include center-align();
     }
@@ -91,6 +92,25 @@
     .toolbox {
         width: 100%;
         height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        row-gap: 0px;
+    }
+
+    .image-container {
+        width: 100%;
+        height: 112px;
+
+        @include center-align();
+        margin-top: 0px;
+
+        &:hover {
+            transition: 0.2s;
+            background-color: rgb(254, 254, 254);
+        }
     }
 }
 

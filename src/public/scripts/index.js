@@ -51,22 +51,26 @@ document.querySelectorAll(".interface").forEach(elem => {
     })
 });
 
-function closeSubs() {
+function closeSubs(except) {
     document.querySelectorAll(".sub").forEach(elem => {
-        elem.classList.remove("show");
-        elem.style.display = "none";
+        if (elem != except) {
+            elem.classList.remove("show");
+            elem.style.display = "none";
+        }        
     })
 }
 
 function handleToolClick(button, event) {
+    let selectedToolbar;
     switch (button.id) {
         case "cursor":
             closeSubs()
             break;
         case "shapes":
-            closeSubs()
-            document.querySelector("#objectSelect").style.display = "block";
-            document.querySelector("#objectSelect").classList.add("show");
+            selectedToolbar = document.querySelector("#objectSelect");
+            closeSubs(selectedToolbar)
+            selectedToolbar.style.display = "block";
+            selectedToolbar.classList.add("show");
             break;
         case "eraser":
             closeSubs()

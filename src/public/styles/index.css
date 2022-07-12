@@ -1,12 +1,15 @@
+.interface {
+  opacity: 0.95;
+  background-color: rgb(216, 216, 216);
+  transition: 0.5s;
+}
+
 #toolbar {
   position: absolute;
   width: 90vw;
   height: 10vh;
   top: -10vh;
   left: 2vh;
-  background-color: rgb(216, 216, 216);
-  opacity: 0.95;
-  transition: 0.5s;
 }
 #toolbar.show {
   transform: translateY(10vh);
@@ -52,9 +55,7 @@
   height: 100vh;
   top: 0vh;
   right: -5vw;
-  background-color: red;
   display: none;
-  transition: 0.5s;
 }
 #objectSelect.show {
   transform: translateX(-5vw);
@@ -65,7 +66,7 @@
   height: 50px;
   left: -50px;
   top: 0px;
-  background-color: bisque;
+  background-color: silver;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -73,6 +74,23 @@
 #objectSelect .toolbox {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  row-gap: 0px;
+}
+#objectSelect .image-container {
+  width: 100%;
+  height: 112px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0px;
+}
+#objectSelect .image-container:hover {
+  transition: 0.2s;
+  background-color: rgb(254, 254, 254);
 }
 
 html, body {
