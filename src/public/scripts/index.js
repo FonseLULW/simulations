@@ -29,6 +29,7 @@ let simulation = new p5((p) => {
         if (!p.allowPlacing || !p.placing) {
             return;
         }
+
         console.log(p.frameCount, p.deltaTime / 1000);
         
         let endMouseTimeS = p.frameCount * p.deltaTime / 1000;
@@ -58,9 +59,16 @@ let simulation = new p5((p) => {
                     return false;
             }
 
-            p.world.add(new Rigidbody(
-                shape, collider, velocity, new Vector2D(0 * mass, 0 * mass), mass 
-            ));
+            let newBody;
+            if (p.staticBody) {
+                newBody = new Body(shape, collider);
+            } else {
+                newBody = new Rigidbody(
+                    shape, collider, velocity, new Vector2D(0 * mass, 0 * mass), mass 
+                );
+            }
+
+            p.world.add(newBody)
         }
     };
 });
@@ -114,6 +122,8 @@ function handleMainToolClick(button, event) {
 
 function handleShapeToolClick(button, event) {
     switch (button.id) {
+        case "toggleStaticSwitch":
+            simulation.staticBody = button.querySelector("INPUT").checked;
         case "circle":
             simulation.placing = 'circle';
             break;
