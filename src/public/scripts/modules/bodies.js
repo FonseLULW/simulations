@@ -9,7 +9,7 @@ class Body {
 
     draw(canvas) {
         this.#graphic.render(canvas);
-        this.#collider.showHitbox(canvas);
+        // this.#collider.showHitbox(canvas);
     }
 
     get x() {
