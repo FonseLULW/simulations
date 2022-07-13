@@ -21,74 +21,90 @@ let simulation = new p5((p) => {
     };
 
     p.mousePressed = (e) => {
-        p.startMousePos = new Vector2D(e.clientX, e.clientY);
-        p.startMouseTimeS = p.frameCount * p.deltaTime / 1000;
-        console.log(p.frameCount, p.deltaTime / 1000);
+        switch (p.mode) {
+            case "CURSOR":
+                break;
+            case "SPAWN":
+                p.startMousePos = new Vector2D(e.clientX, e.clientY);
+                p.startMouseTimeS = p.frameCount * p.deltaTime / 1000;
+                break;
+            case "ERASE":
+                break;
+            default:
+        }
     }
 
     p.mouseReleased = (e) => {
-        if (!p.inCanvasRange || !p.inPlacingMode || !p.placing) {
+        if (!p.inCanvasRange) {
             return;
         }
 
-        console.log(p.frameCount, p.deltaTime / 1000);
-        
-        let endMouseTimeS = p.frameCount * p.deltaTime / 1000;
-        let t = Math.abs(endMouseTimeS - p.startMouseTimeS);
+        if (e.button == 0) {
+            switch (p.mode) {
+                case "CURSOR":
+                    break;
+                case "SPAWN":
+                    let endMouseTimeS = p.frameCount * p.deltaTime / 1000;
+                    let t = Math.abs(endMouseTimeS - p.startMouseTimeS);
 
-        let velocity = new Vector2D((p.startMousePos.x - e.clientX) * t, (p.startMousePos.y - e.clientY) * t);
-        console.log(`Time: ${endMouseTimeS} - ${p.startMouseTimeS} = ${t}`);
-        console.log(`START: (${p.startMousePos.x}, ${p.startMousePos.y})   END: (${e.clientX}, ${e.clientY})`);
-        console.log(`VEL: ${velocity}`);
+                    p.spawn(new Vector2D((p.startMousePos.x - e.clientX) * t, (p.startMousePos.y - e.clientY) * t));
+                    break;
+                case "ERASE":
+                    break;
+                default:
+            }
+        }
+    };
 
+    p.spawn = (startingVelocity) => {
         let mass = 1000;
         let size = 50;
 
         let shape;
         let collider;
-        if (e.button == 0) {
-            switch (p.placing) {
-                case 'circle':
-                    shape = new Circle(p.startMousePos, p.color(104, 240, 237), size);
-                    collider = new CircleCollider(p.startMousePos, size);
-                    break;
-                case 'square':
-                    shape = new Square(p.startMousePos, p.color(104, 240, 237), size);
-                    collider = new SquareCollider(p.startMousePos, size);
-                    break;
-                case 'default':
-                    return false;
-            }
-
-            let newBody;
-            if (p.staticBody) {
-                newBody = new Body(shape, collider);
-            } else {
-                newBody = new Rigidbody(
-                    shape, collider, velocity, new Vector2D(0 * mass, 0 * mass), mass 
-                );
-            }
-
-            p.world.add(newBody)
+        switch (p.placing) {
+            case 'circle':
+                shape = new Circle(p.startMousePos, p.color(104, 240, 237), size);
+                collider = new CircleCollider(p.startMousePos, size);
+                break;
+            case 'square':
+                shape = new Square(p.startMousePos, p.color(104, 240, 237), size);
+                collider = new SquareCollider(p.startMousePos, size);
+                break;
+            default:
+                return;
         }
-    };
+
+        let newBody;
+        if (p.staticBody) {
+            newBody = new Body(shape, collider);
+        } else {
+            newBody = new Rigidbody(
+                shape, collider, startingVelocity, new Vector2D(0 * mass, 0 * mass), mass 
+            );
+        }
+
+        p.world.add(newBody)
+    }
 });
 
 const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, (button, e) => {
     let selectedToolbar;
-    simulation.inPlacingMode = false;
+
     switch (button.id) {
         case "cursor":
+            simulation.mode = "CURSOR";
             mainToolbar.closeSubs();
             break;
         case "shapes":
-            simulation.inPlacingMode = true;
+            simulation.mode = "SPAWN";
             selectedToolbar = document.querySelector("#objectSelect");
             mainToolbar.closeSubs();
             selectedToolbar.style.display = "block";
             selectedToolbar.classList.add("show");
             break;
         case "eraser":
+            simulation.mode = "ERASE";
             mainToolbar.closeSubs();
             break;
         case "settings":
