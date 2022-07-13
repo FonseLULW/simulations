@@ -99,6 +99,7 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
         default:
             console.log("DEFAULT");
     }
+    mainToolbar.selectOption(button);
 });
 
 const shapesToolbar = new Toolbar(document.querySelector("#objectSelect"), simulation, (button, e) => {
@@ -115,4 +116,6 @@ const shapesToolbar = new Toolbar(document.querySelector("#objectSelect"), simul
         default:
             console.log("DEFAULT");
     }
+
+    shapesToolbar.selectOption(button);
 })

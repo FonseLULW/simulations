@@ -40,13 +40,10 @@
   width: 128px;
   height: 100%;
   margin: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
-#toolbar .image-container:hover {
-  transition: 0.2s;
-  background-color: rgb(254, 254, 254);
+#toolbar .image-container.selected {
+  background: rgb(63, 94, 251);
+  background: linear-gradient(90deg, rgb(63, 94, 251) 0%, rgba(252, 70, 107, 0.706320028) 100%);
 }
 
 #objectSelect {
@@ -83,14 +80,21 @@
 #objectSelect .image-container {
   width: 100%;
   height: 112px;
+  margin-top: 0px;
+}
+#objectSelect .image-container.selected {
+  background: rgb(19, 112, 231);
+  background: linear-gradient(360deg, rgba(19, 112, 231, 0.8519782913) 0%, rgb(0, 212, 255) 27%, rgb(0, 227, 191) 97%);
+}
+
+.image-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 0px;
 }
-#objectSelect .image-container:hover {
+.image-container:hover {
   transition: 0.2s;
-  background-color: rgb(254, 254, 254);
+  background-color: white;
 }
 
 #toggleStaticSwitch {

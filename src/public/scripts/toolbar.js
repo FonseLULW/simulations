@@ -5,6 +5,11 @@ class Toolbar {
 
         this.buttons = DOMelement.querySelectorAll(".btn");
         this.trigger = DOMelement.querySelector(".trigger");
+
+        this.opened = false;
+        this.hovering = false;
+        this.triggerClicked = false;
+
         this.initToolbar(canvas);
         this.initControls();
     }
@@ -12,13 +17,37 @@ class Toolbar {
     initToolbar(canvas) {
         this.element.addEventListener("mouseout", () => {
             canvas.allowPlacing = true;
-            this.element.classList.remove("show");
+            this.hovering = false;
+
+            this.switchToolbar();
         })
     
         this.element.addEventListener("mouseover", () => {
             canvas.allowPlacing = false;
-            this.element.classList.add("show");
+            this.hovering = true;
+
+            this.switchToolbar();
         })
+
+        this.trigger.addEventListener("click", () => {
+            this.triggerClicked = !this.triggerClicked;
+
+            this.switchToolbar();
+        })
+    }
+
+    switchToolbar() {
+        if (this.triggerClicked) {
+            if (this.opened) {
+                this.element.classList.remove("show");
+            } else {
+                this.element.classList.add("show");
+            }
+        } else if (this.hovering) {
+            this.element.classList.add("show");
+        } else {
+            this.element.classList.remove("show");
+        }
     }
 
     initControls() {
@@ -36,6 +65,20 @@ class Toolbar {
                 elem.style.display = "none";
             }        
         })
+    }
+
+    selectOption(selected) {
+        this.selected = selected;
+
+        if (selected.classList.contains("nogradient")) {
+            return;
+        }
+
+        this.buttons.forEach(btn => {
+            btn.classList.remove("selected");
+        })
+
+        selected.classList.add("selected");
     }
 }
 
