@@ -4,6 +4,7 @@ import { CircleCollider, SquareCollider } from './modules/colliders.js';
 import { Body, Rigidbody } from './modules/bodies.js';
 import { World } from './modules/world.js';
 import { SimpleSolver } from './modules/solvers.js';
+import { Toolbar } from './toolbar.js';
 
 let simulation = new p5((p) => {
     p.world = new World();
@@ -26,6 +27,7 @@ let simulation = new p5((p) => {
     }
 
     p.mouseReleased = (e) => {
+        console.log(p.placing)
         if (!p.allowPlacing || !p.placing) {
             return;
         }
@@ -73,76 +75,44 @@ let simulation = new p5((p) => {
     };
 });
 
-document.querySelectorAll(".interface").forEach(elem => {
-    elem.addEventListener("mouseout", () => {
-        simulation.allowPlacing = true;
-        elem.classList.remove("show");
-    })
-
-    elem.addEventListener("mouseover", () => {
-        simulation.allowPlacing = false;
-        elem.classList.add("show");
-    })
-});
-
-function closeSubs(except) {
-    document.querySelectorAll(".sub").forEach(elem => {
-        if (elem != except) {
-            elem.classList.remove("show");
-            elem.style.display = "none";
-        }        
-    })
-}
-
-function handleMainToolClick(button, event) {
+const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, (button, e) => {
     let selectedToolbar;
     switch (button.id) {
         case "cursor":
-            closeSubs()
+            mainToolbar.closeSubs();
             break;
         case "shapes":
             selectedToolbar = document.querySelector("#objectSelect");
-            closeSubs(selectedToolbar)
+            mainToolbar.closeSubs();
             selectedToolbar.style.display = "block";
             selectedToolbar.classList.add("show");
             break;
         case "eraser":
-            closeSubs()
+            mainToolbar.closeSubs();
             break;
         case "settings":
-            closeSubs()
+            mainToolbar.closeSubs();
             break;
         case "gallery":
-            closeSubs()
+            mainToolbar.closeSubs();
             break;
         default:
             console.log("DEFAULT");
     }
-}
+});
 
-function handleShapeToolClick(button, event) {
+const shapesToolbar = new Toolbar(document.querySelector("#objectSelect"), simulation, (button, e) => {
     switch (button.id) {
         case "toggleStaticSwitch":
             simulation.staticBody = button.querySelector("INPUT").checked;
+            break;
         case "circle":
             simulation.placing = 'circle';
             break;
         case "square":
             simulation.placing = 'square';
+            break;
         default:
             console.log("DEFAULT");
     }
-}
-
-const buttons = document.querySelectorAll(".btn");
-
-buttons.forEach(button => {
-    button.addEventListener("click", (e) => {
-        if (button.classList.contains("main-btn")) {
-            handleMainToolClick(button, e);
-        } else if (button.classList.contains("shapes-btn")) {
-            handleShapeToolClick(button, e);
-        }
-       
-    })
 })

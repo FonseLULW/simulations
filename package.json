@@ -5,7 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "test": "nodemon src/app.js",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "style": "sass --watch src/scss/index.scss src/public/styles/index.css"
   },
   "repository": {
     "type": "git",
