@@ -35,6 +35,13 @@ class World {
     draw(canvas) {
         canvas.background(247, 245, 246);
 
+        canvas.stroke('blue');
+        canvas.strokeWeight(10);
+        canvas.point(canvas.mouseX, canvas.mouseY)
+
+        canvas.strokeWeight(1);
+        
+
         this.resolveCollisions(canvas.deltaTime);
 
         this.#objects.forEach(physObj => {
@@ -59,6 +66,14 @@ class World {
 
     remove(physObj) {
         this.#objects.remove(physObj);
+    }
+
+    findObject(pos) {
+        for (let obj of this.#objects) {
+            if (obj.collider.testCollision(pos)) {
+                return obj;
+            }
+        }
     }
 
     addSolver(solver) {

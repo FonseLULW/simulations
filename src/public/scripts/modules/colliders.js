@@ -1,5 +1,6 @@
 import { CollisionTester } from './collisions.js';
 import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from './errors.js';
+import { Vector2D } from './vector2D.js';
 
 class Collider {
     #position;
@@ -20,6 +21,8 @@ class Collider {
             return this.testCollisionWithCircle(otherCollider);
         } else if (otherCollider.constructor === SquareCollider) {
             return this.testCollisionWithSquare(otherCollider);
+        } else if (otherCollider.constructor === Vector2D) {
+            return this.testCollisionWithPoint(otherCollider);
         }
     }
 
@@ -28,6 +31,10 @@ class Collider {
     }
 
     testCollisionWithSquare(otherCollider) {
+        throw new UnimplementedAbstractMethodError();
+    }
+
+    testCollisionWithPoint(otherCollider) {
         throw new UnimplementedAbstractMethodError();
     }
 
@@ -70,6 +77,10 @@ class CircleCollider extends Collider {
     testCollisionWithSquare(otherCollider) {
     }
 
+    testCollisionWithPoint(otherCollider) {
+        return CollisionTester.testCirclePointCollision(this, otherCollider);
+    }
+
     get diameter() {
         return this.#diameter;
     }
@@ -95,6 +106,10 @@ class SquareCollider extends Collider {
 
     testCollisionWithSquare(otherCollider) {
         CollisionTester.testSquareSquareCollision(this, otherCollider);
+    }
+
+    testCollisionWithPoint(otherCollider) {
+        return CollisionTester.testSquarePointCollision(this, otherCollider);
     }
 
     get side() {

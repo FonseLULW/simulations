@@ -8,8 +8,13 @@ class Body {
     }
 
     draw(canvas) {
+        if (this.followingMouse) {
+            this.x = canvas.mouseX;
+            this.y = canvas.mouseY;
+        }
+
         this.#graphic.render(canvas);
-        // this.#collider.showHitbox(canvas);
+        this.#collider.showHitbox(canvas);
     }
 
     get x() {

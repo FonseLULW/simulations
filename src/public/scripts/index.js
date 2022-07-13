@@ -21,16 +21,21 @@ let simulation = new p5((p) => {
     };
 
     p.mousePressed = (e) => {
-        switch (p.mode) {
-            case "CURSOR":
-                break;
-            case "SPAWN":
-                p.startMousePos = new Vector2D(e.clientX, e.clientY);
-                p.startMouseTimeS = p.frameCount * p.deltaTime / 1000;
-                break;
-            case "ERASE":
-                break;
-            default:
+        let pressedAt = new Vector2D(e.clientX, e.clientY);
+        if (e.button == 0) {
+            switch (p.mode) {
+                case "CURSOR":
+                    p.draggingObject = p.world.findObject(pressedAt);
+                    p.draggingObject.followingMouse = true;
+                    break;
+                case "SPAWN":
+                    p.startMousePos = pressedAt;
+                    p.startMouseTimeS = p.frameCount * p.deltaTime / 1000;
+                    break;
+                case "ERASE":
+                    break;
+                default:
+            }
         }
     }
 
@@ -42,6 +47,7 @@ let simulation = new p5((p) => {
         if (e.button == 0) {
             switch (p.mode) {
                 case "CURSOR":
+                    p.draggingObject.followingMouse = false;
                     break;
                 case "SPAWN":
                     let endMouseTimeS = p.frameCount * p.deltaTime / 1000;

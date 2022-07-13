@@ -78,6 +78,27 @@ class CollisionTester {
     static testCircleSquareCollision(colliderA, colliderB) {
         return false;
     }
+
+    static testCirclePointCollision(circle, point) {
+        let cx = circle.x;
+        let cy = circle.y;
+        let cR = circle.diameter / 2;
+
+        let px = point.x;
+        let py = point.y;
+
+        if ((cx - cR <= px && px <= cx + cR) && (cy - cR <= py && py <= cy + cR)) {
+            return new CollisionPoint(
+                new Vector2D(px, py), new Vector2D(px, py), 0
+            )
+        }
+
+        return false;
+    }
+
+    static testSquarePointCollision(square, point) {
+        return false;
+    }
 }
 
 export { CollisionTester, Collision};
