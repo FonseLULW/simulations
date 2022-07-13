@@ -27,8 +27,7 @@ let simulation = new p5((p) => {
     }
 
     p.mouseReleased = (e) => {
-        console.log(p.placing)
-        if (!p.allowPlacing || !p.placing) {
+        if (!p.inCanvasRange || !p.inPlacingMode || !p.placing) {
             return;
         }
 
@@ -77,11 +76,13 @@ let simulation = new p5((p) => {
 
 const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, (button, e) => {
     let selectedToolbar;
+    simulation.inPlacingMode = false;
     switch (button.id) {
         case "cursor":
             mainToolbar.closeSubs();
             break;
         case "shapes":
+            simulation.inPlacingMode = true;
             selectedToolbar = document.querySelector("#objectSelect");
             mainToolbar.closeSubs();
             selectedToolbar.style.display = "block";

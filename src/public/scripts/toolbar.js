@@ -16,14 +16,14 @@ class Toolbar {
 
     initToolbar(canvas) {
         this.element.addEventListener("mouseout", () => {
-            canvas.allowPlacing = true;
+            canvas.inCanvasRange = true;
             this.hovering = false;
 
             this.switchToolbar();
         })
     
         this.element.addEventListener("mouseover", () => {
-            canvas.allowPlacing = false;
+            canvas.inCanvasRange = false;
             this.hovering = true;
 
             this.switchToolbar();

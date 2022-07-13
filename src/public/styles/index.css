@@ -81,6 +81,7 @@
   width: 100%;
   height: 112px;
   margin-top: 0px;
+  margin-bottom: 0px;
 }
 #objectSelect .image-container.selected {
   background: rgb(19, 112, 231);
