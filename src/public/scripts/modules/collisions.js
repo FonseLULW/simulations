@@ -97,6 +97,19 @@ class CollisionTester {
     }
 
     static testSquarePointCollision(square, point) {
+        let sx = square.x;
+        let sy = square.y;
+        let sS = square.side;
+
+        let px = point.x;
+        let py = point.y;
+
+        if ((sx <= px && px <= sx + sS) && (sy <= py && py <= sy + sS)) {
+            return new CollisionPoint(
+                new Vector2D(px, py), new Vector2D(px, py), 0
+            )
+        }
+
         return false;
     }
 }

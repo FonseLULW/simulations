@@ -28,4 +28,20 @@ class Vector2D {
     }
 }
 
-export { Vector2D };
+/* Code taken from AmitDiwan of tutorialspoint.com
+ *
+ * Link: https://www.tutorialspoint.com/finding-if-three-points-are-collinear-javascript
+ */
+function slope(pointA, pointB) {
+    return (pointB.y - pointA.y) / (pointB.x - pointA.y);
+}
+
+/* Code taken from AmitDiwan of tutorialspoint.com
+ *
+ * Link: https://www.tutorialspoint.com/finding-if-three-points-are-collinear-javascript
+ */
+function collinear(a, b, c) {
+    return slope(a, b) == slope(b, c) && slope(b, c) == slope(c, a);
+}
+
+export { Vector2D, collinear };
