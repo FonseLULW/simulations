@@ -46,6 +46,19 @@
   background: rgb(63, 94, 251);
   background: linear-gradient(90deg, rgb(63, 94, 251) 0%, rgba(252, 70, 107, 0.706320028) 100%);
 }
+#toolbar .attrib {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: auto;
+  bottom: 0.2rem;
+}
+#toolbar .attrib a {
+  text-decoration: none;
+}
+#toolbar .attrib a:hover {
+  text-decoration: underline;
+}
 
 #objectSelect {
   position: fixed;
