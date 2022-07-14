@@ -5,6 +5,7 @@ import { Body, Rigidbody } from './modules/bodies.js';
 import { World } from './modules/world.js';
 import { SimpleSolver } from './modules/solvers.js';
 import { Toolbar } from './toolbar.js';
+import { getObject } from './modules/objectFactory.js';
 
 let simulation = new p5((p) => {
     p.world = new World();
@@ -17,7 +18,6 @@ let simulation = new p5((p) => {
     };
 
     p.draw = () => {
-        console.log(p.frameRate())
         p.world.draw(p);
     };
 
@@ -124,31 +124,39 @@ let simulation = new p5((p) => {
         let mass = 1000;
         let size = 50;
 
-        let shape;
-        let collider;
-        switch (p.placing) {
-            case 'circle':
-                shape = new Circle(p.startMousePos, p.color(104, 240, 237), size);
-                collider = new CircleCollider(p.startMousePos, size);
-                break;
-            case 'square':
-                shape = new Square(p.startMousePos, p.color(104, 240, 237), size);
-                collider = new SquareCollider(p.startMousePos, size);
-                break;
-            default:
-                return;
-        }
+        let factory = getObject(p.placing, p.staticBody);
 
-        let newBody;
-        if (p.staticBody) {
-            newBody = new Body(shape, collider);
-        } else {
-            newBody = new Rigidbody(
-                shape, collider, startingVelocity, new Vector2D(0 * mass, 0 * mass), mass 
-            );
-        }
+        console.log(factory)
 
-        p.world.add(newBody)
+        let shape = new factory.graphic(p.startMousePos, p.color(104, 240, 237), size);
+        let collider = new factory.collider(p.startMousePos, size);
+
+        let body = new factory.body(shape, collider, startingVelocity, new Vector2D(0 * mass, 0 * mass), mass);
+
+        
+        // switch (p.placing) {
+        //     case 'circle':
+        //         shape = new Circle(p.startMousePos, p.color(104, 240, 237), size);
+        //         collider = new CircleCollider(p.startMousePos, size);
+        //         break;
+        //     case 'square':
+        //         shape = new Square(p.startMousePos, p.color(104, 240, 237), size);
+        //         collider = new SquareCollider(p.startMousePos, size);
+        //         break;
+        //     default:
+        //         return;
+        // }
+
+        // let newBody;
+        // if (p.staticBody) {
+        //     newBody = new Body(shape, collider);
+        // } else {
+        //     newBody = new Rigidbody(
+        //         shape, collider, startingVelocity, new Vector2D(0 * mass, 0 * mass), mass 
+        //     );
+        // }
+
+        p.world.add(body)
     }
 
     p.despawn = (mousePosition) => {
@@ -187,7 +195,6 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
             mainToolbar.closeSubs();
             break;
         default:
-            console.log("DEFAULT");
     }
 
     mainToolbar.selectOption(button);
@@ -205,7 +212,6 @@ const shapesToolbar = new Toolbar(document.querySelector("#objectSelect"), simul
             simulation.placing = 'square';
             break;
         default:
-            console.log("DEFAULT");
     }
 
     shapesToolbar.selectOption(button);
