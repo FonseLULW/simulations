@@ -37,6 +37,8 @@ class World {
     }
 
     draw(canvas) {
+        let seconds = 1 * canvas.deltaTime / 1000;
+
         canvas.background(247, 245, 246);
 
         canvas.stroke('blue');
@@ -46,7 +48,7 @@ class World {
         canvas.strokeWeight(1);
         
 
-        this.resolveCollisions(canvas.deltaTime);
+        this.resolveCollisions(seconds);
 
         this.#objects.forEach(physObj => {
             physObj.draw(canvas);
@@ -55,12 +57,12 @@ class World {
                 physObj.forceY = this.#properties.gravity * physObj.mass;
 
                 // v+1 = v + F/m * t
-                physObj.velocityX = physObj.velocityX + physObj.forceX / physObj.mass * canvas.deltaTime / 1000;
-                physObj.velocityY = physObj.velocityY + physObj.forceY / physObj.mass * canvas.deltaTime / 1000;
+                physObj.velocityX = physObj.velocityX + physObj.forceX / physObj.mass * seconds;
+                physObj.velocityY = physObj.velocityY + physObj.forceY / physObj.mass * seconds;
 
                 // s+1 = s + vt
-                physObj.x = physObj.x + physObj.velocityX * canvas.deltaTime / 1000;
-                physObj.y = physObj.y + physObj.velocityY * canvas.deltaTime / 1000
+                physObj.x = physObj.x + physObj.velocityX * seconds;
+                physObj.y = physObj.y + physObj.velocityY * seconds;
             }
         })
     }
