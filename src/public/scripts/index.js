@@ -43,22 +43,32 @@ let simulation = new p5((p) => {
     }
 
     p.mouseDragged = (e) => {
-        p.candidate = new Vector2D(e.clientX, e.clientY);
+        switch (p.mode) {
+            case "CURSOR":
+                p.candidate = new Vector2D(e.clientX, e.clientY);
 
-        if (!p.waypointA) {
-            p.waypointA = p.candidate;
+                if (!p.waypointA) {
+                    p.waypointA = p.candidate;
+                }
+            
+                if (!p.waypointB && p.candidate != p.waypointA) {
+                    p.waypointB = p.candidate;
+                }
+            
+                if (p.waypointA && p.waypointB) {
+                    if (!collinear(p.waypointA, p.waypointB, p.candidate)) {
+                        p.waypointA = p.waypointB;
+                        p.waypointB = p.candidate;
+                    }
+                }
+                break;
+            case "ERASE":
+                p.despawn(new Vector2D(e.clientX, e.clientY));
+                break;
+            default:
         }
 
-        if (!p.waypointB && p.candidate != p.waypointA) {
-            p.waypointB = p.candidate;
-        }
-
-        if (p.waypointA && p.waypointB) {
-            if (!collinear(p.waypointA, p.waypointB, p.candidate)) {
-                p.waypointA = p.waypointB;
-                p.waypointB = p.candidate;
-            }
-        }
+        
     }
 
     p.mouseReleased = (e) => {
@@ -71,7 +81,7 @@ let simulation = new p5((p) => {
         if (e.button == 0) {
             switch (p.mode) {
                 case "CURSOR":
-                    if (p.draggingObject) {
+                    if (p.draggingObject && p.candidate && p.waypointA && p.waypointB) {
                         p.draggingObject.followingMouse = false;
 
                         p.draggingObject.velocityX = (p.candidate.x - p.waypointA.x) * 20 / t;
@@ -87,6 +97,15 @@ let simulation = new p5((p) => {
             }
         }
     };
+
+    p.mouseClicked = (e) => {
+        switch (p.mode) {
+            case "ERASE":
+                p.despawn(new Vector2D(e.clientX, e.clientY));
+                break;
+            default:
+        }
+    }
 
     p.spawn = (startingVelocity) => {
         let mass = 1000;
@@ -117,6 +136,10 @@ let simulation = new p5((p) => {
         }
 
         p.world.add(newBody)
+    }
+
+    p.despawn = (mousePosition) => {
+        p.world.remove(p.world.findObject(mousePosition));
     }
 });
 

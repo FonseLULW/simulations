@@ -65,7 +65,7 @@ class World {
     }
 
     remove(physObj) {
-        this.#objects.remove(physObj);
+        this.#objects.delete(physObj);
     }
 
     findObject(pos) {
