@@ -21,6 +21,10 @@ let simulation = new p5((p) => {
     };
 
     p.mousePressed = (e) => {
+        if (!p.inCanvasRange) {
+            return;
+        }
+
         let pressedAt = new Vector2D(e.clientX, e.clientY);
         if (e.button == 0) {
             switch (p.mode) {
@@ -43,6 +47,10 @@ let simulation = new p5((p) => {
     }
 
     p.mouseDragged = (e) => {
+        if (!p.inCanvasRange) {
+            return;
+        }
+
         switch (p.mode) {
             case "CURSOR":
                 p.candidate = new Vector2D(e.clientX, e.clientY);
@@ -99,6 +107,10 @@ let simulation = new p5((p) => {
     };
 
     p.mouseClicked = (e) => {
+        if (!p.inCanvasRange) {
+            return;
+        }
+
         switch (p.mode) {
             case "ERASE":
                 p.despawn(new Vector2D(e.clientX, e.clientY));
