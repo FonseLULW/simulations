@@ -55,9 +55,6 @@
   right: -5vw;
   display: none;
 }
-#objectSelect.show {
-  transform: translateX(-5vw);
-}
 #objectSelect .trigger {
   position: absolute;
   width: 50px;
@@ -84,9 +81,73 @@
   margin-top: 0px;
   margin-bottom: 0px;
 }
+#objectSelect.show {
+  transform: translateX(-5vw);
+}
 #objectSelect .image-container.selected {
   background: rgb(19, 112, 231);
   background: linear-gradient(360deg, rgba(19, 112, 231, 0.8519782913) 0%, rgb(0, 212, 255) 27%, rgb(0, 227, 191) 97%);
+}
+
+#worldProperties {
+  position: fixed;
+  width: 10vw;
+  height: 100vh;
+  top: 0vh;
+  right: -10vw;
+  display: none;
+  display: initial;
+}
+#worldProperties .trigger {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  left: -50px;
+  top: 0px;
+  background-color: silver;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#worldProperties .toolbox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  row-gap: 0px;
+}
+#worldProperties .image-container {
+  width: 100%;
+  height: 112px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+#worldProperties.show {
+  transform: translateX(-10vw);
+}
+#worldProperties .toolbox {
+  justify-content: center;
+  row-gap: 1rem;
+}
+#worldProperties .field {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-size: larger;
+}
+#worldProperties label {
+  margin-left: 1em;
+}
+#worldProperties input {
+  margin-right: 1rem;
+}
+#worldProperties #gravity {
+  width: 30%;
+}
+#worldProperties #fps {
+  width: 20%;
 }
 
 .image-container {

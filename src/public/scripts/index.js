@@ -203,3 +203,5 @@ const shapesToolbar = new Toolbar(document.querySelector("#objectSelect"), simul
 
     shapesToolbar.selectOption(button);
 })
+
+// const propertiesToolbar = new Toolbar();
