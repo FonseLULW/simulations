@@ -126,36 +126,10 @@ let simulation = new p5((p) => {
 
         let factory = getObject(p.placing, p.staticBody);
 
-        console.log(factory)
-
         let shape = new factory.graphic(p.startMousePos, p.color(104, 240, 237), size);
         let collider = new factory.collider(p.startMousePos, size);
 
         let body = new factory.body(shape, collider, startingVelocity, new Vector2D(0 * mass, 0 * mass), mass);
-
-        
-        // switch (p.placing) {
-        //     case 'circle':
-        //         shape = new Circle(p.startMousePos, p.color(104, 240, 237), size);
-        //         collider = new CircleCollider(p.startMousePos, size);
-        //         break;
-        //     case 'square':
-        //         shape = new Square(p.startMousePos, p.color(104, 240, 237), size);
-        //         collider = new SquareCollider(p.startMousePos, size);
-        //         break;
-        //     default:
-        //         return;
-        // }
-
-        // let newBody;
-        // if (p.staticBody) {
-        //     newBody = new Body(shape, collider);
-        // } else {
-        //     newBody = new Rigidbody(
-        //         shape, collider, startingVelocity, new Vector2D(0 * mass, 0 * mass), mass 
-        //     );
-        // }
-
         p.world.add(body)
     }
 
