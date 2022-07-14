@@ -156,12 +156,6 @@ let simulation = new p5((p) => {
     }
 
     p.setWorldProperty = (property, value) => {
-        console.log("OK CHANGING", property, value)
-        if (property == "fps") {
-            p.frameRate(value);
-            return;
-        }
-
         p.world.properties[property] = value;
     }
 });
@@ -220,9 +214,20 @@ const shapesToolbar = new Toolbar(document.querySelector("#objectSelect"), simul
 const propertiesToolbar = new Toolbar(document.querySelector("#worldProperties"), simulation);
 
 propertiesToolbar.buttons.forEach(element => {
-    element.addEventListener("input", (e) => {
-        console.log(element.id, element.value);
+    element.value = simulation.world.properties[element.id];
+
+    element.addEventListener("change", (e) => {
+        if (!element.value) {
+            element.value = simulation.world.properties[element.id];
+            return;
+        }
 
         simulation.setWorldProperty(element.id, parseInt(element.value));
     })
 });
+
+document.addEventListener("keydown", (e) => {
+    if (e.code == "Enter") {
+        document.activeElement.blur();
+    }
+})
