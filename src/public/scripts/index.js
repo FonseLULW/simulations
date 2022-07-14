@@ -17,6 +17,7 @@ let simulation = new p5((p) => {
     };
 
     p.draw = () => {
+        console.log(p.frameRate())
         p.world.draw(p);
     };
 
@@ -153,6 +154,16 @@ let simulation = new p5((p) => {
     p.despawn = (mousePosition) => {
         p.world.remove(p.world.findObject(mousePosition));
     }
+
+    p.setWorldProperty = (property, value) => {
+        console.log("OK CHANGING", property, value)
+        if (property == "fps") {
+            p.frameRate(value);
+            return;
+        }
+
+        p.world.properties[property] = value;
+    }
 });
 
 const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, (button, e) => {
@@ -210,6 +221,8 @@ const propertiesToolbar = new Toolbar(document.querySelector("#worldProperties")
 
 propertiesToolbar.buttons.forEach(element => {
     element.addEventListener("input", (e) => {
-        console.log(element.id);
+        console.log(element.id, element.value);
+
+        simulation.setWorldProperty(element.id, parseInt(element.value));
     })
 });

@@ -3,10 +3,14 @@ import { Collision } from './collisions.js';
 class World {
     #objects;
     #solvers;
+    #properties;
 
     constructor() {
         this.#objects = new Set();
         this.#solvers = new Array();
+        this.#properties = {
+            "gravity": 400
+        };
     }
 
     resolveCollisions(deltaTime) {
@@ -48,6 +52,8 @@ class World {
             physObj.draw(canvas);
 
             if (physObj.isDynamic()) {
+                physObj.forceY = this.#properties.gravity * physObj.mass;
+
                 // v+1 = v + F/m * t
                 physObj.velocityX = physObj.velocityX + physObj.forceX / physObj.mass * canvas.deltaTime / 1000;
                 physObj.velocityY = physObj.velocityY + physObj.forceY / physObj.mass * canvas.deltaTime / 1000;
@@ -78,6 +84,10 @@ class World {
 
     addSolver(solver) {
         this.#solvers.push(solver);
+    }
+
+    get properties() {
+        return this.#properties;
     }
 }
 
