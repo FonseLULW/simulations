@@ -96,7 +96,6 @@
   top: 0vh;
   right: -10vw;
   display: none;
-  display: initial;
 }
 #worldProperties .trigger {
   position: absolute;

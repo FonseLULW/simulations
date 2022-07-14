@@ -161,7 +161,6 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
     switch (button.id) {
         case "cursor":
             simulation.mode = "CURSOR";
-            mainToolbar.closeSubs();
             break;
         case "shapes":
             simulation.mode = "SPAWN";
@@ -172,10 +171,12 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
             break;
         case "eraser":
             simulation.mode = "ERASE";
-            mainToolbar.closeSubs();
             break;
         case "settings":
+            selectedToolbar = document.querySelector("#worldProperties");
             mainToolbar.closeSubs();
+            selectedToolbar.style.display = "block";
+            selectedToolbar.classList.add("show");
             break;
         case "gallery":
             mainToolbar.closeSubs();
@@ -183,6 +184,7 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
         default:
             console.log("DEFAULT");
     }
+
     mainToolbar.selectOption(button);
 });
 
@@ -204,4 +206,14 @@ const shapesToolbar = new Toolbar(document.querySelector("#objectSelect"), simul
     shapesToolbar.selectOption(button);
 })
 
-// const propertiesToolbar = new Toolbar();
+const propertiesToolbar = new Toolbar(document.querySelector("#worldProperties"), simulation, (button, e) => {
+    switch (button.id) {
+        case "setGravity":
+            break;
+        case "setFps":
+            break;
+        default:
+    }
+
+    propertiesToolbar.selectOption(button);
+});
