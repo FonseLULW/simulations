@@ -206,14 +206,10 @@ const shapesToolbar = new Toolbar(document.querySelector("#objectSelect"), simul
     shapesToolbar.selectOption(button);
 })
 
-const propertiesToolbar = new Toolbar(document.querySelector("#worldProperties"), simulation, (button, e) => {
-    switch (button.id) {
-        case "setGravity":
-            break;
-        case "setFps":
-            break;
-        default:
-    }
+const propertiesToolbar = new Toolbar(document.querySelector("#worldProperties"), simulation);
 
-    propertiesToolbar.selectOption(button);
+propertiesToolbar.buttons.forEach(element => {
+    element.addEventListener("input", (e) => {
+        console.log(element.id);
+    })
 });

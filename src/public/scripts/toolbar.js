@@ -11,7 +11,10 @@ class Toolbar {
         this.triggerClicked = false;
 
         this.initToolbar(canvas);
-        this.initControls();
+
+        if (handlerCallback) {
+            this.initControls();
+        }
     }
 
     initToolbar(canvas) {
