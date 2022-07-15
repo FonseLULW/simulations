@@ -62,6 +62,7 @@ let simulation = new p5((p) => {
 const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, (button, e) => {
     let selectedToolbar;
 
+    mainToolbar.closeSubs();
     switch (button.id) {
         case "cursor":
             simulation.mode = "CURSOR";
@@ -69,7 +70,6 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
         case "shapes":
             simulation.mode = "SPAWN";
             selectedToolbar = document.querySelector("#objectSelect");
-            mainToolbar.closeSubs();
             selectedToolbar.style.display = "block";
             selectedToolbar.classList.add("show");
             break;
@@ -78,12 +78,10 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
             break;
         case "settings":
             selectedToolbar = document.querySelector("#worldProperties");
-            mainToolbar.closeSubs();
             selectedToolbar.style.display = "block";
             selectedToolbar.classList.add("show");
             break;
         case "gallery":
-            mainToolbar.closeSubs();
             break;
         default:
     }
