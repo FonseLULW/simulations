@@ -1,0 +1,60 @@
+@mixin nonstatic-position($width, $height, $position: absolute) {
+    position: $position;
+    width: $width;
+    height: $height;
+}
+
+@mixin center-align() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin sub-interface($width, $height) {
+    // Fix position at the rightmost part of the screen
+    @include nonstatic-position($width, $height, fixed);
+    top: 0vh;
+    right: 0vw - $width;
+
+    // Starts hidden
+    display: none;
+
+    // Trigger
+    .trigger {
+        $widthT: 50px;
+        $heightT: 50px;
+
+        @include nonstatic-position($widthT, $heightT);
+        left: -$widthT;
+        top: 0px;
+        background-color: silver;
+
+        @include center-align();
+    }
+
+    // Toolbox
+    .toolbox {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        row-gap: 0px;
+    }
+
+    // Image container (elements inside toolbar)
+    .image-container {
+        width: 100%;
+        height: 112px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    // Show (pulled out)
+    &.show {
+        transform: translateX(-$width);
+    }
+
+}

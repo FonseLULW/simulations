@@ -1,63 +1,4 @@
-@mixin nonstatic-position($width, $height, $position: absolute) {
-    position: $position;
-    width: $width;
-    height: $height;
-}
-
-@mixin center-align() {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-@mixin sub-interface($width, $height) {
-    // Fix position at the rightmost part of the screen
-    @include nonstatic-position($width, $height, fixed);
-    top: 0vh;
-    right: 0vw - $width;
-
-    // Starts hidden
-    display: none;
-
-    // Trigger
-    .trigger {
-        $widthT: 50px;
-        $heightT: 50px;
-
-        @include nonstatic-position($widthT, $heightT);
-        left: -$widthT;
-        top: 0px;
-        background-color: silver;
-
-        @include center-align();
-    }
-
-    // Toolbox
-    .toolbox {
-        width: 100%;
-        height: 100%;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        row-gap: 0px;
-    }
-
-    // Image container (elements inside toolbar)
-    .image-container {
-        width: 100%;
-        height: 112px;
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
-
-    // Show (pulled out)
-    &.show {
-        transform: translateX(-$width);
-    }
-
-}
+@use 'mixins';
 
 .interface {
     opacity: 0.95;
@@ -70,7 +11,7 @@
     $width: 90vw;
     $height: 10vh;
 
-    @include nonstatic-position($width, $height);
+    @include mixins.nonstatic-position($width, $height);
     top: -$height;
     left: 2vh;
 
@@ -82,12 +23,12 @@
         $widthT: 50px;
         $heightT: 50px;
 
-        @include nonstatic-position($widthT, $heightT);
+        @include mixins.nonstatic-position($widthT, $heightT);
         left: 0px;
         bottom: -$heightT;
         background-color: silver;
 
-        @include center-align();
+        @include mixins.center-align();
     }
 
     .toolbox {
@@ -98,7 +39,7 @@
     }
 
     .controls, .toolset {
-        @include center-align();
+        @include mixins.center-align();
     }
 
     .image-container {
@@ -114,7 +55,7 @@
 
     .attrib {
         text-align: center;
-        @include nonstatic-position(100%, auto);
+        @include mixins.nonstatic-position(100%, auto);
         bottom: 0.2rem;
 
         a {
@@ -129,7 +70,7 @@
 #objectSelect {
     $width: 5vw;
     $height: 100vh;
-    @include sub-interface($width, $height);
+    @include mixins.sub-interface($width, $height);
 
     .image-container.selected {
         background: rgb(19,112,231);
@@ -141,7 +82,7 @@
     $width: 10vw;
     $height: 100vh;
     
-    @include sub-interface($width, $height);
+    @include mixins.sub-interface($width, $height);
 
     .toolbox {
         justify-content: center;
@@ -173,7 +114,7 @@
 }
 
 .image-container {
-    @include center-align();
+    @include mixins.center-align();
 
     &:hover {
         transition: 0.2s;
