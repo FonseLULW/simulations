@@ -27,25 +27,29 @@ let simulation = new p5((p) => {
             return;
         }
 
-        let pressedAt = new Vector2D(e.clientX, e.clientY);
-        if (e.button == 0) {
-            switch (p.mode) {
-                case "CURSOR":
-                    p.draggingObject = p.world.findObject(pressedAt);
+        let m = CanvasManipulator.getCanvasManipulator(p.mode);
 
-                    if (p.draggingObject) {
-                        p.draggingObject.followingMouse = true;
-                    }
-                    break;
-                case "SPAWN":
-                    p.startMousePos = pressedAt;
-                    p.startMouseTimeS = p.frameCount * p.deltaTime / 1000;
-                    break;
-                case "ERASE":
-                    break;
-                default:
-            }
-        }
+        if (m) { m.onPress(p, e) }
+
+        // let pressedAt = new Vector2D(e.clientX, e.clientY);
+        // if (e.button == 0) {
+        //     switch (p.mode) {
+        //         case "CURSOR":
+        //             p.draggingObject = p.world.findObject(pressedAt);
+
+        //             if (p.draggingObject) {
+        //                 p.draggingObject.followingMouse = true;
+        //             }
+        //             break;
+        //         case "SPAWN":
+        //             p.startMousePos = pressedAt;
+        //             p.startMouseTimeS = p.frameCount * p.deltaTime / 1000;
+        //             break;
+        //         case "ERASE":
+        //             break;
+        //         default:
+        //     }
+        // }
     }
 
     p.mouseDragged = (e) => {
@@ -92,28 +96,28 @@ let simulation = new p5((p) => {
 
         let m = CanvasManipulator.getCanvasManipulator(p.mode);
 
-        if (m) { m.onDrag(p, e) }
+        if (m) { m.onRelease(p, e) }
 
-        let endMouseTimeS = p.frameCount * p.deltaTime / 1000;
-        let t = Math.abs(endMouseTimeS - p.startMouseTimeS);
-        if (e.button == 0) {
-            switch (p.mode) {
-                case "CURSOR":
-                    if (p.draggingObject && p.candidate && p.waypointA && p.waypointB) {
-                        p.draggingObject.followingMouse = false;
+        // let endMouseTimeS = p.frameCount * p.deltaTime / 1000;
+        // let t = Math.abs(endMouseTimeS - p.startMouseTimeS);
+        // if (e.button == 0) {
+        //     switch (p.mode) {
+        //         case "CURSOR":
+        //             if (p.draggingObject && p.candidate && p.waypointA && p.waypointB) {
+        //                 p.draggingObject.followingMouse = false;
 
-                        p.draggingObject.velocityX = (p.candidate.x - p.waypointA.x) * 20 / t;
-                        p.draggingObject.velocityY = (p.candidate.y - p.waypointA.y) * 20 / t;
-                    }
-                    break;
-                case "SPAWN":
-                    p.spawn(new Vector2D((p.startMousePos.x - e.clientX) * t, (p.startMousePos.y - e.clientY) * t));
-                    break;
-                case "ERASE":
-                    break;
-                default:
-            }
-        }
+        //                 p.draggingObject.velocityX = (p.candidate.x - p.waypointA.x) * 20 / t;
+        //                 p.draggingObject.velocityY = (p.candidate.y - p.waypointA.y) * 20 / t;
+        //             }
+        //             break;
+        //         case "SPAWN":
+        //             p.spawn(new Vector2D((p.startMousePos.x - e.clientX) * t, (p.startMousePos.y - e.clientY) * t));
+        //             break;
+        //         case "ERASE":
+        //             break;
+        //         default:
+        //     }
+        // }
     };
 
     p.mouseClicked = (e) => {
@@ -132,14 +136,14 @@ let simulation = new p5((p) => {
         // }
     }
 
-    p.spawn = (startingVelocity) => {
+    p.spawn = (spawnPoint, startingVelocity) => {
         let mass = 1000;
         let size = 50;
 
         let factory = getObject(p.placing, p.staticBody);
 
-        let shape = new factory.graphic(p.startMousePos, p.color(104, 240, 237), size);
-        let collider = new factory.collider(p.startMousePos, size);
+        let shape = new factory.graphic(spawnPoint, p.color(104, 240, 237), size);
+        let collider = new factory.collider(spawnPoint, size);
 
         let body = new factory.body(shape, collider, startingVelocity, new Vector2D(0 * mass, 0 * mass), mass);
         p.world.add(body)

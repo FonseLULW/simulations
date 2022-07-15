@@ -60,12 +60,16 @@ class Spawner extends CanvasManipulator {
         let endTimeS = canvas.frameCount * canvas.deltaTime / 1000;;
         let mouseDeltaTimeS = Math.abs(endTimeS - this.#startTimeS);
 
-        let spawnPosition = new Vector2D(
+        let spawnVelocity = new Vector2D(
             (this.#startPosition.x - e.clientX) * mouseDeltaTimeS,
             (this.#startPosition.y - e.clientY) * mouseDeltaTimeS
         );
 
-        canvas.spawn(spawnPosition);
+        console.log(this.#startPosition, spawnVelocity);
+        canvas.spawn(this.#startPosition, spawnVelocity);
+
+        this.#startPosition = 0;
+        this.#startTimeS = 0;
     }
 }
 
