@@ -53,30 +53,34 @@ let simulation = new p5((p) => {
             return;
         }
 
-        switch (p.mode) {
-            case "CURSOR":
-                p.candidate = new Vector2D(e.clientX, e.clientY);
+        let m = CanvasManipulator.getCanvasManipulator(p.mode);
 
-                if (!p.waypointA) {
-                    p.waypointA = p.candidate;
-                }
+        if (m) { m.onDrag(p, e) }
+
+        // switch (p.mode) {
+        //     case "CURSOR":
+        //         p.candidate = new Vector2D(e.clientX, e.clientY);
+
+        //         if (!p.waypointA) {
+        //             p.waypointA = p.candidate;
+        //         }
             
-                if (!p.waypointB && p.candidate != p.waypointA) {
-                    p.waypointB = p.candidate;
-                }
+        //         if (!p.waypointB && p.candidate != p.waypointA) {
+        //             p.waypointB = p.candidate;
+        //         }
             
-                if (p.waypointA && p.waypointB) {
-                    if (!collinear(p.waypointA, p.waypointB, p.candidate)) {
-                        p.waypointA = p.waypointB;
-                        p.waypointB = p.candidate;
-                    }
-                }
-                break;
-            case "ERASE":
-                p.despawn(new Vector2D(e.clientX, e.clientY));
-                break;
-            default:
-        }
+        //         if (p.waypointA && p.waypointB) {
+        //             if (!collinear(p.waypointA, p.waypointB, p.candidate)) {
+        //                 p.waypointA = p.waypointB;
+        //                 p.waypointB = p.candidate;
+        //             }
+        //         }
+        //         break;
+        //     case "ERASE":
+        //         p.despawn(new Vector2D(e.clientX, e.clientY));
+        //         break;
+        //     default:
+        // }
 
         
     }
@@ -85,6 +89,10 @@ let simulation = new p5((p) => {
         if (!p.inCanvasRange) {
             return;
         }
+
+        let m = CanvasManipulator.getCanvasManipulator(p.mode);
+
+        if (m) { m.onDrag(p, e) }
 
         let endMouseTimeS = p.frameCount * p.deltaTime / 1000;
         let t = Math.abs(endMouseTimeS - p.startMouseTimeS);
