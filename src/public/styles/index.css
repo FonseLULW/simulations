@@ -196,4 +196,8 @@ canvas {
   display: block;
 }
 
+.btn, .trigger {
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=index.css.map */
