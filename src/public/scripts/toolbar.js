@@ -1,3 +1,5 @@
+import { CanvasManipulator } from "./manipulator.js";
+
 class Toolbar {
     constructor(DOMelement, canvas, handlerCallback) {
         this.element = DOMelement;
@@ -20,14 +22,14 @@ class Toolbar {
 
     initToolbar(canvas) {
         this.element.addEventListener("mouseout", () => {
-            canvas.inCanvasRange = true;
+            CanvasManipulator.inCanvasRange = true;
             this.hovering = false;
 
             this.switchToolbar();
         })
     
         this.element.addEventListener("mouseover", () => {
-            canvas.inCanvasRange = false;
+            CanvasManipulator.inCanvasRange = false;
             this.hovering = true;
 
             this.switchToolbar();

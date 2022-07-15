@@ -2,16 +2,23 @@ import { AbstractObjectInstantiationError, PrivateConstructorError } from './mod
 import { Vector2D, collinear } from './modules/vector2D.js';
 
 class CanvasManipulator {
+    static inCanvasRange = false;
+
     constructor() {
         if (this.constructor == CanvasManipulator) {
             throw new AbstractObjectInstantiationError();
         }
     }
 
-    static getCanvasManipulator(name) {
-        if (name == "SPAWN") { return Spawner.getInstance(); }
-        if (name == "ERASE") { return Eraser.getInstance(); }
-        if (name == "CURSOR") { return Cursor.getInstance(); }
+    static getCanvasManipulator(name, e) {
+        if (!CanvasManipulator.inCanvasRange) { return false; }
+
+        console.log(e.button);
+        if (e.button == 0) {
+            if (name == "SPAWN") { return Spawner.getInstance(); }
+            if (name == "ERASE") { return Eraser.getInstance(); }
+            if (name == "CURSOR") { return Cursor.getInstance(); }
+        }
         return false;
     }
 

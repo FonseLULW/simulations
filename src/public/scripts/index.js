@@ -1,7 +1,4 @@
-import { Vector2D, collinear } from './modules/vector2D.js';
-import { Square, Circle } from './modules/graphics.js';
-import { CircleCollider, SquareCollider } from './modules/colliders.js';
-import { Body, Rigidbody } from './modules/bodies.js';
+import { Vector2D } from './modules/vector2D.js';
 import { World } from './modules/world.js';
 import { SimpleSolver } from './modules/solvers.js';
 import { Toolbar } from './toolbar.js';
@@ -18,45 +15,7 @@ let simulation = new p5((p) => {
         p.print("Created canvas: Width = ", p.width, " ; Height = ", p.height)
     };
 
-    p.draw = () => {
-        p.world.draw(p);
-    };
-
-    p.mousePressed = (e) => {
-        if (!p.inCanvasRange) {
-            return;
-        }
-
-        let m = CanvasManipulator.getCanvasManipulator(p.mode);
-        if (m) { m.onPress(p, e) }
-    }
-
-    p.mouseDragged = (e) => {
-        if (!p.inCanvasRange) {
-            return;
-        }
-
-        let m = CanvasManipulator.getCanvasManipulator(p.mode);
-        if (m) { m.onDrag(p, e) }        
-    }
-
-    p.mouseReleased = (e) => {
-        if (!p.inCanvasRange) {
-            return;
-        }
-
-        let m = CanvasManipulator.getCanvasManipulator(p.mode);
-        if (m) { m.onRelease(p, e) }
-    };
-
-    p.mouseClicked = (e) => {
-        if (!p.inCanvasRange) {
-            return;
-        }
-
-        let m = CanvasManipulator.getCanvasManipulator(p.mode);
-        if (m) { m.onClick(p, e) }
-    }
+    p.draw = () => { p.world.draw(p); };
 
     p.spawn = (spawnPoint, startingVelocity) => {
         let mass = 1000;
@@ -77,6 +36,26 @@ let simulation = new p5((p) => {
 
     p.setWorldProperty = (property, value) => {
         p.world.properties[property] = value;
+    }
+
+    p.mousePressed = (e) => {
+        let manipulator = CanvasManipulator.getCanvasManipulator(p.mode, e);
+        if (manipulator) { manipulator.onPress(p, e) }
+    }
+
+    p.mouseDragged = (e) => {
+        let manipulator = CanvasManipulator.getCanvasManipulator(p.mode, e);
+        if (manipulator) { manipulator.onDrag(p, e) }        
+    }
+
+    p.mouseReleased = (e) => {
+        let manipulator = CanvasManipulator.getCanvasManipulator(p.mode, e);
+        if (manipulator) { manipulator.onRelease(p, e) }
+    };
+
+    p.mouseClicked = (e) => {
+        let manipulator = CanvasManipulator.getCanvasManipulator(p.mode, e);
+        if (manipulator) { manipulator.onClick(p, e) }
     }
 });
 
