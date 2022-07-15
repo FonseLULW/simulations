@@ -35,11 +35,11 @@ let simulation = new p5((p) => {
         // if (e.button == 0) {
         //     switch (p.mode) {
         //         case "CURSOR":
-        //             p.draggingObject = p.world.findObject(pressedAt);
+                    // p.draggingObject = p.world.findObject(pressedAt);
 
-        //             if (p.draggingObject) {
-        //                 p.draggingObject.followingMouse = true;
-        //             }
+                    // if (p.draggingObject) {
+                    //     p.draggingObject.followingMouse = true;
+                    // }
         //             break;
         //         case "SPAWN":
         //             p.startMousePos = pressedAt;
@@ -63,22 +63,22 @@ let simulation = new p5((p) => {
 
         // switch (p.mode) {
         //     case "CURSOR":
-        //         p.candidate = new Vector2D(e.clientX, e.clientY);
+                // p.candidate = new Vector2D(e.clientX, e.clientY);
 
-        //         if (!p.waypointA) {
-        //             p.waypointA = p.candidate;
-        //         }
+                // if (!p.waypointA) {
+                //     p.waypointA = p.candidate;
+                // }
             
-        //         if (!p.waypointB && p.candidate != p.waypointA) {
-        //             p.waypointB = p.candidate;
-        //         }
+                // if (!p.waypointB && p.candidate != p.waypointA) {
+                //     p.waypointB = p.candidate;
+                // }
             
-        //         if (p.waypointA && p.waypointB) {
-        //             if (!collinear(p.waypointA, p.waypointB, p.candidate)) {
-        //                 p.waypointA = p.waypointB;
-        //                 p.waypointB = p.candidate;
-        //             }
-        //         }
+                // if (p.waypointA && p.waypointB) {
+                //     if (!collinear(p.waypointA, p.waypointB, p.candidate)) {
+                //         p.waypointA = p.waypointB;
+                //         p.waypointB = p.candidate;
+                //     }
+                // }
         //         break;
         //     case "ERASE":
         //         p.despawn(new Vector2D(e.clientX, e.clientY));
@@ -103,12 +103,12 @@ let simulation = new p5((p) => {
         // if (e.button == 0) {
         //     switch (p.mode) {
         //         case "CURSOR":
-        //             if (p.draggingObject && p.candidate && p.waypointA && p.waypointB) {
-        //                 p.draggingObject.followingMouse = false;
+                    // if (p.draggingObject && p.candidate && p.waypointA && p.waypointB) {
+                    //     p.draggingObject.followingMouse = false;
 
-        //                 p.draggingObject.velocityX = (p.candidate.x - p.waypointA.x) * 20 / t;
-        //                 p.draggingObject.velocityY = (p.candidate.y - p.waypointA.y) * 20 / t;
-        //             }
+                    //     p.draggingObject.velocityX = (p.candidate.x - p.waypointA.x) * 20 / t;
+                    //     p.draggingObject.velocityY = (p.candidate.y - p.waypointA.y) * 20 / t;
+                    // }
         //             break;
         //         case "SPAWN":
         //             p.spawn(new Vector2D((p.startMousePos.x - e.clientX) * t, (p.startMousePos.y - e.clientY) * t));

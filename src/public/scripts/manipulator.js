@@ -1,6 +1,5 @@
-import { AbstractObjectInstantiationError, PrivateConstructorError, UnimplementedAbstractMethodError } from './modules/errors.js';
-import { World } from './modules/world.js';
-import { Vector2D } from './modules/vector2D.js';
+import { AbstractObjectInstantiationError, PrivateConstructorError } from './modules/errors.js';
+import { Vector2D, collinear } from './modules/vector2D.js';
 
 class CanvasManipulator {
     constructor() {
@@ -12,16 +11,13 @@ class CanvasManipulator {
     static getCanvasManipulator(name) {
         if (name == "SPAWN") { return Spawner.getInstance(); }
         if (name == "ERASE") { return Eraser.getInstance(); }
-        // if (name == "CURSOR") { return Cursor.getInstance(); }
+        if (name == "CURSOR") { return Cursor.getInstance(); }
         return false;
     }
 
     onPress(canvas, e) { return false; }
-
     onRelease(canvas, e) { return false; }
-
     onDrag(canvas, e) { return false; }
-
     onClick(canvas, e) { return false; }
 }
 
@@ -57,7 +53,7 @@ class Spawner extends CanvasManipulator {
     }
 
     onRelease(canvas, e) {
-        let endTimeS = canvas.frameCount * canvas.deltaTime / 1000;;
+        let endTimeS = canvas.frameCount * canvas.deltaTime / 1000;
         let mouseDeltaTimeS = Math.abs(endTimeS - this.#startTimeS);
 
         let spawnVelocity = new Vector2D(
@@ -106,39 +102,74 @@ class Eraser extends CanvasManipulator {
 }
 
 class Cursor extends CanvasManipulator {
-    #initializing = true;
+    static _initializing = true;
+    static _singleton = null;
+
+    #selectedObject;
+
+    #waypointA;
+    #waypointB;
+    #candidate;
+
+    #startTimeS;
     
     constructor() {
-        if (this.#initializing) {
+        if (Cursor._initializing) {
             throw new PrivateConstructorError();
         }
 
-        this.#initializing = true;
+        super();
+        Cursor._singleton = this;
+        Cursor._initializing = true;
     }
 
     static getInstance() {
-        if (!this.instance) {
-            this.#initializing = false;
+        if (!Cursor._singleton) {
+            Cursor._initializing = false;
             return new Cursor();
         }
 
-        return this.instance;
+        return Cursor._singleton;
     }
 
     onPress(canvas, e) {
-        throw new UnimplementedAbstractMethodError();
-    }
+        this.#selectedObject = canvas.world.findObject(new Vector2D(e.clientX, e.clientY));
+        this.#startTimeS = canvas.frameCount * canvas.deltaTime / 1000;
 
-    onRelease(canvas, e) {
-        throw new UnimplementedAbstractMethodError();
+        if (this.#selectedObject) {
+            this.#selectedObject.followingMouse = true;
+        }
     }
 
     onDrag(canvas, e) {
-        throw new UnimplementedAbstractMethodError();
+        this.#candidate = new Vector2D(e.clientX, e.clientY);
+
+        if (!this.#waypointA) {
+            this.#waypointA = this.#candidate;
+        }
+    
+        if (!this.#waypointB && this.#candidate != this.#waypointA) {
+            this.#waypointB = this.#candidate;
+        }
+    
+        if (this.#waypointA && this.#waypointB) {
+            if (!collinear(this.#waypointA, this.#waypointB, this.#candidate)) {
+                this.#waypointA = this.#waypointB;
+                this.#waypointB = this.#candidate;
+            }
+        }
     }
 
-    onClick(canvas, e) {
-        throw new UnimplementedAbstractMethodError();
+    onRelease(canvas, e) {
+        let endTimeS = canvas.frameCount * canvas.deltaTime / 1000;
+        let mouseDeltaTimeS = Math.abs(endTimeS - this.#startTimeS);
+
+        if (this.#selectedObject && this.#candidate && this.#waypointA && this.#waypointB) {
+            this.#selectedObject.followingMouse = false;
+
+            this.#selectedObject.velocityX = (this.#candidate.x - this.#waypointA.x) * 20 / mouseDeltaTimeS;
+            this.#selectedObject.velocityY = (this.#candidate.y - this.#waypointA.y) * 20 / mouseDeltaTimeS;
+        }
     }
 }
 
