@@ -1,4 +1,4 @@
-import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from './modules/errors.js';
+import { AbstractObjectInstantiationError, PrivateConstructorError, UnimplementedAbstractMethodError } from './modules/errors.js';
 import { World } from './modules/world.js';
 import { Vector2D } from './modules/vector2D.js';
 
@@ -13,7 +13,6 @@ class CanvasManipulator {
         // if (name == "SPAWN") { return Spawner.getInstance(); }
         if (name == "ERASE") { return Eraser.getInstance(); }
         // if (name == "CURSOR") { return Cursor.getInstance(); }
-        
         return false;
     }
 
@@ -77,7 +76,7 @@ class Eraser extends CanvasManipulator {
     
     constructor() {
         if (Eraser._initializing) {
-            throw new Error("DO NOT USE CONSTRUCTOR DIRECTLY");
+            throw new PrivateConstructorError();
         }
 
         super();
@@ -117,7 +116,7 @@ class Cursor extends CanvasManipulator {
     
     constructor() {
         if (this.#initializing) {
-            throw new Error("DO NOT USE CONSTRUCTOR DIRECTLY");
+            throw new PrivateConstructorError();
         }
 
         this.#initializing = true;

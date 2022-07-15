@@ -22,4 +22,16 @@ class UnimplementedAbstractMethodError extends Error {
     }
 }
 
-export { AbstractObjectInstantiationError, UnimplementedAbstractMethodError };
+class PrivateConstructorError extends Error {
+    constructor(message) {
+        if (!message) {
+            super("Cannot directly access a private constructor");
+        } else {
+            super(message);
+        }
+
+        this.name = 'PrivateConstructorError';
+    }
+}
+
+export { AbstractObjectInstantiationError, UnimplementedAbstractMethodError, PrivateConstructorError };
