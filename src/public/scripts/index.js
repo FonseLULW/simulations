@@ -63,44 +63,31 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
     let selectedToolbar;
 
     mainToolbar.closeSubs();
-    switch (button.id) {
-        case "cursor":
-            simulation.mode = "CURSOR";
-            break;
-        case "shapes":
-            simulation.mode = "SPAWN";
-            selectedToolbar = document.querySelector("#objectSelect");
-            selectedToolbar.style.display = "block";
-            selectedToolbar.classList.add("show");
-            break;
-        case "eraser":
-            simulation.mode = "ERASE";
-            break;
-        case "settings":
-            selectedToolbar = document.querySelector("#worldProperties");
-            selectedToolbar.style.display = "block";
-            selectedToolbar.classList.add("show");
-            break;
-        case "gallery":
-            break;
-        default:
+
+    if (button.id == "gallery") {
+        console.log("NOTHING YET")
+    } else if (button.id == "settings") {
+        selectedToolbar = document.querySelector("#worldProperties");
+    } else if (button.id == "shapes") {
+        simulation.mode = "SPAWN";
+        selectedToolbar = document.querySelector("#objectSelect");
+    } else {
+        simulation.mode = button.id.toUpperCase();
+    }
+
+    if (selectedToolbar) {
+        selectedToolbar.style.display = "block";
+        selectedToolbar.classList.add("show");
     }
 
     mainToolbar.selectOption(button);
 });
 
 const shapesToolbar = new Toolbar(document.querySelector("#objectSelect"), simulation, (button, e) => {
-    switch (button.id) {
-        case "toggleStaticSwitch":
-            simulation.staticBody = button.querySelector("INPUT").checked;
-            break;
-        case "circle":
-            simulation.placing = 'circle';
-            break;
-        case "square":
-            simulation.placing = 'square';
-            break;
-        default:
+    if (button.id == "toggleStaticSwitch") {
+        simulation.staticBody = button.querySelector("INPUT").checked;
+    } else {
+        simulation.placing = button.id;
     }
 
     shapesToolbar.selectOption(button);
