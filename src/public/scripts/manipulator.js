@@ -1,15 +1,19 @@
 import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from './modules/errors.js';
+import { World } from './modules/world.js';
+import { Vector2D } from './modules/vector2D.js';
 
 class CanvasManipulator {
     constructor() {
-        throw new AbstractObjectInstantiationError();
+        if (this.constructor == CanvasManipulator) {
+            throw new AbstractObjectInstantiationError();
+        }
     }
 
     static getCanvasManipulator(name) {
-        if (name == "SPAWNER") { return Spawner.getInstance(); }
-        if (name == "ERASER") { return Eraser.getInstance(); }
-        if (name == "CURSOR") { return Cursor.getInstance(); }
-
+        // if (name == "SPAWN") { return Spawner.getInstance(); }
+        if (name == "ERASE") { return Eraser.getInstance(); }
+        // if (name == "CURSOR") { return Cursor.getInstance(); }
+        
         return false;
     }
 
@@ -68,23 +72,27 @@ class Spawner extends CanvasManipulator {
 }
 
 class Eraser extends CanvasManipulator {
-    #initializing = true;
+    static _initializing = true;
+    static _singleton = null;
     
     constructor() {
-        if (this.#initializing) {
+        if (Eraser._initializing) {
             throw new Error("DO NOT USE CONSTRUCTOR DIRECTLY");
         }
 
-        this.#initializing = true;
+        super();
+        Eraser._singleton = this;
+        Eraser._initializing = true;
+        Eraser.count++;
     }
 
     static getInstance() {
-        if (!this.instance) {
-            this.#initializing = false;
+        if (!Eraser._singleton) {
+            Eraser._initializing = false;
             return new Eraser();
         }
 
-        return this.instance;
+        return Eraser._singleton;
     }
 
     onPress(canvas, e) {
@@ -100,7 +108,7 @@ class Eraser extends CanvasManipulator {
     }
 
     onClick(canvas, e) {
-        throw new UnimplementedAbstractMethodError();
+        canvas.despawn(new Vector2D(e.clientX, e.clientY));
     }
 }
 
@@ -140,3 +148,5 @@ class Cursor extends CanvasManipulator {
         throw new UnimplementedAbstractMethodError();
     }
 }
+
+export { CanvasManipulator };

@@ -6,6 +6,7 @@ import { World } from './modules/world.js';
 import { SimpleSolver } from './modules/solvers.js';
 import { Toolbar } from './toolbar.js';
 import { getObject } from './modules/objectFactory.js';
+import { CanvasManipulator } from './manipulator.js';
 
 let simulation = new p5((p) => {
     p.world = new World();
@@ -112,12 +113,15 @@ let simulation = new p5((p) => {
             return;
         }
 
-        switch (p.mode) {
-            case "ERASE":
-                p.despawn(new Vector2D(e.clientX, e.clientY));
-                break;
-            default:
-        }
+        let m = CanvasManipulator.getCanvasManipulator(p.mode);
+
+        if (m) { m.onClick(p, e) }
+        // switch (p.mode) {
+        //     case "ERASE":
+        //         p.despawn(new Vector2D(e.clientX, e.clientY));
+        //         break;
+        //     default:
+        // }
     }
 
     p.spawn = (startingVelocity) => {
