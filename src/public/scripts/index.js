@@ -39,22 +39,22 @@ let simulation = new p5((p) => {
     }
 
     p.mousePressed = (e) => {
-        let manipulator = CanvasManipulator.getCanvasManipulator(p.mode, e);
+        let manipulator = CanvasManipulator.getCanvasManipulator(e);
         if (manipulator) { manipulator.onPress(p, e) }
     }
 
     p.mouseDragged = (e) => {
-        let manipulator = CanvasManipulator.getCanvasManipulator(p.mode, e);
+        let manipulator = CanvasManipulator.getCanvasManipulator(e);
         if (manipulator) { manipulator.onDrag(p, e) }        
     }
 
     p.mouseReleased = (e) => {
-        let manipulator = CanvasManipulator.getCanvasManipulator(p.mode, e);
+        let manipulator = CanvasManipulator.getCanvasManipulator(e);
         if (manipulator) { manipulator.onRelease(p, e) }
     };
 
     p.mouseClicked = (e) => {
-        let manipulator = CanvasManipulator.getCanvasManipulator(p.mode, e);
+        let manipulator = CanvasManipulator.getCanvasManipulator(e);
         if (manipulator) { manipulator.onClick(p, e) }
     }
 });
@@ -87,10 +87,10 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
     } else if (button.id == "settings") {
         selectedToolbar = document.querySelector("#worldProperties");
     } else if (button.id == "shapes") {
-        simulation.mode = "SPAWN";
+        CanvasManipulator.mode = "SPAWN";
         selectedToolbar = document.querySelector("#objectSelect");
     } else {
-        simulation.mode = button.id.toUpperCase();
+        CanvasManipulator.mode = button.id.toUpperCase();
     }
 
     if (selectedToolbar) {
@@ -131,3 +131,5 @@ document.addEventListener("keydown", (e) => {
         document.activeElement.blur();
     }
 })
+
+export { simulation };

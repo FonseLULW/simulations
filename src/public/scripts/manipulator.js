@@ -3,6 +3,7 @@ import { Vector2D, collinear } from './modules/vector2D.js';
 
 class CanvasManipulator {
     static inCanvasRange = false;
+    static mode = null;
 
     constructor() {
         if (this.constructor == CanvasManipulator) {
@@ -10,14 +11,14 @@ class CanvasManipulator {
         }
     }
 
-    static getCanvasManipulator(name, e) {
+    static getCanvasManipulator(e) {
         if (!CanvasManipulator.inCanvasRange) { return false; }
 
         console.log(e.button);
         if (e.button == 0) {
-            if (name == "SPAWN") { return Spawner.getInstance(); }
-            if (name == "ERASE") { return Eraser.getInstance(); }
-            if (name == "CURSOR") { return Cursor.getInstance(); }
+            if (CanvasManipulator.mode == "SPAWN") { return Spawner.getInstance(); }
+            if (CanvasManipulator.mode == "ERASE") { return Eraser.getInstance(); }
+            if (CanvasManipulator.mode == "CURSOR") { return Cursor.getInstance(); }
         }
         return false;
     }
