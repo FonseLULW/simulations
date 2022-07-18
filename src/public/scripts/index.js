@@ -65,7 +65,7 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
     mainToolbar.closeSubs();
 
     if (button.id == "slow") {
-        simulation.world.properties["rateOfTime"] = -1;
+        simulation.world.properties["rateOfTime"] = 0.5;
     } else if (button.id == "fast") {
         simulation.world.properties["rateOfTime"] = 2;
     } else if (button.id == "reload") {
@@ -74,8 +74,14 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
         
     } else if (button.id == "pause") {
         simulation.world.properties["rateOfTime"] = 0;
+
+        mainToolbar.element.querySelector("#play").style.display = "flex";
+        button.style.display = "none";
     } else if (button.id == "play") {
         simulation.world.properties["rateOfTime"] = 1;
+
+        mainToolbar.element.querySelector("#pause").style.display = "flex";
+        button.style.display = "none";
     } else if (button.id == "gallery") {
         console.log("NOTHING YET")
     } else if (button.id == "settings") {

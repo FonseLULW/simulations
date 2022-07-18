@@ -177,6 +177,10 @@
   margin-bottom: 1rem;
 }
 
+#play {
+  display: none;
+}
+
 html, body {
   margin: 0px;
   padding: 0px;
