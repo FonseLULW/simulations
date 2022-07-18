@@ -64,7 +64,19 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
 
     mainToolbar.closeSubs();
 
-    if (button.id == "gallery") {
+    if (button.id == "slow") {
+        simulation.world.properties["rateOfTime"] = -1;
+    } else if (button.id == "fast") {
+        simulation.world.properties["rateOfTime"] = 2;
+    } else if (button.id == "reload") {
+        
+    } else if (button.id == "nextFrame") {
+        
+    } else if (button.id == "pause") {
+        simulation.world.properties["rateOfTime"] = 0;
+    } else if (button.id == "play") {
+        simulation.world.properties["rateOfTime"] = 1;
+    } else if (button.id == "gallery") {
         console.log("NOTHING YET")
     } else if (button.id == "settings") {
         selectedToolbar = document.querySelector("#worldProperties");
