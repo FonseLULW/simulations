@@ -26,7 +26,7 @@ class Toolset {
             btn.classList.remove("selected");
         })
 
-        selected.classList.add("selected");
+        element.classList.add("selected");
     }
 }
 

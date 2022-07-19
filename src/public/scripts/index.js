@@ -5,6 +5,8 @@ import { Toolbar } from './toolbar.js';
 import { getObject } from './modules/objectFactory.js';
 import { CanvasManipulator } from './manipulator.js';
 import { ToolManager } from './ui/toolManager.js';
+import { toolManagerConfig } from './config.js';
+import { Toolset } from './ui/toolset.js';
 
 let simulation = new p5((p) => {
     p.world = new World();
@@ -14,7 +16,7 @@ let simulation = new p5((p) => {
         p.createCanvas(p.windowWidth, p.windowHeight);
         p.world.addSolver(new SimpleSolver());
         p.print("Created canvas: Width = ", p.width, " ; Height = ", p.height)
-        setupUI();
+        setupUI(p);
     };
 
     p.draw = () => { p.world.draw(p); };
@@ -62,48 +64,48 @@ let simulation = new p5((p) => {
 });
 
 const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, (button, e) => {
-    let selectedToolbar;
+    // let selectedToolbar;
 
-    if (button.id == "slow") {
-        simulation.world.properties["rateOfTime"] = 0.5;
-    } else if (button.id == "fast") {
-        simulation.world.properties["rateOfTime"] = 2;
+    // if (button.id == "slow") {
+    //     simulation.world.properties["rateOfTime"] = 0.5;
+    // } else if (button.id == "fast") {
+    //     simulation.world.properties["rateOfTime"] = 2;
         
-    } else if (button.id == "reload") {
+    // } else if (button.id == "reload") {
         
-    } else if (button.id == "nextFrame") {
+    // } else if (button.id == "nextFrame") {
         
-    } else if (button.id == "pause") {
-        simulation.world.properties["rateOfTime"] = 0;
+    // } else if (button.id == "pause") {
+    //     simulation.world.properties["rateOfTime"] = 0;
 
-        mainToolbar.element.querySelector("#play").style.display = "flex";
-        button.style.display = "none";
-    } else if (button.id == "play") {
-        simulation.world.properties["rateOfTime"] = 1;
+    //     mainToolbar.element.querySelector("#play").style.display = "flex";
+    //     button.style.display = "none";
+    // } else if (button.id == "play") {
+    //     simulation.world.properties["rateOfTime"] = 1;
 
-        mainToolbar.element.querySelector("#pause").style.display = "flex";
-        button.style.display = "none";
-    } else if (button.id == "gallery") {
-        mainToolbar.closeSubs()
-        console.log("NOTHING YET")
-    } else if (button.id == "settings") {
-        mainToolbar.closeSubs()
-        selectedToolbar = document.querySelector("#worldProperties");
-    } else if (button.id == "shapes") {
-        mainToolbar.closeSubs()
-        CanvasManipulator.mode = "SPAWN";
-        selectedToolbar = document.querySelector("#objectSelect");
-    } else {
-        mainToolbar.closeSubs()
-        CanvasManipulator.mode = button.id.toUpperCase();
-    }
+    //     mainToolbar.element.querySelector("#pause").style.display = "flex";
+    //     button.style.display = "none";
+    // } else if (button.id == "gallery") {
+    //     mainToolbar.closeSubs()
+    //     console.log("NOTHING YET")
+    // } else if (button.id == "settings") {
+    //     mainToolbar.closeSubs()
+    //     selectedToolbar = document.querySelector("#worldProperties");
+    // } else if (button.id == "shapes") {
+    //     mainToolbar.closeSubs()
+    //     CanvasManipulator.mode = "SPAWN";
+    //     selectedToolbar = document.querySelector("#objectSelect");
+    // } else {
+    //     mainToolbar.closeSubs()
+    //     CanvasManipulator.mode = button.id.toUpperCase();
+    // }
 
-    if (selectedToolbar) {
-        selectedToolbar.style.display = "block";
-        selectedToolbar.classList.add("show");
-    }
+    // if (selectedToolbar) {
+    //     selectedToolbar.style.display = "block";
+    //     selectedToolbar.classList.add("show");
+    // }
 
-    mainToolbar.selectOption(button);
+    // mainToolbar.selectOption(button);
 });
 
 const shapesToolbar = new Toolbar(document.querySelector("#objectSelect"), simulation, (button, e) => {
@@ -138,8 +140,11 @@ document.addEventListener("keydown", (e) => {
 })
 
 
-function setupUI() {
+function setupUI(canvas) {
+    let toolManager = ToolManager.getInstance();
+    toolManager.init(canvas, toolManagerConfig);
 
+    let mainTools = new Toolset(document.querySelector("#toolbar").querySelector(".toolset")).initButtons();
 }
 
 

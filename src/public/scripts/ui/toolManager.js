@@ -28,7 +28,9 @@ class ToolManager {
     }
 
     handle(name) {
-        this.tools.get(name)();
+        let handler = this.tools.get(name);
+        
+        if (handler) { handler(); }
     }
 }
 
