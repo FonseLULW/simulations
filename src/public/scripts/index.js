@@ -13,6 +13,7 @@ let simulation = new p5((p) => {
         p.createCanvas(p.windowWidth, p.windowHeight);
         p.world.addSolver(new SimpleSolver());
         p.print("Created canvas: Width = ", p.width, " ; Height = ", p.height)
+        setupUI();
     };
 
     p.draw = () => { p.world.draw(p); };
@@ -62,12 +63,11 @@ let simulation = new p5((p) => {
 const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, (button, e) => {
     let selectedToolbar;
 
-    mainToolbar.closeSubs();
-
     if (button.id == "slow") {
         simulation.world.properties["rateOfTime"] = 0.5;
     } else if (button.id == "fast") {
         simulation.world.properties["rateOfTime"] = 2;
+        
     } else if (button.id == "reload") {
         
     } else if (button.id == "nextFrame") {
@@ -83,13 +83,17 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
         mainToolbar.element.querySelector("#pause").style.display = "flex";
         button.style.display = "none";
     } else if (button.id == "gallery") {
+        mainToolbar.closeSubs()
         console.log("NOTHING YET")
     } else if (button.id == "settings") {
+        mainToolbar.closeSubs()
         selectedToolbar = document.querySelector("#worldProperties");
     } else if (button.id == "shapes") {
+        mainToolbar.closeSubs()
         CanvasManipulator.mode = "SPAWN";
         selectedToolbar = document.querySelector("#objectSelect");
     } else {
+        mainToolbar.closeSubs()
         CanvasManipulator.mode = button.id.toUpperCase();
     }
 
@@ -131,5 +135,13 @@ document.addEventListener("keydown", (e) => {
         document.activeElement.blur();
     }
 })
+
+
+function setupUI() {
+
+}
+
+
+
 
 export { simulation };

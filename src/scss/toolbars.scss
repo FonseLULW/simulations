@@ -120,6 +120,11 @@
         transition: 0.2s;
         background-color: white;
     }
+
+    &.control-btn.selected {
+        background: rgb(19,112,231);
+        background: linear-gradient(360deg, rgba(19,112,231,0.8519782913165266) 0%, rgba(0,212,255,1) 27%, rgba(0,227,191,1) 97%);
+    }
 }
 
 #toggleStaticSwitch {

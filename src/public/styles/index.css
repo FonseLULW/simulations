@@ -171,6 +171,10 @@
   transition: 0.2s;
   background-color: white;
 }
+.image-container.control-btn.selected {
+  background: rgb(19, 112, 231);
+  background: linear-gradient(360deg, rgba(19, 112, 231, 0.8519782913) 0%, rgb(0, 212, 255) 27%, rgb(0, 227, 191) 97%);
+}
 
 #toggleStaticSwitch {
   margin-top: 1rem;
