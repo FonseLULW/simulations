@@ -1,5 +1,27 @@
+import { PrivateConstructorError } from "../modules/errors";
+
 class ToolManager {
-    constructor(canvas, config) {
+    static instance;
+
+    constructor() {
+        throw new PrivateConstructorError();
+    }
+
+    getInstance() {
+        if (!instance) {
+            ToolManager.constructor = () => {};
+            let newInstance = new ToolManager();
+            ToolManager.constructor = () => {
+                throw new PrivateConstructorError();
+            }
+
+            return newInstance;
+        }
+
+        return instance;
+    }
+
+    init(canvas, config) {
         this.canvas = canvas;
         this.tools = new Map(Object.entries(config));
     }
