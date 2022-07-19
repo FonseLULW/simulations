@@ -1,24 +1,25 @@
-import { PrivateConstructorError } from "../modules/errors";
+import { PrivateConstructorError } from "../modules/errors.js";
 
 class ToolManager {
-    static instance;
+    static instance = null;
+    static initializing = true;
 
     constructor() {
-        throw new PrivateConstructorError();
-    }
-
-    getInstance() {
-        if (!instance) {
-            ToolManager.constructor = () => {};
-            let newInstance = new ToolManager();
-            ToolManager.constructor = () => {
-                throw new PrivateConstructorError();
-            }
-
-            return newInstance;
+        if (ToolManager.initializing) {
+            throw new PrivateConstructorError();
         }
 
-        return instance;
+        ToolManager.initializing = true;
+        ToolManager.instance = this;
+    }
+
+    static getInstance() {
+        if (!ToolManager.instance) {
+            ToolManager.initializing = false;
+            return new ToolManager();
+        }
+
+        return ToolManager.instance;
     }
 
     init(canvas, config) {

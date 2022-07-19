@@ -4,6 +4,7 @@ import { SimpleSolver } from './modules/solvers.js';
 import { Toolbar } from './toolbar.js';
 import { getObject } from './modules/objectFactory.js';
 import { CanvasManipulator } from './manipulator.js';
+import { ToolManager } from './ui/toolManager.js';
 
 let simulation = new p5((p) => {
     p.world = new World();

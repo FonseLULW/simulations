@@ -1,4 +1,4 @@
-import { ToolManager } from "./toolManager";
+import { ToolManager } from "./toolManager.js";
 
 class Toolset {
     constructor(DOMElement) {
