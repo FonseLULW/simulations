@@ -1,4 +1,5 @@
 import { CanvasManipulator } from "./manipulator.js";
+import { Tool } from "./ui/tool.js";
 
 function openToolbar(element) {
     element.style.display = "block";
@@ -26,5 +27,9 @@ const toolManagerConfig = {
         openToolbar(document.querySelector("#worldProperties"));
     }
 };
+
+const manipulatorTools = {
+
+}
 
 export { toolManagerConfig };
