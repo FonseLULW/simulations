@@ -1,16 +1,16 @@
 import { CanvasManipulator } from "../manipulator.js";
+import { Trigger } from "./trigger.js";
 
 class Toolbar {
     constructor(DOMElement) {
         this.element = DOMElement;
-        this.trigger = DOMElement.querySelector(".trigger");
+        this.trigger = new Trigger(DOMElement.querySelector(".trigger"));
         
         this.opened = false;
         this.hovering = false;
-        this.triggerClicked = false;
     }
 
-    initToolbar() {
+    init() {
         this.element.addEventListener("mouseout", () => {
             CanvasManipulator.inCanvasRange = true;
             this.hovering = false;
@@ -25,29 +25,38 @@ class Toolbar {
             this.toggleDisplay();
         })
 
-        this.trigger.addEventListener("click", () => {
-            this.triggerClicked = !this.triggerClicked;
+        this.trigger.trigger.addEventListener("click", () => {
+            this.trigger.clicked = !this.trigger.clicked;
 
             this.toggleDisplay();
         })
     }
 
     toggleDisplay() {
-        if (this.triggerClicked) {
+        if (this.trigger.clicked) {
             if (this.opened) {
                 this.element.classList.remove("show");
             } else {
-                this.trigger.children[0].style["font-variation-settings"] = `'FILL' 1`;
+                this.trigger.mark();
                 this.element.classList.add("show");
             }
-            this.trigger.children[0].innerHTML = "push_pin";
         } else if (this.hovering) {
-            this.trigger.children[0].style["font-variation-settings"] = `'FILL' 0`;
-            this.trigger.children[0].innerHTML = "push_pin";
+            this.trigger.unmark();
             this.element.classList.add("show");
         } else {
-            this.trigger.children[0].innerHTML = this.trigger_default;
+            this.trigger.default();
             this.element.classList.remove("show");
         }
     }
+
+    closeSubs() {
+        document.querySelectorAll(".sub").forEach(elem => {
+            if (elem != this.element) {
+                elem.classList.remove("show");
+                elem.style.display = "none";
+            }        
+        })
+    }
 }
+
+export { Toolbar };

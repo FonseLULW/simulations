@@ -27,10 +27,10 @@ class ToolManager {
         this.tools = new Map(Object.entries(config));
     }
 
-    handle(name) {
+    handle(name, toolset) {
         let handler = this.tools.get(name);
         
-        if (handler) { handler(); }
+        if (handler) { handler(toolset); }
     }
 }
 

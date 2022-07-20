@@ -1,8 +1,9 @@
 import { ToolManager } from "./toolManager.js";
 
 class Toolset {
-    constructor(DOMElement) {
+    constructor(DOMElement, toolbarElement) {
         this.element = DOMElement;
+        this.toolbar = toolbarElement;
         this.buttons = DOMElement.querySelectorAll(".btn");
         this.selectedElement = null;
     }
@@ -11,7 +12,7 @@ class Toolset {
         this.buttons.forEach(btn => {
             btn.addEventListener("click", (e) => {
                 this.select(btn);
-                ToolManager.getInstance().handle(btn.id);
+                ToolManager.getInstance().handle(btn.id, this);
             })
         });
     }

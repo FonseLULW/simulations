@@ -1,7 +1,7 @@
 import { Vector2D } from './modules/vector2D.js';
 import { World } from './modules/world.js';
 import { SimpleSolver } from './modules/solvers.js';
-import { Toolbar } from './toolbar.js';
+import { Toolbar } from './ui/toolbar.js';
 import { getObject } from './modules/objectFactory.js';
 import { CanvasManipulator } from './manipulator.js';
 import { ToolManager } from './ui/toolManager.js';
@@ -63,7 +63,7 @@ let simulation = new p5((p) => {
     }
 });
 
-const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, (button, e) => {
+
     // let selectedToolbar;
 
     // if (button.id == "slow") {
@@ -89,8 +89,8 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
     //     mainToolbar.closeSubs()
     //     console.log("NOTHING YET")
     // } else if (button.id == "settings") {
-    //     mainToolbar.closeSubs()
-    //     selectedToolbar = document.querySelector("#worldProperties");
+        // mainToolbar.closeSubs()
+        // selectedToolbar = document.querySelector("#worldProperties");
     // } else if (button.id == "shapes") {
     //     mainToolbar.closeSubs()
     //     CanvasManipulator.mode = "SPAWN";
@@ -106,32 +106,31 @@ const mainToolbar = new Toolbar(document.querySelector("#toolbar"), simulation, 
     // }
 
     // mainToolbar.selectOption(button);
-});
 
-const shapesToolbar = new Toolbar(document.querySelector("#objectSelect"), simulation, (button, e) => {
-    if (button.id == "toggleStaticSwitch") {
-        simulation.staticBody = button.querySelector("INPUT").checked;
-    } else {
-        simulation.placing = button.id;
-    }
+// const shapesToolbar = new Toolbar(document.querySelector("#objectSelect"), simulation, (button, e) => {
+//     if (button.id == "toggleStaticSwitch") {
+//         simulation.staticBody = button.querySelector("INPUT").checked;
+//     } else {
+//         simulation.placing = button.id;
+//     }
 
-    shapesToolbar.selectOption(button);
-})
+//     shapesToolbar.selectOption(button);
+// })
 
-const propertiesToolbar = new Toolbar(document.querySelector("#worldProperties"), simulation);
+// const propertiesToolbar = new Toolbar(document.querySelector("#worldProperties"), simulation);
 
-propertiesToolbar.buttons.forEach(element => {
-    element.value = simulation.world.properties[element.id];
+// propertiesToolbar.buttons.forEach(element => {
+//     element.value = simulation.world.properties[element.id];
 
-    element.addEventListener("change", (e) => {
-        if (!element.value) {
-            element.value = simulation.world.properties[element.id];
-            return;
-        }
+//     element.addEventListener("change", (e) => {
+//         if (!element.value) {
+//             element.value = simulation.world.properties[element.id];
+//             return;
+//         }
 
-        simulation.setWorldProperty(element.id, parseInt(element.value));
-    })
-});
+//         simulation.setWorldProperty(element.id, parseInt(element.value));
+//     })
+// });
 
 document.addEventListener("keydown", (e) => {
     if (e.code == "Enter") {
@@ -144,7 +143,13 @@ function setupUI(canvas) {
     let toolManager = ToolManager.getInstance();
     toolManager.init(canvas, toolManagerConfig);
 
-    let mainTools = new Toolset(document.querySelector("#toolbar").querySelector(".toolset")).initButtons();
+    // Toolbars
+    const mainToolbar = new Toolbar(document.querySelector("#toolbar"));
+    mainToolbar.init();
+
+    // Toolsets
+    let mainTools = new Toolset(document.querySelector("#toolbar").querySelector(".toolset"), mainToolbar.element);
+    mainTools.initButtons();
 }
 
 
