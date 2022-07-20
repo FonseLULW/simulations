@@ -140,6 +140,9 @@ document.addEventListener("keydown", (e) => {
 
 
 function setupUI(canvas) {
+    console.log("UI SETUP: ", canvas);
+
+    // Managers and Manipulators
     let toolManager = ToolManager.getInstance();
     toolManager.init(canvas, toolManagerConfig);
 
