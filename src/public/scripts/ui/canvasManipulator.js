@@ -29,19 +29,34 @@ class CanvasManipulator {
         this.tools = new Map(Object.entries(config));
         this.mode = null;
 
-        console.log(this.mode);
-
+        // CLICK
         this.canvasElement.addEventListener("click", (e) => {
+            if (!this.mode) { return; }
             this.tools.get(this.mode).onClick(this.canvas, e);
         })
-        this.canvasElement.addEventListener("drag", (e) => {
+
+        // DRAG (depends on PRESS and RELEASE)
+        this.canvasElement.addEventListener("mousemove", (e) => {
+            if (!this.dragentered) { return; }
+
+            console.log("DRAGGN", e.mousedown)
+            if (!this.mode) { return; }
             this.tools.get(this.mode).onDrag(this.canvas, e);
         })
+
+        // PRESS
         this.canvasElement.addEventListener("mousedown", (e) => {
-            console.log("down")
+            this.dragentered = true;
+            console.log("DRAGENETER", this.mode)
+            if (!this.mode) { return; }
             this.tools.get(this.mode).onPress(this.canvas, e);
         })
+
+        // RELEASE
         this.canvasElement.addEventListener("mouseup", (e) => {
+            this.dragentered = false;
+
+            if (!this.mode) { return; }
             this.tools.get(this.mode).onRelease(this.canvas, e);
         })
     }

@@ -97,8 +97,8 @@ let simulation = new p5((p) => {
     //     CanvasManipulator.mode = "SPAWN";
     //     selectedToolbar = document.querySelector("#objectSelect");
     // } else {
-    //     mainToolbar.closeSubs()
-    //     CanvasManipulator.mode = button.id.toUpperCase();
+        // mainToolbar.closeSubs()
+        // CanvasManipulator.mode = button.id.toUpperCase();
     // }
 
     // if (selectedToolbar) {

@@ -1,5 +1,6 @@
 import { CanvasManipulator } from "./ui/canvasManipulator.js";
 import { Tool } from "./ui/tool.js";
+import { eraser } from "./ui/tools/eraser.js";
 import { spawner } from "./ui/tools/spawner.js";
 
 function openToolbar(element) {
@@ -17,10 +18,16 @@ function closeSubToolbars(except) {
 }
 
 const toolManagerConfig = {
+    // Main Toolbar
     "shapes": (toolset) => {
         CanvasManipulator.getInstance().mode = "SPAWN";
         closeSubToolbars(toolset.toolbar);
         openToolbar(document.querySelector("#objectSelect"));
+    },
+
+    "erase": () => {
+        CanvasManipulator.getInstance().mode = "ERASE";
+        closeSubToolbars();
     },
 
     "settings": (toolset) => {
@@ -28,6 +35,7 @@ const toolManagerConfig = {
         openToolbar(document.querySelector("#worldProperties"));
     },
 
+    // Shapes Toolbar
     "toggleStaticSwitch": (toolset) => {
         CanvasManipulator.getInstance().tools.get("SPAWN").staticBody = toolset.element.querySelector("#static").checked;
     },
@@ -43,7 +51,7 @@ const toolManagerConfig = {
 
 const manipulatorTools = {
     "SPAWN": spawner,
-    "ERASE": new Tool(),
+    "ERASE": eraser,
     "CURSOR": new Tool()
 }
 

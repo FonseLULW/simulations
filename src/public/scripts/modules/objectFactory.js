@@ -14,6 +14,8 @@ function getObject(shape, isStatic) {
             'graphic': Square,
             'collider': SquareCollider
         }
+    } else {
+        return false;
     }
 
     if (isStatic) {

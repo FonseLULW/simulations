@@ -10,6 +10,9 @@ spawner.onPress = (canvas, e) => {
 }
 
 spawner.onRelease = (canvas, e) => {
+    let factory = getObject(spawner.placing, spawner.staticBody)
+    if (!factory) { return; }
+
     let endTimeS = canvas.frameCount * canvas.deltaTime / 1000;
     let mouseDeltaTimeS = Math.abs(endTimeS - spawner.startTimeS);
 
@@ -17,8 +20,6 @@ spawner.onRelease = (canvas, e) => {
         (spawner.startPosition.x - e.clientX) * mouseDeltaTimeS,
         (spawner.startPosition.y - e.clientY) * mouseDeltaTimeS
     );
-
-    let factory = getObject(spawner.placing, spawner.staticBody)
 
     console.log(spawner.startPosition, spawnVelocity, factory);
     canvas.spawn(spawner.startPosition, spawnVelocity, factory);
