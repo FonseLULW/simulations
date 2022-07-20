@@ -3,9 +3,10 @@ import { World } from './modules/world.js';
 import { SimpleSolver } from './modules/solvers.js';
 import { Toolbar } from './ui/toolbar.js';
 import { getObject } from './modules/objectFactory.js';
-import { CanvasManipulator } from './manipulator.js';
+// import { CanvasManipulator } from './manipulator.js';
+import { CanvasManipulator } from './ui/canvasManipulator.js';
 import { ToolManager } from './ui/toolManager.js';
-import { toolManagerConfig } from './config.js';
+import { toolManagerConfig, manipulatorTools } from './config.js';
 import { Toolset } from './ui/toolset.js';
 
 let simulation = new p5((p) => {
@@ -21,11 +22,11 @@ let simulation = new p5((p) => {
 
     p.draw = () => { p.world.draw(p); };
 
-    p.spawn = (spawnPoint, startingVelocity) => {
+    p.spawn = (spawnPoint, startingVelocity, factory) => {
         let mass = 1000;
         let size = 50;
 
-        let factory = getObject(p.placing, p.staticBody);
+        // let factory = getObject(p.placing, p.staticBody);
 
         let shape = new factory.graphic(spawnPoint, p.color(104, 240, 237), size);
         let collider = new factory.collider(spawnPoint, size);
@@ -42,25 +43,25 @@ let simulation = new p5((p) => {
         p.world.properties[property] = value;
     }
 
-    p.mousePressed = (e) => {
-        let manipulator = CanvasManipulator.getCanvasManipulator(e);
-        if (manipulator) { manipulator.onPress(p, e) }
-    }
+    // p.mousePressed = (e) => {
+    //     let manipulator = CanvasManipulator.getCanvasManipulator(e);
+    //     if (manipulator) { manipulator.onPress(p, e) }
+    // }
 
-    p.mouseDragged = (e) => {
-        let manipulator = CanvasManipulator.getCanvasManipulator(e);
-        if (manipulator) { manipulator.onDrag(p, e) }        
-    }
+    // p.mouseDragged = (e) => {
+    //     let manipulator = CanvasManipulator.getCanvasManipulator(e);
+    //     if (manipulator) { manipulator.onDrag(p, e) }        
+    // }
 
-    p.mouseReleased = (e) => {
-        let manipulator = CanvasManipulator.getCanvasManipulator(e);
-        if (manipulator) { manipulator.onRelease(p, e) }
-    };
+    // p.mouseReleased = (e) => {
+    //     let manipulator = CanvasManipulator.getCanvasManipulator(e);
+    //     if (manipulator) { manipulator.onRelease(p, e) }
+    // };
 
-    p.mouseClicked = (e) => {
-        let manipulator = CanvasManipulator.getCanvasManipulator(e);
-        if (manipulator) { manipulator.onClick(p, e) }
-    }
+    // p.mouseClicked = (e) => {
+    //     let manipulator = CanvasManipulator.getCanvasManipulator(e);
+    //     if (manipulator) { manipulator.onClick(p, e) }
+    // }
 });
 
 
@@ -143,16 +144,28 @@ function setupUI(canvas) {
     console.log("UI SETUP: ", canvas);
 
     // Managers and Manipulators
-    let toolManager = ToolManager.getInstance();
+    const toolManager = ToolManager.getInstance();
     toolManager.init(canvas, toolManagerConfig);
+
+    const canvasManipulator = CanvasManipulator.getInstance();
+    canvasManipulator.init(canvas, canvas.canvas, manipulatorTools);
 
     // Toolbars
     const mainToolbar = new Toolbar(document.querySelector("#toolbar"));
     mainToolbar.init();
 
+    const shapesToolbar = new Toolbar(document.querySelector("#objectSelect"));
+    shapesToolbar.init();
+
+    const propertiesToolbar = new Toolbar(document.querySelector("#worldProperties"));
+    propertiesToolbar.init();
+
     // Toolsets
     let mainTools = new Toolset(document.querySelector("#toolbar").querySelector(".toolset"), mainToolbar.element);
     mainTools.initButtons();
+
+    let shapeTools = new Toolset(document.querySelector("#objectSelect").querySelector(".toolbox"), shapesToolbar.element);
+    shapeTools.initButtons();
 }
 
 

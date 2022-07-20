@@ -1,5 +1,6 @@
-import { CanvasManipulator } from "./manipulator.js";
+import { CanvasManipulator } from "./ui/canvasManipulator.js";
 import { Tool } from "./ui/tool.js";
+import { spawner } from "./ui/tools/spawner.js";
 
 function openToolbar(element) {
     element.style.display = "block";
@@ -17,7 +18,7 @@ function closeSubToolbars(except) {
 
 const toolManagerConfig = {
     "shapes": (toolset) => {
-        CanvasManipulator.mode = "SPAWN";
+        CanvasManipulator.getInstance().mode = "SPAWN";
         closeSubToolbars(toolset.toolbar);
         openToolbar(document.querySelector("#objectSelect"));
     },
@@ -25,11 +26,25 @@ const toolManagerConfig = {
     "settings": (toolset) => {
         closeSubToolbars(toolset.toolbar);
         openToolbar(document.querySelector("#worldProperties"));
-    }
+    },
+
+    "toggleStaticSwitch": (toolset) => {
+        CanvasManipulator.getInstance().tools.get("SPAWN").staticBody = toolset.element.querySelector("#static").checked;
+    },
+
+    "circle": () => {
+        CanvasManipulator.getInstance().tools.get("SPAWN").placing = "circle";
+    },
+    
+    "square": () => {
+        CanvasManipulator.getInstance().tools.get("SPAWN").placing = "square";
+    } 
 };
 
 const manipulatorTools = {
-
+    "SPAWN": spawner,
+    "ERASE": new Tool(),
+    "CURSOR": new Tool()
 }
 
-export { toolManagerConfig };
+export { toolManagerConfig, manipulatorTools };
