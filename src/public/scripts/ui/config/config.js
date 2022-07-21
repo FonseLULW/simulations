@@ -17,6 +17,11 @@ function closeSubToolbars(except) {
     })
 }
 
+function switchButtons(hideID, showID) {
+    document.querySelector(`#${hideID}`).style.display = "none";
+    document.querySelector(`#${showID}`).style.display = "flex";
+}
+
 const toolManagerConfig = {
     // Main Toolset
     "shapes": (toolset) => {
@@ -65,35 +70,38 @@ const toolManagerConfig = {
     // Controls Toolset
     "pause": (toolset) => {
         CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 0);
-        toolset.element.querySelector("#play").style.display = "flex";
-        toolset.element.querySelector("#pause").style.display = "none";
+        switchButtons("pause", "play");
     },
 
     "play": (toolset) => {
         CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 1);
-        toolset.element.querySelector("#play").style.display = "none";
-        toolset.element.querySelector("#pause").style.display = "flex";
+        switchButtons("play", "pause");
     },
 
-    "slow": (toolset) => {
-        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 0.5);
-        CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 1);
-        toolset.element.querySelector("#play").style.display = "none";
-        toolset.element.querySelector("#pause").style.display = "flex";
+    "slow": () => {
+        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 1);
+        switchButtons("slow", "normal");
     },
 
-    "fast": (toolset) => {
+    "normal": () => {
+        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 1.5);
+        switchButtons("normal", "fast");
+    },
+
+    "fast": () => {
         CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 2);
-        CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 1);
-        toolset.element.querySelector("#play").style.display = "none";
-        toolset.element.querySelector("#pause").style.display = "flex";
+        switchButtons("fast", "faster");
     },
 
-    "normal": null,
+    "faster": () => {
+        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 0.5);
+        switchButtons("faster", "slow");
+    },
 
     "reload": () => {
         CanvasManipulator.getInstance().canvas.world.clear();
     },
+
     "nextFrame": null,
 };
 
