@@ -86,22 +86,30 @@ const toolManagerConfig = {
     },
 
     "slow": () => {
-        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 1);
+        let canvas = CanvasManipulator.getInstance().canvas;
+
+        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 1 * Math.sign(canvas.world.properties.rateOfTime));
         switchButtons("slow", "normal");
     },
 
     "normal": () => {
-        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 1.5);
+        let canvas = CanvasManipulator.getInstance().canvas;
+
+        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 1.5 * Math.sign(canvas.world.properties.rateOfTime));
         switchButtons("normal", "fast");
     },
 
     "fast": () => {
-        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 2);
+        let canvas = CanvasManipulator.getInstance().canvas;
+
+        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 2 * Math.sign(canvas.world.properties.rateOfTime));
         switchButtons("fast", "faster");
     },
 
     "faster": () => {
-        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 0.5);
+        let canvas = CanvasManipulator.getInstance().canvas;
+
+        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 0.5 * Math.sign(canvas.world.properties.rateOfTime));
         switchButtons("faster", "slow");
     },
 
@@ -110,13 +118,21 @@ const toolManagerConfig = {
     },
 
     "nextFrame": () => {
-        console.log("REDRAW")
         CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 1);
 
         setTimeout(() => {
             CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 0);
         }, 1000 / CanvasManipulator.getInstance().canvas.frameRate());
-    }
+    },
+
+    "rewind": () => {
+        let canvas = CanvasManipulator.getInstance().canvas;
+        canvas.setWorldProperty("rateOfTime", -canvas.world.properties.rateOfTime);
+
+        let img = document.querySelector("#rewind").querySelector("img");
+        console.log(!img.style.transform)
+        img.style.transform = !img.style.transform ? "scaleX(-1)" : '';
+    },
 };
 
 const manipulatorTools = {
