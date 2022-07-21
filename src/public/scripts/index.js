@@ -20,6 +20,8 @@ let simulation = new p5((p) => {
 
     p.draw = () => { p.world.draw(p); };
 
+    p.windowResized = () => { console.log("RESIZED"); p.resizeCanvas(p.windowWidth, p.windowHeight); p.print("Created canvas: Width = ", p.width, " ; Height = ", p.height) }
+
     p.spawn = (spawnPoint, startingVelocity, factory) => {
         let mass = 1000;
         let size = 50;
