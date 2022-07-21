@@ -1,5 +1,5 @@
-import { CollisionTester } from './collisions.js';
-import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from './errors.js';
+import { CollisionTester } from '../physics/collisions.js';
+import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from '../../utilities/errors.js';
 import { Vector2D } from './vector2D.js';
 
 class Collider {

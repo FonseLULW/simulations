@@ -1,5 +1,5 @@
-import { Tool } from '../tool.js';
-import { Vector2D } from '../../modules/vector2D.js';
+import { Tool } from './tool.js';
+import { Vector2D } from '../../modules/objects/vector2D.js';
 import { getObject } from '../../modules/objectFactory.js';
 
 const spawner = new Tool();

@@ -1,7 +1,7 @@
-import { CanvasManipulator } from "./ui/canvasManipulator.js";
-import { cursor } from "./ui/tools/cursor.js";
-import { eraser } from "./ui/tools/eraser.js";
-import { spawner } from "./ui/tools/spawner.js";
+import { CanvasManipulator } from "../managers/canvasManipulator.js";
+import { cursor } from "../tools/cursor.js";
+import { eraser } from "../tools/eraser.js";
+import { spawner } from "../tools/spawner.js";
 
 function openToolbar(element) {
     element.style.display = "block";

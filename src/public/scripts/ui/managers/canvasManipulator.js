@@ -1,4 +1,4 @@
-import { PrivateConstructorError } from "../modules/errors.js";
+import { PrivateConstructorError } from "../../utilities/errors.js";
 
 class CanvasManipulator {
     static instance = null;

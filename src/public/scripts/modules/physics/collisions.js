@@ -1,4 +1,4 @@
-import { Vector2D } from "./vector2D.js";
+import { Vector2D } from "../objects/vector2D.js";
 
 class Collision {
     #objA;

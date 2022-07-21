@@ -1,4 +1,4 @@
-import { Collision } from './collisions.js';
+import { Collision } from './physics/collisions.js';
 
 class World {
     #objects;

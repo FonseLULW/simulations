@@ -1,5 +1,5 @@
-import { Tool } from '../tool.js';
-import { Vector2D, collinear } from '../../modules/vector2D.js';
+import { Tool } from './tool.js';
+import { Vector2D, collinear } from '../../modules/objects/vector2D.js';
 
 const cursor = new Tool();
 

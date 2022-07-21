@@ -1,4 +1,4 @@
-import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from './errors.js';
+import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from '../../utilities/errors.js';
 
 class Solver {
     constructor() {

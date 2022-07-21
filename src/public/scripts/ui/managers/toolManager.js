@@ -1,4 +1,4 @@
-import { PrivateConstructorError } from "../modules/errors.js";
+import { PrivateConstructorError } from "../../utilities/errors.js";
 
 class ToolManager {
     static instance = null;

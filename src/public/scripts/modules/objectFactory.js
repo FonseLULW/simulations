@@ -1,6 +1,6 @@
-import { CircleCollider, SquareCollider } from './colliders.js';
-import { Circle, Square } from './graphics.js';
-import { Body, Rigidbody } from './bodies.js';
+import { CircleCollider, SquareCollider } from './objects/colliders.js';
+import { Circle, Square } from './objects/graphics.js';
+import { Body, Rigidbody } from './objects/bodies.js';
 
 function getObject(shape, isStatic) {
     let newObject;
