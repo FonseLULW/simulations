@@ -41,6 +41,10 @@ const toolManagerConfig = {
         openToolbar(document.querySelector("#worldProperties"));
     },
 
+    "gallery": () => {
+        closeSubToolbars();
+    },
+
     // Shapes Toolbar
     "toggleStaticSwitch": (toolset) => {
         CanvasManipulator.getInstance().tools.get("SPAWN").staticBody = toolset.element.querySelector("#static").checked;
@@ -52,7 +56,20 @@ const toolManagerConfig = {
     
     "square": () => {
         CanvasManipulator.getInstance().tools.get("SPAWN").placing = "square";
-    }
+    },
+
+    // Properties Toolbar
+    "gravity": (toolset) => {
+        CanvasManipulator.getInstance().canvas.setWorldProperty("gravity", parseInt(document.querySelector("#gravity").value));
+    } 
+
+
+    // if (!element.value) {
+    //     element.value = simulation.world.properties[element.id];
+    //     return;
+    // }
+
+    // simulation.setWorldProperty(element.id, parseInt(element.value));
 };
 
 const manipulatorTools = {

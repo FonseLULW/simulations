@@ -8,9 +8,11 @@ class Toolset {
         this.selectedElement = null;
     }
 
-    initButtons() {
+    initButtons(eventType) {
+        let eventName = eventType ? eventType : "click";
+
         this.buttons.forEach(btn => {
-            btn.addEventListener("click", (e) => {
+            btn.addEventListener(eventName, (e) => {
                 this.select(btn);
                 ToolManager.getInstance().handle(btn.id, this);
             })

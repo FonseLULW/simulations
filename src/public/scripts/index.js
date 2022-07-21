@@ -121,16 +121,16 @@ let simulation = new p5((p) => {
 // const propertiesToolbar = new Toolbar(document.querySelector("#worldProperties"), simulation);
 
 // propertiesToolbar.buttons.forEach(element => {
-//     element.value = simulation.world.properties[element.id];
+    // element.value = simulation.world.properties[element.id];
 
-//     element.addEventListener("change", (e) => {
-//         if (!element.value) {
-//             element.value = simulation.world.properties[element.id];
-//             return;
-//         }
+    // element.addEventListener("change", (e) => {
+    //     if (!element.value) {
+    //         element.value = simulation.world.properties[element.id];
+    //         return;
+    //     }
 
-//         simulation.setWorldProperty(element.id, parseInt(element.value));
-//     })
+    //     simulation.setWorldProperty(element.id, parseInt(element.value));
+    // })
 // });
 
 document.addEventListener("keydown", (e) => {
@@ -166,6 +166,28 @@ function setupUI(canvas) {
 
     let shapeTools = new Toolset(document.querySelector("#objectSelect").querySelector(".toolbox"), shapesToolbar.element);
     shapeTools.initButtons();
+
+    let propertiesTools = new Toolset(propertiesToolbar.element.querySelector(".toolbox"), propertiesToolbar.element);
+    propertiesTools.initButtons("change");
+
+    propertiesTools.buttons.forEach(btn => {
+        btn.value = canvas.world.properties[btn.id];
+    })
+
+    // propertiesTools.initButtons = () => {
+    //     element.value = simulation.world.properties[element.id];
+
+    //     element.addEventListener("change", (e) => {
+            // if (!element.value) {
+            //     element.value = simulation.world.properties[element.id];
+            //     return;
+            // }
+
+            // simulation.setWorldProperty(element.id, parseInt(element.value));
+    //     })
+    // }
+    
+    propertiesTools.initButtons();
 }
 
 
