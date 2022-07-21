@@ -1,5 +1,6 @@
 import { CanvasManipulator } from "./ui/canvasManipulator.js";
 import { Tool } from "./ui/tool.js";
+import { cursor } from "./ui/tools/cursor.js";
 import { eraser } from "./ui/tools/eraser.js";
 import { spawner } from "./ui/tools/spawner.js";
 
@@ -30,6 +31,11 @@ const toolManagerConfig = {
         closeSubToolbars();
     },
 
+    "cursor": () => {
+        CanvasManipulator.getInstance().mode = "CURSOR";
+        closeSubToolbars();
+    },
+
     "settings": (toolset) => {
         closeSubToolbars(toolset.toolbar);
         openToolbar(document.querySelector("#worldProperties"));
@@ -46,13 +52,13 @@ const toolManagerConfig = {
     
     "square": () => {
         CanvasManipulator.getInstance().tools.get("SPAWN").placing = "square";
-    } 
+    }
 };
 
 const manipulatorTools = {
     "SPAWN": spawner,
     "ERASE": eraser,
-    "CURSOR": new Tool()
+    "CURSOR": cursor
 }
 
 export { toolManagerConfig, manipulatorTools };
