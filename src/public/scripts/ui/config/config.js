@@ -18,8 +18,13 @@ function closeSubToolbars(except) {
 }
 
 function switchButtons(hideID, showID) {
-    document.querySelector(`#${hideID}`).style.display = "none";
-    document.querySelector(`#${showID}`).style.display = "flex";
+    if (hideID) {
+        document.querySelector(`#${hideID}`).style.display = "none";
+    }
+
+    if (showID) {
+        document.querySelector(`#${showID}`).style.display = "flex";
+    }
 }
 
 const toolManagerConfig = {
@@ -68,14 +73,16 @@ const toolManagerConfig = {
     },
 
     // Controls Toolset
-    "pause": (toolset) => {
+    "pause": () => {
         CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 0);
         switchButtons("pause", "play");
+        switchButtons(null, "nextFrame");
     },
 
-    "play": (toolset) => {
+    "play": () => {
         CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 1);
         switchButtons("play", "pause");
+        switchButtons("nextFrame", null);
     },
 
     "slow": () => {
@@ -102,7 +109,14 @@ const toolManagerConfig = {
         CanvasManipulator.getInstance().canvas.world.clear();
     },
 
-    "nextFrame": null,
+    "nextFrame": () => {
+        console.log("REDRAW")
+        CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 1);
+
+        setTimeout(() => {
+            CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 0);
+        }, 1000 / CanvasManipulator.getInstance().canvas.frameRate());
+    }
 };
 
 const manipulatorTools = {
