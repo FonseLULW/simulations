@@ -1,5 +1,4 @@
 import { CanvasManipulator } from "./ui/canvasManipulator.js";
-import { Tool } from "./ui/tool.js";
 import { cursor } from "./ui/tools/cursor.js";
 import { eraser } from "./ui/tools/eraser.js";
 import { spawner } from "./ui/tools/spawner.js";

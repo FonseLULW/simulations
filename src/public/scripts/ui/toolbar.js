@@ -1,4 +1,3 @@
-import { CanvasManipulator } from "../manipulator.js";
 import { Trigger } from "./trigger.js";
 
 class Toolbar {
@@ -12,14 +11,12 @@ class Toolbar {
 
     init() {
         this.element.addEventListener("mouseout", () => {
-            CanvasManipulator.inCanvasRange = true;
             this.hovering = false;
 
             this.toggleDisplay();
         })
     
         this.element.addEventListener("mouseover", () => {
-            CanvasManipulator.inCanvasRange = false;
             this.hovering = true;
 
             this.toggleDisplay();
