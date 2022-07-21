@@ -88,7 +88,7 @@ class World {
 
     findObject(pos) {
         for (let obj of this.#objects) {
-            if (obj.collider.testCollision(pos)) {
+            if (obj.lifetime >= 0 && obj.collider.testCollision(pos)) {
                 return obj;
             }
         }
