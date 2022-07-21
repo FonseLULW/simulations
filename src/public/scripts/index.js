@@ -77,10 +77,10 @@ let simulation = new p5((p) => {
     // } else if (button.id == "nextFrame") {
         
     // } else if (button.id == "pause") {
-    //     simulation.world.properties["rateOfTime"] = 0;
+        // simulation.world.properties["rateOfTime"] = 0;
 
-    //     mainToolbar.element.querySelector("#play").style.display = "flex";
-    //     button.style.display = "none";
+        // mainToolbar.element.querySelector("#play").style.display = "flex";
+        // button.style.display = "none";
     // } else if (button.id == "play") {
     //     simulation.world.properties["rateOfTime"] = 1;
 
@@ -161,10 +161,10 @@ function setupUI(canvas) {
     propertiesToolbar.init();
 
     // Toolsets
-    let mainTools = new Toolset(document.querySelector("#toolbar").querySelector(".toolset"), mainToolbar.element);
+    let mainTools = new Toolset(mainToolbar.element.querySelector(".toolset"), mainToolbar.element);
     mainTools.initButtons();
 
-    let shapeTools = new Toolset(document.querySelector("#objectSelect").querySelector(".toolbox"), shapesToolbar.element);
+    let shapeTools = new Toolset(shapesToolbar.element.querySelector(".toolbox"), shapesToolbar.element);
     shapeTools.initButtons();
 
     let propertiesTools = new Toolset(propertiesToolbar.element.querySelector(".toolbox"), propertiesToolbar.element);
@@ -173,21 +173,11 @@ function setupUI(canvas) {
     propertiesTools.buttons.forEach(btn => {
         btn.value = canvas.world.properties[btn.id];
     })
-
-    // propertiesTools.initButtons = () => {
-    //     element.value = simulation.world.properties[element.id];
-
-    //     element.addEventListener("change", (e) => {
-            // if (!element.value) {
-            //     element.value = simulation.world.properties[element.id];
-            //     return;
-            // }
-
-            // simulation.setWorldProperty(element.id, parseInt(element.value));
-    //     })
-    // }
     
     propertiesTools.initButtons();
+
+    let controlTools = new Toolset(mainToolbar.element.querySelector(".controls"), mainToolbar.element);
+    controlTools.initButtons();
 }
 
 

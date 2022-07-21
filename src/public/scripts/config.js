@@ -19,7 +19,7 @@ function closeSubToolbars(except) {
 }
 
 const toolManagerConfig = {
-    // Main Toolbar
+    // Main Toolset
     "shapes": (toolset) => {
         CanvasManipulator.getInstance().mode = "SPAWN";
         closeSubToolbars(toolset.toolbar);
@@ -45,7 +45,7 @@ const toolManagerConfig = {
         closeSubToolbars();
     },
 
-    // Shapes Toolbar
+    // Shapes Toolset
     "toggleStaticSwitch": (toolset) => {
         CanvasManipulator.getInstance().tools.get("SPAWN").staticBody = toolset.element.querySelector("#static").checked;
     },
@@ -58,19 +58,28 @@ const toolManagerConfig = {
         CanvasManipulator.getInstance().tools.get("SPAWN").placing = "square";
     },
 
-    // Properties Toolbar
-    "gravity": (toolset) => {
+    // Properties Toolset
+    "gravity": () => {
         CanvasManipulator.getInstance().canvas.setWorldProperty("gravity", parseInt(document.querySelector("#gravity").value));
-    } 
+    },
 
-
-    // if (!element.value) {
-    //     element.value = simulation.world.properties[element.id];
-    //     return;
-    // }
-
-    // simulation.setWorldProperty(element.id, parseInt(element.value));
+    // Controls Toolset
+    "pause": (toolset) => {
+        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 0);
+        toolset.element.querySelector("#play").style.display = "flex";
+        toolset.element.querySelector("#pause").style.display = "none";
+    },
+    "play": null,
+    "reload": null,
+    "nextFrame": null,
+    "slow": null,
+    "fast": null,
 };
+
+// simulation.world.properties["rateOfTime"] = 0;
+
+// mainToolbar.element.querySelector("#play").style.display = "flex";
+// button.style.display = "none";
 
 const manipulatorTools = {
     "SPAWN": spawner,
