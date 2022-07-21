@@ -69,17 +69,17 @@ const toolManagerConfig = {
         toolset.element.querySelector("#play").style.display = "flex";
         toolset.element.querySelector("#pause").style.display = "none";
     },
-    "play": null,
-    "reload": null,
-    "nextFrame": null,
+    "play": (toolset) => {
+        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 1);
+        toolset.element.querySelector("#play").style.display = "none";
+        toolset.element.querySelector("#pause").style.display = "flex";
+    },
+
     "slow": null,
     "fast": null,
+    "reload": null,
+    "nextFrame": null,
 };
-
-// simulation.world.properties["rateOfTime"] = 0;
-
-// mainToolbar.element.querySelector("#play").style.display = "flex";
-// button.style.display = "none";
 
 const manipulatorTools = {
     "SPAWN": spawner,
