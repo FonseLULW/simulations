@@ -27,6 +27,13 @@ function switchButtons(hideID, showID) {
     }
 }
 
+function flipIcons(iconIds) {
+    iconIds.forEach(icon => {
+        let element = document.querySelector(`#${icon}`);
+        element.classList.toggle("flipped");
+    })
+}
+
 const toolManagerConfig = {
     // Main Toolset
     "shapes": (toolset) => {
@@ -129,9 +136,11 @@ const toolManagerConfig = {
         let canvas = CanvasManipulator.getInstance().canvas;
         canvas.setWorldProperty("rateOfTime", -canvas.world.properties.rateOfTime);
 
-        let img = document.querySelector("#rewind").querySelector("img");
-        console.log(!img.style.transform)
-        img.style.transform = !img.style.transform ? "scaleX(-1)" : '';
+        // let img = document.querySelector("#rewind").querySelector("img");
+        // console.log(!img.style.transform)
+        // img.style.transform = !img.style.transform ? "scaleX(-1)" : '';
+
+        flipIcons(["rewind", "slow", "fast", "faster", "normal", "play", "nextFrame"]);
     },
 };
 
