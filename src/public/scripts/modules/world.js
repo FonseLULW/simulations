@@ -77,6 +77,10 @@ class World {
         this.#objects.delete(physObj);
     }
 
+    clear() {
+        this.#objects.clear();
+    }
+
     findObject(pos) {
         for (let obj of this.#objects) {
             if (obj.collider.testCollision(pos)) {

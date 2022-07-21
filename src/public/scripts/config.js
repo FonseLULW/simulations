@@ -87,8 +87,10 @@ const toolManagerConfig = {
         toolset.element.querySelector("#play").style.display = "none";
         toolset.element.querySelector("#pause").style.display = "flex";
     },
-    
-    "reload": null,
+
+    "reload": () => {
+        CanvasManipulator.getInstance().canvas.world.clear();
+    },
     "nextFrame": null,
 };
 
