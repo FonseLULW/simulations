@@ -46,11 +46,6 @@
         width: 128px;
         height: 100%;
         margin: 0px;
-
-        &.selected {
-            background: rgb(63,94,251);
-            background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,0.7063200280112045) 100%);
-        }
     }
 
     .attrib {
@@ -122,8 +117,12 @@
     }
 
     &.control-btn.selected {
-        background: rgb(19,112,231);
-        background: linear-gradient(360deg, rgba(19,112,231,0.8519782913165266) 0%, rgba(0,212,255,1) 27%, rgba(0,227,191,1) 97%);
+        background-color: white;
+    }
+
+    &.main-btn.selected {
+        background: rgb(63,94,251);
+        background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,0.7063200280112045) 100%);
     }
 }
 
