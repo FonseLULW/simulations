@@ -135,11 +135,6 @@ const toolManagerConfig = {
     "rewind": () => {
         let canvas = CanvasManipulator.getInstance().canvas;
         canvas.setWorldProperty("rateOfTime", -canvas.world.properties.rateOfTime);
-
-        // let img = document.querySelector("#rewind").querySelector("img");
-        // console.log(!img.style.transform)
-        // img.style.transform = !img.style.transform ? "scaleX(-1)" : '';
-
         flipIcons(["rewind", "slow", "fast", "faster", "normal", "play", "nextFrame"]);
     },
 };

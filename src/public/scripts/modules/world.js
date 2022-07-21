@@ -53,8 +53,13 @@ class World {
         this.resolveCollisions(seconds);
 
         this.#objects.forEach(physObj => {
-            physObj.draw(canvas);
+            if (physObj.lifetime < 0) {
+                this.remove(physObj);
+            } else {
+                physObj.lifetime += seconds;
+            }
 
+            physObj.draw(canvas);
             if (physObj.isDynamic()) {
                 physObj.forceY = this.#properties.gravity * physObj.mass;
 

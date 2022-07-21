@@ -5,6 +5,7 @@ class Body {
     constructor(graphic, collider) {
         this.#graphic = graphic;
         this.#collider = collider;
+        this.lifetime = 0;
     }
 
     draw(canvas) {
@@ -12,7 +13,7 @@ class Body {
             this.x = canvas.mouseX;
             this.y = canvas.mouseY;
         }
-
+        console.log(this.lifetime);
         this.#graphic.render(canvas);
         this.#collider.showHitbox(canvas);
     }
