@@ -53,24 +53,23 @@ class World {
         this.resolveCollisions(seconds);
 
         this.#objects.forEach(physObj => {
-            if (physObj.lifetime < 0) {
-                this.remove(physObj);
-            } else {
-                physObj.lifetime += seconds;
+            if (physObj.lifetime >= 0) {
+                physObj.draw(canvas);
+            
+                if (physObj.isDynamic()) {
+                    physObj.forceY = this.#properties.gravity * physObj.mass;
+
+                    // v+1 = v + F/m * t
+                    physObj.velocityX = physObj.velocityX + physObj.forceX / physObj.mass * seconds;
+                    physObj.velocityY = physObj.velocityY + physObj.forceY / physObj.mass * seconds;
+
+                    // s+1 = s + vt
+                    physObj.x = physObj.x + physObj.velocityX * seconds;
+                    physObj.y = physObj.y + physObj.velocityY * seconds;
+                }
             }
 
-            physObj.draw(canvas);
-            if (physObj.isDynamic()) {
-                physObj.forceY = this.#properties.gravity * physObj.mass;
-
-                // v+1 = v + F/m * t
-                physObj.velocityX = physObj.velocityX + physObj.forceX / physObj.mass * seconds;
-                physObj.velocityY = physObj.velocityY + physObj.forceY / physObj.mass * seconds;
-
-                // s+1 = s + vt
-                physObj.x = physObj.x + physObj.velocityX * seconds;
-                physObj.y = physObj.y + physObj.velocityY * seconds;
-            }
+            physObj.lifetime += seconds;
         })
     }
 
