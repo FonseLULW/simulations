@@ -9,6 +9,7 @@ class World {
         this.#objects = new Set();
         this.#solvers = new Array();
         this.#properties = {
+            "timeIsMoving": 1, 
             "rateOfTime": 1,
             "gravity": 400
         };
@@ -38,7 +39,7 @@ class World {
     }
 
     draw(canvas) {
-        let seconds = this.#properties["rateOfTime"] * canvas.deltaTime / 1000;
+        let seconds = this.#properties["timeIsMoving"] * this.#properties["rateOfTime"] * canvas.deltaTime / 1000;
 
         canvas.background(247, 245, 246);
 

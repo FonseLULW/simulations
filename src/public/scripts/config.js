@@ -65,28 +65,32 @@ const toolManagerConfig = {
 
     // Controls Toolset
     "pause": (toolset) => {
-        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 0);
+        CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 0);
         toolset.element.querySelector("#play").style.display = "flex";
         toolset.element.querySelector("#pause").style.display = "none";
     },
 
     "play": (toolset) => {
-        CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 1);
+        CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 1);
         toolset.element.querySelector("#play").style.display = "none";
         toolset.element.querySelector("#pause").style.display = "flex";
     },
 
     "slow": (toolset) => {
         CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 0.5);
+        CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 1);
         toolset.element.querySelector("#play").style.display = "none";
         toolset.element.querySelector("#pause").style.display = "flex";
     },
 
     "fast": (toolset) => {
         CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 2);
+        CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 1);
         toolset.element.querySelector("#play").style.display = "none";
         toolset.element.querySelector("#pause").style.display = "flex";
     },
+
+    "normal": null,
 
     "reload": () => {
         CanvasManipulator.getInstance().canvas.world.clear();
