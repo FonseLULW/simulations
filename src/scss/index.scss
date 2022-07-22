@@ -22,4 +22,5 @@ canvas {
 
 .btn, .trigger {
     cursor: pointer;
+    user-select: none;
 }
