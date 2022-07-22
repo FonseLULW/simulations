@@ -57,7 +57,6 @@ class Collider {
 
 class CircleCollider extends Collider {
     #diameter;
-    #center;
 
     constructor(position, diameter) {
         super(position);

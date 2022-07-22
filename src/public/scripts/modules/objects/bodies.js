@@ -13,9 +13,7 @@ class Body {
             this.x = canvas.mouseX;
             this.y = canvas.mouseY;
         }
-        console.log(this.lifetime);
         this.#graphic.render(canvas);
-        // this.#collider.showHitbox(canvas);
     }
 
     get x() {

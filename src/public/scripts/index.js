@@ -14,13 +14,12 @@ let simulation = new p5((p) => {
         p.frameRate(60);
         p.createCanvas(p.windowWidth, p.windowHeight);
         p.world.addSolver(new SimpleSolver());
-        p.print("Created canvas: Width = ", p.width, " ; Height = ", p.height)
         setupUI(p);
     };
 
     p.draw = () => { p.world.draw(p); };
 
-    p.windowResized = () => { console.log("RESIZED"); p.resizeCanvas(p.windowWidth, p.windowHeight); p.print("Created canvas: Width = ", p.width, " ; Height = ", p.height) }
+    p.windowResized = () => { p.resizeCanvas(p.windowWidth, p.windowHeight); }
 
     p.spawn = (spawnPoint, startingVelocity, factory) => {
         let mass = 1000;
@@ -49,8 +48,6 @@ document.addEventListener("keydown", (e) => {
 })
 
 function setupUI(canvas) {
-    console.log("UI SETUP: ", canvas);
-
     // Managers and Manipulators
     const toolManager = ToolManager.getInstance();
     toolManager.init(canvas, toolManagerConfig);

@@ -23,10 +23,8 @@ class World {
                 if (objA === objB) { break; }
 
                 let collided = objA.collider.testCollision(objB.collider);
-                console.log(collided)
                 if (collided) {
                     collisions.add(new Collision(objA, objB, collided));
-                    console.log("HIT")
                 }
             }
         }
@@ -76,7 +74,6 @@ class World {
 
     add(physObj) {
         this.#objects.add(physObj);
-        console.log(`Created ${physObj}`)
     }
 
     remove(physObj) {

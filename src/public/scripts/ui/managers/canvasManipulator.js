@@ -38,8 +38,6 @@ class CanvasManipulator {
         // DRAG (depends on PRESS and RELEASE)
         this.canvasElement.addEventListener("mousemove", (e) => {
             if (!this.dragentered) { return; }
-
-            console.log("DRAGGN", e.mousedown)
             if (!this.mode) { return; }
             this.tools.get(this.mode).onDrag(this.canvas, e);
         })
@@ -47,7 +45,6 @@ class CanvasManipulator {
         // PRESS
         this.canvasElement.addEventListener("mousedown", (e) => {
             this.dragentered = true;
-            console.log("DRAGENETER", this.mode)
             if (!this.mode) { return; }
             this.tools.get(this.mode).onPress(this.canvas, e);
         })
@@ -57,7 +54,6 @@ class CanvasManipulator {
             this.dragentered = false;
 
             if (!this.mode) { return; }
-            console.log("OK", this.mode)
             this.tools.get(this.mode).onRelease(this.canvas, e);
         })
     }

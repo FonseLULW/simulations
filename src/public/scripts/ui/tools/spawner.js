@@ -21,7 +21,6 @@ spawner.onRelease = (canvas, e) => {
         (spawner.startPosition.y - e.clientY) * mouseDeltaTimeS
     );
 
-    console.log(spawner.startPosition, spawnVelocity, factory);
     canvas.spawn(spawner.startPosition, spawnVelocity, factory);
 
     spawner.startPosition = 0;
