@@ -15,7 +15,7 @@ class Body {
         }
         console.log(this.lifetime);
         this.#graphic.render(canvas);
-        this.#collider.showHitbox(canvas);
+        // this.#collider.showHitbox(canvas);
     }
 
     get x() {

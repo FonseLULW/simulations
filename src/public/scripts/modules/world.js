@@ -48,6 +48,7 @@ class World {
         canvas.point(canvas.mouseX, canvas.mouseY)
 
         canvas.strokeWeight(1);
+        canvas.stroke('black');
         
 
         this.resolveCollisions(seconds);
