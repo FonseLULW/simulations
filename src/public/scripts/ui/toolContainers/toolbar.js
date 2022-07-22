@@ -45,15 +45,6 @@ class Toolbar {
             this.element.classList.remove("show");
         }
     }
-
-    closeSubs() {
-        document.querySelectorAll(".sub").forEach(elem => {
-            if (elem != this.element) {
-                elem.classList.remove("show");
-                elem.style.display = "none";
-            }        
-        })
-    }
 }
 
 export { Toolbar };

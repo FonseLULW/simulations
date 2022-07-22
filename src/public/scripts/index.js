@@ -83,4 +83,6 @@ function setupUI(canvas) {
 
     let controlTools = new Toolset(mainToolbar.element.querySelector(".controls"), mainToolbar.element);
     controlTools.initButtons();
+
+    console.log(canvas);
 }
