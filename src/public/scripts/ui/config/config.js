@@ -4,7 +4,7 @@ import { eraser } from "../tools/eraser.js";
 import { spawner } from "../tools/spawner.js";
 
 function openToolbar(element) {
-    element.style.display = "block";
+    element.classList.remove("hide");
     element.classList.add("show");
 }
 
@@ -12,19 +12,25 @@ function closeSubToolbars(except) {
     document.querySelectorAll(".sub").forEach(elem => {
         if (elem != except) {
             elem.classList.remove("show");
-            elem.style.display = "none";
+            elem.classList.add("hide");
         }        
     })
 }
 
 function switchButtons(hideID, showID) {
     if (hideID) {
-        document.querySelector(`#${hideID}`).style.display = "none";
+        document.querySelector(`#${hideID}`).classList.add("hide");
     }
 
     if (showID) {
-        document.querySelector(`#${showID}`).style.display = "flex";
+        document.querySelector(`#${showID}`).classList.remove("hide");
     }
+}
+
+function toggleIcons(iconIds) {
+    iconIds.forEach(id => {
+        document.querySelector(`#${id}`).classList.toggle("hide");
+    })
 }
 
 function flipIcons(iconIds) {
@@ -83,13 +89,13 @@ const toolManagerConfig = {
     "pause": () => {
         CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 0);
         switchButtons("pause", "play");
-        switchButtons(null, "nextFrame");
+        toggleIcons(["nextFrame"]);
     },
 
     "play": () => {
         CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 1);
         switchButtons("play", "pause");
-        switchButtons("nextFrame", null);
+        toggleIcons(["nextFrame"]);
     },
 
     "slow": () => {
@@ -133,10 +139,29 @@ const toolManagerConfig = {
     },
 
     "rewind": () => {
-        let canvas = CanvasManipulator.getInstance().canvas;
+        let manipulator = CanvasManipulator.getInstance();
+        let canvas = manipulator.canvas;
         canvas.setWorldProperty("rateOfTime", -canvas.world.properties.rateOfTime);
         flipIcons(["rewind", "slow", "fast", "faster", "normal", "play", "nextFrame"]);
+        toggleIcons(["cursor", "shapes", "erase", "settings"]);
+
+        manipulator.mode = null;
+        closeSubToolbars();
+
+        let selected = document.querySelector("#toolbar").querySelector(".selected");
+        if (selected) { selected.classList.remove("selected"); }
+        document.querySelector("#rewind").id = "stopRewind";
     },
+
+    "stopRewind": () => {
+        let manipulator = CanvasManipulator.getInstance();
+        let canvas = manipulator.canvas;
+        canvas.setWorldProperty("rateOfTime", -canvas.world.properties.rateOfTime);
+        flipIcons(["stopRewind", "slow", "fast", "faster", "normal", "play", "nextFrame"]);
+        toggleIcons(["cursor", "shapes", "erase", "settings"]);
+
+        document.querySelector("#stopRewind").id = "rewind";
+    }
 };
 
 const manipulatorTools = {

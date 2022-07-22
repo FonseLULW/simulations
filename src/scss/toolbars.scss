@@ -51,7 +51,7 @@
     .attrib {
         text-align: center;
         @include mixins.nonstatic-position(100%, auto);
-        bottom: 0.2rem;
+        top: $height + 0.5;
 
         a {
             text-decoration: none;

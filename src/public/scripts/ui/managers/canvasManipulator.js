@@ -57,6 +57,7 @@ class CanvasManipulator {
             this.dragentered = false;
 
             if (!this.mode) { return; }
+            console.log("OK", this.mode)
             this.tools.get(this.mode).onRelease(this.canvas, e);
         })
     }
