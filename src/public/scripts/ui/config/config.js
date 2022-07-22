@@ -82,7 +82,14 @@ const toolManagerConfig = {
 
     // Properties Toolset
     "gravity": () => {
-        CanvasManipulator.getInstance().canvas.setWorldProperty("gravity", parseInt(document.querySelector("#gravity").value));
+        let input = document.querySelector("#gravity");
+
+        if (!input.value || input.value == "") { 
+            input.value = CanvasManipulator.getInstance().canvas.world.properties.gravity;
+        }
+
+        CanvasManipulator.getInstance().canvas.setWorldProperty("gravity", parseFloat(input.value));
+        input.value = CanvasManipulator.getInstance().canvas.world.properties.gravity;
     },
 
     // Controls Toolset
