@@ -25,34 +25,34 @@
         <div class="toolbox">
             <!-- PAUSE AND PLAY -->
             <div class="controls">
-                <figure class="control-btn btn image-container nogradient" id="rewind">
+                <figure class="control-btn btn image-container nogradient" id="rewind" title="Toggle rewind">
                     <img class="tools" src="./img/rewind.png">
                 </figure>
                 
-                <figure class="control-btn btn image-container nogradient" id="pause">
+                <figure class="control-btn btn image-container nogradient" id="pause" title="Pause">
                     <img class="tools" src="./img/pause.png">
                 </figure>
-                <figure class="control-btn btn image-container nogradient hide" id="play">
+                <figure class="control-btn btn image-container nogradient hide" id="play" title="Play">
                     <img class="tools" src="./img/play.png">
                 </figure>
 
-                <figure class="control-btn btn image-container nogradient hide" id="slow">
+                <figure class="control-btn btn image-container nogradient hide" id="slow" title="Change pace">
                     <img class="tools" src="./img/slow.png">
                 </figure>
-                <figure class="control-btn btn image-container nogradient" id="normal">
+                <figure class="control-btn btn image-container nogradient" id="normal" title="Change pace">
                     <img class="tools" src="./img/walk.png">
                 </figure>
-                <figure class="control-btn btn image-container nogradient hide" id="fast">
+                <figure class="control-btn btn image-container nogradient hide" id="fast" title="Change pace">
                     <img class="tools" src="./img/fast.png">
                 </figure>
-                <figure class="control-btn btn image-container nogradient hide" id="faster">
+                <figure class="control-btn btn image-container nogradient hide" id="faster" title="Change pace">
                     <img class="tools" src="./img/faster.png">
                 </figure>
 
-                <figure class="control-btn btn image-container nogradient hide" id="nextFrame">
+                <figure class="control-btn btn image-container nogradient hide" id="nextFrame" title="Draw next frame">
                     <img class="tools" src="./img/nextFrame.png">
                 </figure>
-                <figure class="control-btn btn image-container nogradient" id="reload">
+                <figure class="control-btn btn image-container nogradient" id="reload" title="Clear all objects">
                     <img class="tools" src="./img/reload.png">
                 </figure>
                 
@@ -60,19 +60,19 @@
 
             <!-- TOOL SELECTION -->
             <div class="toolset">
-                <figure class="main-btn btn image-container" id="cursor">
+                <figure class="main-btn btn image-container" id="cursor" title="Move objects">
                     <img class="tools" src="./img/cursor.png">
                 </figure>
-                <figure class="main-btn btn image-container" id="shapes">
+                <figure class="main-btn btn image-container" id="shapes" title="Spawn objects">
                     <img class="tools" src="./img/shapes.png">
                 </figure>
-                <figure class="main-btn btn image-container" id="erase">
+                <figure class="main-btn btn image-container" id="erase" title="Erase objects">
                     <img class="tools" src="./img/eraser.png">
                 </figure>
-                <figure class="main-btn btn image-container" id="settings">
+                <figure class="main-btn btn image-container" id="settings" title="Edit world properties">
                     <img class="tools" src="./img/settings.png">
                 </figure>
-                <figure class="main-btn btn image-container" id="gallery">
+                <figure class="main-btn btn image-container" id="gallery" title="Preset gallery">
                     <img class="tools" src="./img/gallery.png">
                 </figure>
             </div>
@@ -92,14 +92,14 @@
 
     <div class="sub interface hide" id="objectSelect">
         <div class="toolbox">
-            <div class="shapes-btn btn nogradient" id="toggleStaticSwitch">
+            <div class="shapes-btn btn nogradient" id="toggleStaticSwitch" title="Toggle static body spawning">
                 <label for="static">Static:</label>
                 <input type="checkbox" id="static" name="static">
             </div>
-            <figure class="shapes-btn btn image-container" id="circle">
+            <figure class="shapes-btn btn image-container" id="circle" title="Circle">
                 <img class="tools" src="./img/circle.png">
             </figure>
-            <figure class="shapes-btn btn image-container" id="square">
+            <figure class="shapes-btn btn image-container" id="square" title="Square">
                 <img class="tools" src="./img/square.png">
             </figure>
         </div>
@@ -114,7 +114,7 @@
 
     <div class="sub interface hide" id="worldProperties">
         <div class="toolbox">
-            <div class="nogradient field" id="setGravity">
+            <div class="nogradient field" id="setGravity" title="Gravity">
                 <label for="gravity">Gravity:</label>
                 <input type="number" id="gravity" name="gravity" class="properties-btn btn">
             </div>
