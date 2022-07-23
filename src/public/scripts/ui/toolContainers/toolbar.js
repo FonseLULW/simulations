@@ -1,12 +1,17 @@
+import { Trigger } from "./trigger.js";
+
 /**
  * A Toolbar class.
  * 
  * @author FonseLULW
  */
-
-import { Trigger } from "./trigger.js";
-
 class Toolbar {
+
+    /**
+     * Constructs a new instance of a Toolbar.
+     * 
+     * @param {Element} DOMElement the DOMElement of the toolbar 
+     */
     constructor(DOMElement) {
         this.element = DOMElement;
         this.trigger = new Trigger(DOMElement.querySelector(".trigger"));
@@ -15,6 +20,9 @@ class Toolbar {
         this.hovering = false;
     }
 
+    /**
+     * Initializes this toolbar's functionality.
+     */
     init() {
         this.element.addEventListener("mouseout", () => {
             this.hovering = false;
@@ -35,6 +43,9 @@ class Toolbar {
         })
     }
 
+    /**
+     * Opens or closes the toolbar.
+     */
     toggleDisplay() {
         if (this.trigger.clicked) {
             if (this.opened) {

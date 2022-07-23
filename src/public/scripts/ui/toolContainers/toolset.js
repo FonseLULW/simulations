@@ -1,12 +1,18 @@
+import { ToolManager } from "../managers/toolManager.js";
+
 /**
  * A Toolset class.
  * 
  * @author FonseLULW
  */
-
-import { ToolManager } from "../managers/toolManager.js";
-
 class Toolset {
+
+    /**
+     * Constructs a new instance of Toolset.
+     * 
+     * @param {Element} DOMElement the Toolset's DOMElement
+     * @param {Element} toolbarElement the Toolset's parent toolbar DOMElement
+     */
     constructor(DOMElement, toolbarElement) {
         this.element = DOMElement;
         this.toolbar = toolbarElement;
@@ -14,6 +20,11 @@ class Toolset {
         this.selectedElement = null;
     }
 
+    /**
+     * Initializes the functionalities of the toolset's buttons.
+     * 
+     * @param {String} eventType the event to track 
+     */
     initButtons(eventType) {
         let eventName = eventType ? eventType : "click";
 
@@ -25,6 +36,13 @@ class Toolset {
         });
     }
 
+    /**
+     * Toggles the select state of a single button in the toolset.
+     * 
+     * Makes sure that only one button can be selected
+     * @param {DOMElement} element a DOMElement of a single button in the toolset 
+     * @returns 
+     */
     select(element) {
         if (element.classList.contains("nogradient")) {
             return;
