@@ -2,6 +2,7 @@
  * A Tool class.
  * 
  * @author FonseLULW
+ * @abstract
  */
 class Tool {
     onClick(canvas, e) { return; }

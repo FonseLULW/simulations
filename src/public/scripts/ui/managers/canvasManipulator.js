@@ -1,16 +1,18 @@
+import { PrivateConstructorError } from "../../utilities/errors.js";
+
 /**
  * A CanvasManipulator class.
  * 
  * Interacts with the canvas using subclasses of Tool
  * @author FonseLULW
  */
-
-import { PrivateConstructorError } from "../../utilities/errors.js";
-
 class CanvasManipulator {
     static instance = null;
     static initializing = true;
 
+    /**
+     * Creates a single instance of a CanvasManipulator.
+     */
     constructor() {
         if (CanvasManipulator.initializing) {
             throw new PrivateConstructorError();
@@ -20,6 +22,12 @@ class CanvasManipulator {
         CanvasManipulator.initializing = true;
     }
 
+    /**
+     * Returns the single instance of CanvasManipulator.
+     * 
+     * Creates the instance if not yet existing
+     * @returns a CanvasManipulator singleton
+     */
     static getInstance() {
         if (!CanvasManipulator.instance) {
             CanvasManipulator.initializing = false;
@@ -29,6 +37,13 @@ class CanvasManipulator {
         return CanvasManipulator.instance;
     }
 
+    /**
+     * Loads information into the CanvasManipulator singleton.
+     * 
+     * @param {P5} canvas a P5 object 
+     * @param {Element} canvasElement the canvas element in the DOM
+     * @param {Object} config an Object with a String identifier - Tool object pair
+     */
     init(canvas, canvasElement, config) {
         this.canvas = canvas;
         this.canvasElement = canvasElement;

@@ -1,17 +1,20 @@
+import { Vector2D } from './objects/vector2D.js';
+import { Collision } from './physics/collisions.js';
+
 /**
  * A World class.
  * 
  * Manages the physics
  * @author FonseLULW
  */
-
-import { Collision } from './physics/collisions.js';
-
 class World {
     #objects;
     #solvers;
     #properties;
 
+    /**
+     * Creates a World object.
+     */
     constructor() {
         this.#objects = new Set();
         this.#solvers = new Array();
@@ -22,6 +25,11 @@ class World {
         };
     }
 
+    /**
+     * Resolves collisions found during collision detection.
+     * 
+     * @param {Number} deltaTime the time between frames in milliseconds 
+     */
     resolveCollisions(deltaTime) {
         let collisions = new Set();
 
@@ -43,6 +51,10 @@ class World {
         })
     }
 
+    /**
+     * Draws a single frame of the simulation.
+     * @param {P5} canvas a P5 object. 
+     */
     draw(canvas) {
         let seconds = this.#properties["timeIsMoving"] * this.#properties["rateOfTime"] * canvas.deltaTime / 1000;
 
@@ -79,18 +91,36 @@ class World {
         })
     }
 
+    /**
+     * Adds a physObj to the World.
+     * 
+     * @param {Body} physObj a Body object
+     */
     add(physObj) {
         this.#objects.add(physObj);
     }
 
+    /**
+     * Removes a physObj from the World.
+     * 
+     * @param {Body} physObj a Body object
+     */
     remove(physObj) {
         this.#objects.delete(physObj);
     }
 
+    /**
+     * Removes all objects in the World.
+     */
     clear() {
         this.#objects.clear();
     }
 
+    /**
+     * Finds a physics object in the World.
+     * @param {Vector2D} pos the point where a physics object can be found
+     * @returns 
+     */
     findObject(pos) {
         for (let obj of this.#objects) {
             if (obj.lifetime >= 0 && obj.collider.testCollision(pos)) {
@@ -99,6 +129,10 @@ class World {
         }
     }
 
+    /**
+     * Adds a solver into the World.
+     * @param {Solver} solver a Solver that resolves a collision
+     */
     addSolver(solver) {
         this.#solvers.push(solver);
     }

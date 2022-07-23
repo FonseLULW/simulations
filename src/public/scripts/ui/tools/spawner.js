@@ -10,11 +10,23 @@ import { getObject } from '../../modules/objectFactory.js';
 
 const spawner = new Tool();
 
+/**
+ * Runs when the mouse is pressed down.
+ * 
+ * @param {P5} canvas a P5 object
+ * @param {Event} e an Event 
+ */
 spawner.onPress = (canvas, e) => {
     spawner.startPosition = new Vector2D(e.clientX, e.clientY);
     spawner.startTimeS = canvas.frameCount * canvas.deltaTime / 1000;
 }
 
+/**
+ * Runs when the mouse is released.
+ * 
+ * @param {P5} canvas a P5 object
+ * @param {Event} e an Event 
+ */
 spawner.onRelease = (canvas, e) => {
     let factory = getObject(spawner.placing, spawner.staticBody)
     if (!factory) { return; }

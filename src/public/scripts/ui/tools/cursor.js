@@ -9,6 +9,12 @@ import { Vector2D, collinear } from '../../modules/objects/vector2D.js';
 
 const cursor = new Tool();
 
+/**
+ * Runs when the mouse is pressed down.
+ * 
+ * @param {P5} canvas a P5 object
+ * @param {Event} e an Event 
+ */
 cursor.onPress = (canvas, e) => {
     cursor.selectedObject = canvas.world.findObject(new Vector2D(e.clientX, e.clientY));
     cursor.startTimeS = canvas.frameCount * canvas.deltaTime / 1000;
@@ -18,6 +24,12 @@ cursor.onPress = (canvas, e) => {
     }
 }
 
+/**
+ * Runs when the mouse is being dragged.
+ * 
+ * @param {P5} canvas a P5 object
+ * @param {Event} e an Event 
+ */
 cursor.onDrag = (canvas, e) => {
     cursor.candidate = new Vector2D(e.clientX, e.clientY);
 
@@ -37,6 +49,12 @@ cursor.onDrag = (canvas, e) => {
     }
 }
 
+/**
+ * Runs when the mouse is released.
+ * 
+ * @param {P5} canvas a P5 object
+ * @param {Event} e an Event 
+ */
 cursor.onRelease = (canvas, e) => {
     let endTimeS = canvas.frameCount * canvas.deltaTime / 1000;
     let mouseDeltaTimeS = Math.abs(endTimeS - cursor.startTimeS);
