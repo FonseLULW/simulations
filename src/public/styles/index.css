@@ -48,6 +48,7 @@
   width: 100%;
   height: auto;
   top: 10.5vh;
+  z-index: -1;
 }
 #toolbar .attrib a {
   text-decoration: none;

@@ -52,6 +52,7 @@
         text-align: center;
         @include mixins.nonstatic-position(100%, auto);
         top: $height + 0.5;
+        z-index: -1;
 
         a {
             text-decoration: none;
