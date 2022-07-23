@@ -5,6 +5,7 @@
  */
 
 import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from '../../utilities/errors.js';
+import { Vector2D } from './vector2D.js';
 
 /**
  * A Graphic class.
@@ -15,6 +16,13 @@ class Graphic {
     #position;
     #color;
 
+    /**
+     * Creates a new Graphic object.
+     * 
+     * @abstract
+     * @param {Vector2D} position the position of the Graphic
+     * @param {p5.Color} color a p5 Color object.
+     */
     constructor(position, color) {
         if (this.constructor === Graphic) {
             throw new AbstractObjectInstantiationError();
@@ -24,6 +32,12 @@ class Graphic {
         this.#color = color;
     }
 
+    /**
+     * Renders the Graphic in the canvas.
+     * 
+     * @abstract
+     * @param {P5} canvas a P5 object
+     */
     render(canvas) {
         throw new UnimplementedAbstractMethodError();
     }
@@ -64,12 +78,24 @@ class Graphic {
 class Circle extends Graphic {
     #diameter;
 
+    /**
+     * Creates a new Circle object.
+     * 
+     * @param {Vector2D} position the position of the Circle
+     * @param {p5.Color} color a p5 Color object
+     * @param {Number} diameter the Circle object's diameter 
+     */
     constructor(position, color, diameter) {
         super(position, color);
 
         this.#diameter = diameter;
     }
 
+    /**
+     * Renders the Circle in the canvas.
+     * 
+     * @param {P5} canvas a P5 object
+     */
     render(canvas) {
         canvas.fill(super.color);
         canvas.circle(this.x, this.y, this.#diameter);
@@ -87,12 +113,24 @@ class Circle extends Graphic {
 class Square extends Graphic {
     #side;
 
+    /**
+     * Creates a new Square object.
+     * 
+     * @param {Vector2D} position the position of the Square
+     * @param {p5.Color} color a p5 Color object
+     * @param {Number} side the length of a single side of the Square object
+     */
     constructor(position, color, side) {
         super(position, color);
 
         this.#side = side;
     }
 
+    /**
+     * Renders the Square in the canvas.
+     * 
+     * @param {P5} canvas a P5 object
+     */
     render(canvas) {
         canvas.fill(this.color);
         canvas.square(this.x, this.y, this.#side);

@@ -7,12 +7,23 @@ class Body {
     #graphic; // graphics
     #collider; // physics
     
+    /**
+     * Creates a new Body object.
+     * 
+     * @param {Graphic} graphic a Graphic object
+     * @param {Collider} collider a Collider object
+     */
     constructor(graphic, collider) {
         this.#graphic = graphic;
         this.#collider = collider;
         this.lifetime = 0;
     }
 
+    /**
+     * Draws the Body in the canvas.
+     * 
+     * @param {P5} canvas a P5 object 
+     */
     draw(canvas) {
         if (this.followingMouse) {
             this.x = canvas.mouseX;
@@ -41,6 +52,10 @@ class Body {
         return this.#collider;
     }
 
+    /**
+     * Returns false.
+     * @returns false
+     */
     isDynamic() {
         return false;
     }
@@ -61,6 +76,12 @@ class Rigidbody extends Body {
     #force;
     #mass;
 
+    /**
+     * Creates a new Rigidbody object.
+     * 
+     * @param {Graphic} graphic a Graphic object
+     * @param {Collider} collider a Collider object
+     */
     constructor(graphic, collider, velocity, force, mass) {
         super(graphic, collider);
         this.#velocity = velocity;
@@ -104,6 +125,10 @@ class Rigidbody extends Body {
         this.#force.y = forceY;
     }
 
+    /**
+     * Returns true.
+     * @returns true
+     */
     isDynamic() {
         return true;
     }

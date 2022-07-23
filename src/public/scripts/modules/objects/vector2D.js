@@ -5,6 +5,12 @@ class Vector2D {
     #x;
     #y;
 
+    /**
+     * Creates a new Vector2D object.
+     * 
+     * @param {Number} x the x coordinate 
+     * @param {Number} y the y coordinate
+     */
     constructor(x, y) {
         this.#x = x;
         this.#y = y;
