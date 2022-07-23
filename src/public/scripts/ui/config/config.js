@@ -48,7 +48,7 @@ const toolManagerConfig = {
         openToolbar(document.querySelector("#objectSelect"));
     },
 
-    "erase": () => {
+    "eraser": () => {
         CanvasManipulator.getInstance().mode = "ERASE";
         closeSubToolbars();
     },
@@ -93,15 +93,15 @@ const toolManagerConfig = {
     },
 
     // Controls Toolset
-    "pause": () => {
+    "stop": () => {
         CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 0);
-        switchButtons("pause", "play");
+        switchButtons("stop", "proceed");
         toggleIcons(["nextFrame"]);
     },
 
-    "play": () => {
+    "proceed": () => {
         CanvasManipulator.getInstance().canvas.setWorldProperty("timeIsMoving", 1);
-        switchButtons("play", "pause");
+        switchButtons("proceed", "stop");
         toggleIcons(["nextFrame"]);
     },
 
@@ -109,14 +109,14 @@ const toolManagerConfig = {
         let canvas = CanvasManipulator.getInstance().canvas;
 
         CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 1 * Math.sign(canvas.world.properties.rateOfTime));
-        switchButtons("slow", "normal");
+        switchButtons("slow", "stroll");
     },
 
-    "normal": () => {
+    "stroll": () => {
         let canvas = CanvasManipulator.getInstance().canvas;
 
         CanvasManipulator.getInstance().canvas.setWorldProperty("rateOfTime", 1.5 * Math.sign(canvas.world.properties.rateOfTime));
-        switchButtons("normal", "fast");
+        switchButtons("stroll", "fast");
     },
 
     "fast": () => {
@@ -149,8 +149,8 @@ const toolManagerConfig = {
         let manipulator = CanvasManipulator.getInstance();
         let canvas = manipulator.canvas;
         canvas.setWorldProperty("rateOfTime", -canvas.world.properties.rateOfTime);
-        flipIcons(["rewind", "slow", "fast", "faster", "normal", "play", "nextFrame"]);
-        toggleIcons(["cursor", "shapes", "erase", "settings"]);
+        flipIcons(["rewind", "slow", "fast", "faster", "stroll", "proceed", "nextFrame"]);
+        toggleIcons(["cursor", "shapes", "eraser", "settings"]);
 
         manipulator.mode = null;
         closeSubToolbars();
@@ -164,8 +164,8 @@ const toolManagerConfig = {
         let manipulator = CanvasManipulator.getInstance();
         let canvas = manipulator.canvas;
         canvas.setWorldProperty("rateOfTime", -canvas.world.properties.rateOfTime);
-        flipIcons(["stopRewind", "slow", "fast", "faster", "normal", "play", "nextFrame"]);
-        toggleIcons(["cursor", "shapes", "erase", "settings"]);
+        flipIcons(["stopRewind", "slow", "fast", "faster", "stroll", "proceed", "nextFrame"]);
+        toggleIcons(["cursor", "shapes", "eraser", "settings"]);
 
         document.querySelector("#stopRewind").id = "rewind";
     }
