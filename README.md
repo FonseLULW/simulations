@@ -44,5 +44,6 @@ Technologies used for this project:
 ## Acknowledgements
 
 - <a href="https://fonts.google.com/icons">GoogleIcons</a>
+- <a href="https://www.freepik.com/">Freepik.com</a>
 - <a href="https://www.flaticon.com/">Flaticon.com</a>
 - <a href="https://p5js.org/">P5</a>
