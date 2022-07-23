@@ -1,3 +1,9 @@
+/**
+ * A cursor Tool.
+ * 
+ * @author FonseLULW
+ */
+
 import { Tool } from './tool.js';
 import { Vector2D, collinear } from '../../modules/objects/vector2D.js';
 

@@ -1,5 +1,16 @@
+/**
+ * Graphics classes act as the visual components of a Body object.
+ * 
+ * @author FonseLULW
+ */
+
 import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from '../../utilities/errors.js';
 
+/**
+ * A Graphic class.
+ * 
+ * @abstract
+ */
 class Graphic {
     #position;
     #color;
@@ -47,6 +58,9 @@ class Graphic {
     }
 }
 
+/**
+ * A Circle representing a circle shape.
+ */
 class Circle extends Graphic {
     #diameter;
 
@@ -67,6 +81,9 @@ class Circle extends Graphic {
     }
 }
 
+/**
+ * A Square class representing a quadrilateral with 4 equal sides.
+ */
 class Square extends Graphic {
     #side;
 

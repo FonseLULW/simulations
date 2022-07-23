@@ -1,3 +1,9 @@
+/**
+ * An eraser Tool.
+ * 
+ * @author FonseLULW
+ */
+
 import { Tool } from './tool.js';
 import { Vector2D } from '../../modules/objects/vector2D.js';
 

@@ -1,3 +1,9 @@
+/**
+ * A Trigger class.
+ * 
+ * @author FonseLULW
+ */
+
 class Trigger {
     constructor(triggerElem) {
         this.trigger = triggerElem;

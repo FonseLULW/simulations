@@ -1,3 +1,10 @@
+/**
+ * A World class.
+ * 
+ * Manages the physics
+ * @author FonseLULW
+ */
+
 import { Collision } from './physics/collisions.js';
 
 class World {

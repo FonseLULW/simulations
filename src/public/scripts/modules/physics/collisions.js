@@ -1,5 +1,14 @@
+/**
+ * Handles things related to collisions.
+ * 
+ * @author FonseLULW
+ */
+
 import { Vector2D } from "../objects/vector2D.js";
 
+/**
+ * A Collision class describing a collision between two Body objects.
+ */
 class Collision {
     #objA;
     #objB;
@@ -24,6 +33,9 @@ class Collision {
     }
 }
 
+/**
+ * A CollisionPoint class describing a single point of collision.
+ */
 class CollisionPoint {
     #pointA;
     #pointB;
@@ -48,6 +60,11 @@ class CollisionPoint {
     }
 }
 
+/**
+ * A CollisionTester class for testing for the collision between two Body objects.
+ * 
+ * @namespace 
+ */
 class CollisionTester {
     static testSquareSquareCollision(colliderA, colliderB) {
 

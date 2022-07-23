@@ -1,3 +1,10 @@
+/**
+ * Config file for tool bindings.
+ * 
+ * Provides the implementation for managers
+ * @author FonseLULW
+ */
+
 import { CanvasManipulator } from "../managers/canvasManipulator.js";
 import { cursor } from "../tools/cursor.js";
 import { eraser } from "../tools/eraser.js";

@@ -1,3 +1,10 @@
+/**
+ * A ToolManager class.
+ * 
+ * Manages all UI buttons and their implementation
+ * @author FonseLULW
+ */
+
 import { PrivateConstructorError } from "../../utilities/errors.js";
 
 class ToolManager {

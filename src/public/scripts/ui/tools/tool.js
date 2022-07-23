@@ -1,3 +1,8 @@
+/**
+ * A Tool class.
+ * 
+ * @author FonseLULW
+ */
 class Tool {
     onClick(canvas, e) { return; }
     onDrag(canvas, e) { return; }

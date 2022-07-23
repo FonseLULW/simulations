@@ -1,3 +1,9 @@
+/**
+ * A spawner Tool.
+ * 
+ * @author FonseLULW
+ */
+
 import { Tool } from './tool.js';
 import { Vector2D } from '../../modules/objects/vector2D.js';
 import { getObject } from '../../modules/objectFactory.js';

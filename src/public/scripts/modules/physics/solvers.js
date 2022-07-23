@@ -1,5 +1,17 @@
+/**
+ * Physics Solver objects.
+ * 
+ * Solves attributes of Body objects on collision
+ * @author FonseLULW
+ */
+
 import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from '../../utilities/errors.js';
 
+/**
+ * A Solver class.
+ * 
+ * @abstract
+ */
 class Solver {
     constructor() {
         if (this.constructor === Solver) {
@@ -12,6 +24,9 @@ class Solver {
     }
 }
 
+/**
+ * A naive SimpleSolver class.
+ */
 class SimpleSolver extends Solver {
     solve(collision, deltaTime) {
         collision.objA.velocityX = -collision.objA.velocityX;

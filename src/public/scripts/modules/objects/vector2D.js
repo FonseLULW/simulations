@@ -1,3 +1,6 @@
+/**
+ * A Vector2D class representing a single point in a plane.
+ */
 class Vector2D {
     #x;
     #y;

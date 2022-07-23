@@ -1,3 +1,9 @@
+/**
+ * Custom errors.
+ * 
+ * @author FonseLULW
+ */
+
 class AbstractObjectInstantiationError extends Error {
     constructor(message) {
         if (!message) {

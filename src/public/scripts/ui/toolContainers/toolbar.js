@@ -1,3 +1,9 @@
+/**
+ * A Toolbar class.
+ * 
+ * @author FonseLULW
+ */
+
 import { Trigger } from "./trigger.js";
 
 class Toolbar {

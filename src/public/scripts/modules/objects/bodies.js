@@ -1,3 +1,8 @@
+/**
+ * A Body class representing a physics object in the World.
+ * 
+ * @author FonseLULW
+ */
 class Body {
     #graphic; // graphics
     #collider; // physics
@@ -48,6 +53,9 @@ class Body {
     
 }
 
+/**
+ * A Rigidbody class representing a dynamic Body.
+ */
 class Rigidbody extends Body {
     #velocity;
     #force;

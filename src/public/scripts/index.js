@@ -1,3 +1,9 @@
+/**
+ * Starting point of the program.
+ * 
+ * @author FonseLULW
+ */
+
 import { Vector2D } from './modules/objects/vector2D.js';
 import { World } from './modules/world.js';
 import { SimpleSolver } from './modules/physics/solvers.js';
@@ -47,6 +53,10 @@ document.addEventListener("keydown", (e) => {
     }
 })
 
+/**
+ * Sets up the UI.
+ * @param {P5} canvas a P5 object 
+ */
 function setupUI(canvas) {
     // Managers and Manipulators
     const toolManager = ToolManager.getInstance();

@@ -1,3 +1,10 @@
+/**
+ * A CanvasManipulator class.
+ * 
+ * Interacts with the canvas using subclasses of Tool
+ * @author FonseLULW
+ */
+
 import { PrivateConstructorError } from "../../utilities/errors.js";
 
 class CanvasManipulator {

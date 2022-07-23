@@ -1,7 +1,18 @@
+/**
+ * Collider classes act as the physics components of Body objects.
+ * 
+ * @author FonseLULW
+ */
+
 import { CollisionTester } from '../physics/collisions.js';
 import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from '../../utilities/errors.js';
 import { Vector2D } from './vector2D.js';
 
+/**
+ * A Collider class.
+ * 
+ * @abstract
+ */
 class Collider {
     #position;
 
@@ -55,6 +66,9 @@ class Collider {
     }
 }
 
+/**
+ * A CircleCollider for Circle objects.
+ */
 class CircleCollider extends Collider {
     #diameter;
 
@@ -85,6 +99,9 @@ class CircleCollider extends Collider {
     }
 }
 
+/**
+ * A SquareCollider class for Square objects.
+ */
 class SquareCollider extends Collider {
     #side;
     #center;

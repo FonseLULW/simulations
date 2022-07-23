@@ -1,3 +1,9 @@
+/**
+ * A Toolset class.
+ * 
+ * @author FonseLULW
+ */
+
 import { ToolManager } from "../managers/toolManager.js";
 
 class Toolset {
