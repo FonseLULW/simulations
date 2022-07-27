@@ -106,17 +106,17 @@ class Collider {
  * A CircleCollider for Circle objects.
  */
 class CircleCollider extends Collider {
-    #radius;
+    #diameter;
 
     /**
      * Creates a new CircleCollider object.
      * 
      * @param {Vector2D} position the position of the CircleCollider object 
-     * @param {Number} radius the radius of the CircleCollider object
+     * @param {Number} diameter the diameter of the CircleCollider object
      */
-    constructor(position, radius) {
+    constructor(position, diameter) {
         super(position);
-        this.#radius = radius;
+        this.#diameter = diameter;
     }
 
     /**
@@ -127,7 +127,7 @@ class CircleCollider extends Collider {
     showHitbox(canvas) {
         canvas.stroke("red");
         canvas.noFill();
-        canvas.circle(this.x, this.y, this.#radius);
+        canvas.circle(this.x, this.y, this.#diameter);
     }
 
     /**
@@ -159,8 +159,8 @@ class CircleCollider extends Collider {
         return CollisionTester.testCirclePointCollision(this, otherCollider);
     }
 
-    get radius() {
-        return this.#radius;
+    get diameter() {
+        return this.#diameter;
     }
 }
 
@@ -175,7 +175,7 @@ class SquareCollider extends Collider {
      * Creates a new SquareCollider object.
      * 
      * @param {Vector2D} position the position of the SquareCollider object 
-     * @param {Number} side the length of a single side of the SquareCollider object
+     * @param {Number} side the diameter of the SquareCollider object
      */
     constructor(position, side) {
         super(position);

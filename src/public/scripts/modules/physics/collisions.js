@@ -106,7 +106,7 @@ class CollisionTester {
 
         if ((cx - cR <= px && px <= cx + cR) && (cy - cR <= py && py <= cy + cR)) {
             return new CollisionPoint(
-                new Vector2D(px, py), new Vector2D(px, py), 0 // depth is not zero!
+                new Vector2D(px, py), new Vector2D(px, py), 0
             )
         }
 
