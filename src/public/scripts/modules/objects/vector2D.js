@@ -38,18 +38,22 @@ class Vector2D {
 }
 
 const Vectors = {
+    distance: (a, b) => {
+        return ((b.x - a.x) ** 2 + (b.y - a.y) ** 2) ** (1/2);
+    },
+
     /**
      * Calculates the slope of a line connecting two points.
      * 
-     * @param {Vector2D} pointA a Vector2D object 
-     * @param {Vector2D} pointB a Vector2D object 
+     * @param {Vector2D} a a Vector2D object 
+     * @param {Vector2D} b a Vector2D object 
      * @returns a Number representing the slope of the line segment connecting the two points
      * 
      * Code attributed to AmitDiwan of tutorialspoint.com
      * Link: https://www.tutorialspoint.com/finding-if-three-points-are-collinear-javascript
      */
-    slope: (pointA, pointB) => {
-        return (pointB.y - pointA.y) / (pointB.x - pointA.y);
+    slope: (a, b) => {
+        return (b.y - a.y) / (b.x - a.y);
     },
 
     /**
