@@ -175,7 +175,7 @@ class SquareCollider extends Collider {
      * Creates a new SquareCollider object.
      * 
      * @param {Vector2D} position the position of the SquareCollider object 
-     * @param {Number} side the diameter of the SquareCollider object
+     * @param {Number} side the length of one side of the SquareCollider object
      */
     constructor(position, side) {
         super(position);
