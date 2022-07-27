@@ -5,7 +5,7 @@
  */
 
 import { Tool } from './tool.js';
-import { Vector2D, collinear } from '../../modules/objects/vector2D.js';
+import { Vector2D, Vectors } from '../../modules/objects/vector2D.js';
 
 const cursor = new Tool();
 
@@ -42,7 +42,7 @@ cursor.onDrag = (canvas, e) => {
     }
 
     if (cursor.waypointA && cursor.waypointB) {
-        if (!collinear(cursor.waypointA, cursor.waypointB, cursor.candidate)) {
+        if (!Vectors.collinear(cursor.waypointA, cursor.waypointB, cursor.candidate)) {
             cursor.waypointA = cursor.waypointB;
             cursor.waypointB = cursor.candidate;
         }

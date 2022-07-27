@@ -37,20 +37,35 @@ class Vector2D {
     }
 }
 
-/* Code taken from AmitDiwan of tutorialspoint.com
- *
- * Link: https://www.tutorialspoint.com/finding-if-three-points-are-collinear-javascript
- */
-function slope(pointA, pointB) {
-    return (pointB.y - pointA.y) / (pointB.x - pointA.y);
+const Vectors = {
+    /**
+     * Calculates the slope of a line connecting two points.
+     * 
+     * @param {Vector2D} pointA a Vector2D object 
+     * @param {Vector2D} pointB a Vector2D object 
+     * @returns a Number representing the slope of the line segment connecting the two points
+     * 
+     * Code attributed to AmitDiwan of tutorialspoint.com
+     * Link: https://www.tutorialspoint.com/finding-if-three-points-are-collinear-javascript
+     */
+    slope: (pointA, pointB) => {
+        return (pointB.y - pointA.y) / (pointB.x - pointA.y);
+    },
+
+    /**
+     * Returns true if points a, b, and c are collinear.
+     * 
+     * @param {Vector2D} a a Vector2D object 
+     * @param {Vector2D} b a Vector2D object
+     * @param {Vector2D} c a Vector2D object
+     * @returns a boolean true if all three points are collinear, else false
+     * 
+     * Code attributed to AmitDiwan of tutorialspoint.com
+     * Link: https://www.tutorialspoint.com/finding-if-three-points-are-collinear-javascript
+     */
+    collinear: (a, b, c) => {
+        return slope(a, b) == slope(b, c) && slope(b, c) == slope(c, a);
+    }
 }
 
-/* Code taken from AmitDiwan of tutorialspoint.com
- *
- * Link: https://www.tutorialspoint.com/finding-if-three-points-are-collinear-javascript
- */
-function collinear(a, b, c) {
-    return slope(a, b) == slope(b, c) && slope(b, c) == slope(c, a);
-}
-
-export { Vector2D, collinear };
+export { Vector2D, Vectors };
