@@ -6,7 +6,7 @@
  */
 
 import { AbstractObjectInstantiationError, UnimplementedAbstractMethodError } from '../../utilities/errors.js';
-import { Vectors } from '../objects/vector2D.js';
+import { Vector2D, Vectors } from '../objects/vector2D.js';
 
 /**
  * A Solver class.
@@ -59,4 +59,38 @@ class PositionSolver extends Solver {
     }
 }
 
-export { SimpleSolver, PositionSolver };
+class VelocitySolver extends Solver {
+    solve(collision, deltaTime) {
+        let { objA, objB, collisionPoint } = collision; 
+
+        let velInitialA = new Vector2D(objA.velocityX, objA.velocityY);
+        let velInitialB = new Vector2D(objB.velocityX, objB.velocityY);
+        let massA = objA.mass;
+        let massB = objB.mass;
+
+        let velFinalA = Vectors.addVect(
+            Vectors.multiplyScalar(velInitialA, ((massA - massB) / (massA + massB))),
+            Vectors.multiplyScalar(velInitialB, (2 * massB / (massA + massB)))
+        );
+
+        let velFinalB = Vectors.addVect(
+            Vectors.multiplyScalar(velInitialB, ((massB - massA) / (massA + massB))),
+            Vectors.multiplyScalar(velInitialA, (2 * massA / (massA + massB)))
+        );
+
+        if (objA.isDynamic()) {
+            objA.velocityX = velFinalA.x;
+            objA.velocityY = velFinalA.y;
+        }
+        
+        if (objB.isDynamic()) {
+            objB.velocityX = velFinalB.x;
+            objB.velocityY = velFinalB.y;
+        }
+
+        console.log("BEFORE: ", velFinalA, velInitialB, massA, massB)
+        console.log("AFTER: ", velFinalA, velFinalB)
+    }
+}
+
+export { SimpleSolver, PositionSolver, VelocitySolver };
