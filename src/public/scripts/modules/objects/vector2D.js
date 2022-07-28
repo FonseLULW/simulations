@@ -59,7 +59,7 @@ const Vectors = {
     },
 
     divideScalar: (vector, value) => { 
-        if (value == 0) { return null };
+        if (value == 0) { value += 0.001 };
         return new Vector2D(vector.x / value, vector.y / value); 
     },
 

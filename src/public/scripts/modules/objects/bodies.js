@@ -38,6 +38,7 @@ class Body {
 
     set x(x) {
         this.#graphic.x = x;
+        this.#collider.x = x;
     }
 
     get y() {
@@ -46,6 +47,7 @@ class Body {
 
     set y(y) {
         this.#graphic.y = y;
+        this.#collider.y = y;
     }
 
     get collider() {
