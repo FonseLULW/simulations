@@ -56,9 +56,9 @@ class World {
             canvas.stroke('rgba(100%,0%,100%,0.5)')
             canvas.point(pointB.x, pointB.y)
 
-            // this.#solvers.forEach(solver => {
-            //     solver.solve(collision, deltaTime);
-            // })
+            this.#solvers.forEach(solver => {
+                solver.solve(collision, deltaTime);
+            })
         })
     }
 
@@ -82,7 +82,7 @@ class World {
             if (physObj.lifetime >= 0) {
                 physObj.draw(canvas);
             
-                if (physObj.isDynamic()) {
+                if (physObj.isDynamic() && !physObj.followingMouse) {
                     physObj.forceY = this.#properties.gravity * physObj.mass;
 
                     // v+1 = v + F/m * t
