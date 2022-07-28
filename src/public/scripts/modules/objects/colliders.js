@@ -85,6 +85,10 @@ class Collider {
         throw new UnimplementedAbstractMethodError();
     }
 
+    get position() {
+        return this.#position;
+    }
+
     get x() {
         return this.#position.x;
     }

@@ -29,6 +29,7 @@ class Solver {
  */
 class SimpleSolver extends Solver {
     solve(collision, deltaTime) {
+        console.log("COLLISION", collision)
         collision.objA.velocityX = -collision.objA.velocityX;
         collision.objB.velocityX = -collision.objB.velocityX;
     }

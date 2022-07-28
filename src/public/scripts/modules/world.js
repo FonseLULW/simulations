@@ -30,7 +30,7 @@ class World {
      * 
      * @param {Number} deltaTime the time between frames in milliseconds 
      */
-    resolveCollisions(deltaTime) {
+    resolveCollisions(deltaTime, canvas) {
         let collisions = new Set();
 
         for (let objA of this.#objects) {
@@ -45,9 +45,20 @@ class World {
         }
 
         collisions.forEach(collision => {
-            this.#solvers.forEach(solver => {
-                solver.solve(collision, deltaTime);
-            })
+            let pointA = collision.collisionPoint.pointA;
+            let pointB = collision.collisionPoint.pointB;
+
+            canvas.line(pointA.x, pointA.y, pointB.x, pointB.y);
+            canvas.strokeWeight(4);
+            canvas.stroke(canvas.color(0, 0, 255))
+
+            canvas.point(pointA.x, pointA.y)
+            canvas.stroke('rgba(100%,0%,100%,0.5)')
+            canvas.point(pointB.x, pointB.y)
+
+            // this.#solvers.forEach(solver => {
+            //     solver.solve(collision, deltaTime);
+            // })
         })
     }
 
@@ -67,9 +78,6 @@ class World {
         canvas.strokeWeight(1);
         canvas.stroke('black');
         
-
-        this.resolveCollisions(seconds);
-
         this.#objects.forEach(physObj => {
             if (physObj.lifetime >= 0) {
                 physObj.draw(canvas);
@@ -89,6 +97,8 @@ class World {
 
             physObj.lifetime += seconds;
         })
+
+        this.resolveCollisions(seconds, canvas);
     }
 
     /**

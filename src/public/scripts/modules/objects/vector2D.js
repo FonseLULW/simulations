@@ -38,6 +38,12 @@ class Vector2D {
 }
 
 const Vectors = {
+    add: (vector, value) => {
+        return new Vector2D(
+            vector.x + value, vector.y + value
+        );
+    },
+
     distance: (a, b) => {
         return ((b.x - a.x) ** 2 + (b.y - a.y) ** 2) ** (1/2);
     },
@@ -68,7 +74,7 @@ const Vectors = {
      * Link: https://www.tutorialspoint.com/finding-if-three-points-are-collinear-javascript
      */
     collinear: (a, b, c) => {
-        return slope(a, b) == slope(b, c) && slope(b, c) == slope(c, a);
+        return Vectors.slope(a, b) == Vectors.slope(b, c) && Vectors.slope(b, c) == Vectors.slope(c, a);
     }
 }
 

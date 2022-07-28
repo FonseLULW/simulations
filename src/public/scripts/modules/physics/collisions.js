@@ -4,7 +4,7 @@
  * @author FonseLULW
  */
 
-import { Vector2D } from "../objects/vector2D.js";
+import { Vector2D, Vectors } from "../objects/vector2D.js";
 
 /**
  * A Collision class describing a collision between two Body objects.
@@ -72,24 +72,31 @@ class CollisionTester {
     }
 
     static testCircleCircleCollision(colliderA, colliderB) {
-        let ax = colliderA.x;
-        let ay = colliderA.y;
-        let aD = colliderA.diameter;
+        let radiusA, radiusB, maxCollisionDistance, actualDistance;
+        radiusA = colliderA.diameter / 2;
+        radiusB = colliderB.diameter / 2;
+        maxCollisionDistance = radiusA + radiusB;
+        actualDistance = Vectors.distance(colliderA.position, colliderB.position);
 
-        let bx = colliderB.x;
-        let by = colliderB.y;
-        let bD = colliderB.diameter;
+        if (actualDistance <= maxCollisionDistance) {
+            let depth, apexA, apexB;
+            depth = maxCollisionDistance - actualDistance;
+            apexA = new Vector2D(colliderA.x, colliderA.y);
+            apexB = new Vector2D(colliderB.x, colliderB.y);
 
-        if (((bx <= ax && ax <= bx + bD) || (ax <= bx && bx <= ax + aD))
-        && ((by <= ay && ay <= by + bD) || (ay <= by && by <= ay + aD))) {
-            return new CollisionPoint(
-                new Vector2D(ax, ay),
-                new Vector2D(bx, by),
-                Math.sqrt(((ax - bx) ** 2) + ((ay - by) ** 2))
-            )
-        } else {
-            return false;
+            let direction = new Vector2D((colliderA.x - colliderB.x) / actualDistance, (colliderA.y - colliderB.y) / actualDistance);
+            apexB.x += (radiusB - depth) * direction.x;
+            apexB.y += (radiusB - depth) * direction.y; 
+
+            apexA.x -= (radiusA - depth) * direction.x;
+            apexA.y -= (radiusA - depth) * direction.y; 
+
+            let result = new CollisionPoint(apexA, apexB, depth);
+            return result;
         }
+
+
+        return false;
     }
 
     static testCircleSquareCollision(colliderA, colliderB) {
