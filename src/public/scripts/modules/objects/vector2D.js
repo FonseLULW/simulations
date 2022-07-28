@@ -38,10 +38,29 @@ class Vector2D {
 }
 
 const Vectors = {
-    add: (vector, value) => {
-        return new Vector2D(
-            vector.x + value, vector.y + value
-        );
+    addScalar: (vector, value) => {
+        return new Vector2D(vector.x + value, vector.y + value);
+    },
+
+    multiplyScalar: (vector, value) => {
+        return new Vector2D(vector.x * value, vector.y * value);
+    },
+
+    addVect: (vectorA, vectorB) => {
+        return new Vector2D(vectorA.x + vectorB.x, vectorA.y + vectorB.y);
+    },
+
+    subtractVect: (vectorA, vectorB) => {
+        return new Vector2D(vectorA.x - vectorB.x, vectorA.y - vectorB.y);
+    },
+
+    multiplyVect: (vectorA, vectorB) => {
+        return new Vector2D(vectorA.x * vectorB.x, vectorA.y * vectorB.y);
+    },
+
+    divideScalar: (vector, value) => { 
+        if (value == 0) { return null };
+        return new Vector2D(vector.x / value, vector.y / value); 
     },
 
     distance: (a, b) => {

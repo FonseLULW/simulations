@@ -81,15 +81,10 @@ class CollisionTester {
         if (actualDistance <= maxCollisionDistance) {
             let depth, apexA, apexB;
             depth = maxCollisionDistance - actualDistance;
-            apexA = new Vector2D(colliderA.x, colliderA.y);
-            apexB = new Vector2D(colliderB.x, colliderB.y);
 
-            let direction = new Vector2D((colliderA.x - colliderB.x) / actualDistance, (colliderA.y - colliderB.y) / actualDistance);
-            apexB.x += (radiusB - depth) * direction.x;
-            apexB.y += (radiusB - depth) * direction.y; 
-
-            apexA.x -= (radiusA - depth) * direction.x;
-            apexA.y -= (radiusA - depth) * direction.y; 
+            let direction = Vectors.divideScalar(new Vector2D(colliderA.x - colliderB.x, colliderA.y - colliderB.y), actualDistance);
+            apexA = Vectors.subtractVect(colliderA.position, Vectors.multiplyScalar(direction, radiusA - depth))
+            apexB = Vectors.addVect(colliderB.position, Vectors.multiplyScalar(direction, radiusB - depth))
 
             let result = new CollisionPoint(apexA, apexB, depth);
             return result;
