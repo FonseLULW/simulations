@@ -1,3 +1,5 @@
+import { Vector2D } from "./vector2D.js";
+
 /**
  * A Body class representing a physics object in the World.
  * 
@@ -6,6 +8,7 @@
 class Body {
     #graphic; // graphics
     #collider; // physics
+    #mass;
     
     /**
      * Creates a new Body object.
@@ -13,10 +16,16 @@ class Body {
      * @param {Graphic} graphic a Graphic object
      * @param {Collider} collider a Collider object
      */
-    constructor(graphic, collider) {
+    constructor(graphic, collider, mass) {
         this.#graphic = graphic;
         this.#collider = collider;
+        this.#mass = mass;
         this.lifetime = 0;
+        this.velocity = new Vector2D(0, 0);
+        this.force = new Vector2D(0, 0);
+        
+
+        console.log(this)
     }
 
     /**
@@ -50,8 +59,56 @@ class Body {
         this.#collider.y = y;
     }
 
+    get velocityX() {
+        return this.velocity.x;
+    }
+
+    get velocityY() {
+        return this.velocity.y;
+    }
+
+    get forceX() {
+        return this.force.x;
+    }
+
+    get forceY() {
+        return this.force.y;
+    }
+
+    set velocityX(velocityX) {
+        this.velocity.x = velocityX;
+    }
+
+    set velocityY(velocityY) {
+        this.velocity.y = velocityY;
+    }
+
+    set forceX(forceX) {
+        this.force.x = forceX;
+    }
+
+    set forceY(forceY) {
+        this.force.y = forceY;
+    }
+
+    get mass() {
+        return this.#mass;
+    }
+
+    set mass(mass) {
+        this.#mass = mass;
+    }
+
     get collider() {
         return this.#collider;
+    }
+
+    get velocity() {
+        return this.velocity;
+    }
+
+    get force() {
+        return this.force;
     }
 
     /**
@@ -65,6 +122,7 @@ class Body {
     toString() {
         return `${this.constructor.name}
         ${this.#graphic.toString()}
+        Mass: ${this.#mass}
         Collider: ${this.#collider}`;
     }
     
@@ -74,9 +132,7 @@ class Body {
  * A Rigidbody class representing a dynamic Body.
  */
 class Rigidbody extends Body {
-    #velocity;
-    #force;
-    #mass;
+
 
     /**
      * Creates a new Rigidbody object.
@@ -84,47 +140,15 @@ class Rigidbody extends Body {
      * @param {Graphic} graphic a Graphic object
      * @param {Collider} collider a Collider object
      */
-    constructor(graphic, collider, velocity, force, mass) {
-        super(graphic, collider);
-        this.#velocity = velocity;
-        this.#force = force;
-        this.#mass = mass;
-    }
+    constructor(graphic, collider, mass, velocity, force) {
+        super(graphic, collider, mass);
+        this.velocity = velocity;
+        this.force = force;
+        this.mass = 1000;
 
-    get velocityX() {
-        return this.#velocity.x;
-    }
+        console.log(velocity);
 
-    get velocityY() {
-        return this.#velocity.y;
-    }
-
-    get forceX() {
-        return this.#force.x;
-    }
-
-    get forceY() {
-        return this.#force.y;
-    }
-
-    get mass() {
-        return this.#mass;
-    }
-
-    set velocityX(velocityX) {
-        this.#velocity.x = velocityX;
-    }
-
-    set velocityY(velocityY) {
-        this.#velocity.y = velocityY;
-    }
-
-    set forceX(forceX) {
-        this.#force.x = forceX;
-    }
-
-    set forceY(forceY) {
-        this.#force.y = forceY;
+        console.log(this.toString());
     }
 
     /**
@@ -137,9 +161,8 @@ class Rigidbody extends Body {
 
     toString() {
         return `${super.toString()}
-        Velocity: ${this.#velocity.toString()}
-        Force: ${this.#force.toString()}
-        Mass: ${this.#mass}`;
+        Velocity: ${this.velocity.toString()}
+        Force: ${this.force.toString()}`;
     }
 }
 

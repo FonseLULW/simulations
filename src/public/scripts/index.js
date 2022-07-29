@@ -6,7 +6,7 @@
 
 import { Vector2D } from './modules/objects/vector2D.js';
 import { World } from './modules/world.js';
-import { PositionSolver, VelocitySolver } from './modules/physics/solvers.js';
+import { ForceSolver, PositionSolver, VelocitySolver } from './modules/physics/solvers.js';
 import { Toolbar } from './ui/toolContainers/toolbar.js';
 import { CanvasManipulator } from './ui/managers/canvasManipulator.js';
 import { ToolManager } from './ui/managers/toolManager.js';
@@ -20,7 +20,8 @@ let simulation = new p5((p) => {
         p.frameRate(60);
         p.createCanvas(p.windowWidth, p.windowHeight);
         p.world.addSolver(new PositionSolver());
-        p.world.addSolver(new VelocitySolver());
+        p.world.addSolver(new ForceSolver());
+        // p.world.addSolver(new VelocitySolver());
         setupUI(p);
     };
 
@@ -29,13 +30,13 @@ let simulation = new p5((p) => {
     p.windowResized = () => { p.resizeCanvas(p.windowWidth, p.windowHeight); }
 
     p.spawn = (spawnPoint, startingVelocity, factory) => {
-        let mass = 1000;
+        let mass = 0;
         let size = 100;
 
         let shape = new factory.graphic(spawnPoint, p.color(104, 240, 237, 100), size);
         let collider = new factory.collider(spawnPoint, size);
 
-        let body = new factory.body(shape, collider, startingVelocity, new Vector2D(0 * mass, 0 * mass), mass);
+        let body = new factory.body(shape, collider, mass, startingVelocity, new Vector2D(0 * mass, 0 * mass));
         p.world.add(body)
     }
 

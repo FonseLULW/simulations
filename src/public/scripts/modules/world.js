@@ -85,13 +85,14 @@ class World {
                 if (physObj.isDynamic() && !physObj.followingMouse) {
                     physObj.forceY = this.#properties.gravity * physObj.mass;
 
-                    // v+1 = v + F/m * t
+                    // // v+1 = v + F/m * t
                     physObj.velocityX = physObj.velocityX + physObj.forceX / physObj.mass * seconds;
                     physObj.velocityY = physObj.velocityY + physObj.forceY / physObj.mass * seconds;
 
-                    // s+1 = s + vt
+                    // // s+1 = s + vt
                     physObj.x = physObj.x + physObj.velocityX * seconds;
                     physObj.y = physObj.y + physObj.velocityY * seconds;
+                    // console.log(physObj)
                 }
             }
 

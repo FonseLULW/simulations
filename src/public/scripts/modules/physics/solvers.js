@@ -68,6 +68,16 @@ class VelocitySolver extends Solver {
         let massA = objA.mass;
         let massB = objB.mass;
 
+        if (!objA.isDynamic() && !objB.isDynamic()) {
+            return;
+        } else if (!objA.isDynamic()) {
+            velInitialA = Vectors.multiplyScalar(velInitialB, -1);
+            massA = massB;
+        } else if (!objB.isDynamic()) {
+            velInitialB = Vectors.multiplyScalar(velInitialA, -1);
+            massB = massA;
+        }
+
         let velFinalA = Vectors.addVect(
             Vectors.multiplyScalar(velInitialA, ((massA - massB) / (massA + massB))),
             Vectors.multiplyScalar(velInitialB, (2 * massB / (massA + massB)))
@@ -93,4 +103,32 @@ class VelocitySolver extends Solver {
     }
 }
 
-export { SimpleSolver, PositionSolver, VelocitySolver };
+class ForceSolver extends Solver {
+    solve(collision, deltaTime) {
+        let { objA, objB, collisionPoint } = collision;
+        let { pointA, pointB, depth } = collisionPoint;
+        // let normalMagnitude = Vectors.distance(pointA, pointB);
+        let normalVector = Vectors.divideScalar(new Vector2D(pointA.x - pointB.x, pointA.y - pointB.y), depth);
+        normalVector = Vectors.multiplyScalar(normalVector, 2)
+
+        // objA.forceX = -normalVector.x;
+        // objA.forceY = -normalVector.y;
+        // objB.forceX = normalVector.x;
+        // objB.forceY = normalVector.y;
+
+        let velA = Vectors.multiplyVect(new Vector2D(objA.velocityX, objA.velocityY), normalVector);
+        let velB = Vectors.multiplyVect(new Vector2D(objB.velocityX, objB.velocityY), normalVector);
+        objA.velocityX = velA.x;
+        objA.velocityY = velA.y;
+        objB.velocityX = -velB.x;
+        objB.velocityY = -velB.y;
+
+        console.log("NORMAL: ", normalVector);
+        // objA.velocityX = normalVector.x / objA.mass / (deltaTime * 1000);
+        // objA.velocityY = normalVector.y / objA.mass / (deltaTime * 1000);
+        // objB.velocityX = -normalVector.x / objA.mass / (deltaTime * 1000);
+        // objB.velocityY = -normalVector.y / objA.mass / (deltaTime * 1000);
+    }
+}
+
+export { SimpleSolver, PositionSolver, VelocitySolver, ForceSolver };
