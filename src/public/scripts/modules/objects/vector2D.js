@@ -24,14 +24,6 @@ class Vector2D {
         return this.#y;
     }
 
-    set x(x) {
-        this.#x = x;
-    }
-
-    set y(y) {
-        this.#y = y;
-    }
-
     toString() {
         return `Vector2D(${this.#x}, ${this.#y})`
     }
