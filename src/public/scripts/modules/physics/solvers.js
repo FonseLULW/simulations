@@ -107,27 +107,23 @@ class ForceSolver extends Solver {
     solve(collision, deltaTime) {
         let { objA, objB, collisionPoint } = collision;
         let { pointA, pointB, depth } = collisionPoint;
-        // let normalMagnitude = Vectors.distance(pointA, pointB);
-        let normalVector = Vectors.divideScalar(new Vector2D(pointA.x - pointB.x, pointA.y - pointB.y), depth);
-        normalVector = Vectors.multiplyScalar(normalVector, 2)
+        let restitution = 1.0; // elastic
 
-        // objA.forceX = -normalVector.x;
-        // objA.forceY = -normalVector.y;
-        // objB.forceX = normalVector.x;
-        // objB.forceY = normalVector.y;
+        let massA = objA.mass;
+        let velocityA = objA.velocity;
+        let massB = objB.mass;
+        let velocityB = objB.velocity;
 
-        let velA = Vectors.multiplyVect(new Vector2D(objA.velocityX, objA.velocityY), normalVector);
-        let velB = Vectors.multiplyVect(new Vector2D(objB.velocityX, objB.velocityY), normalVector);
-        objA.velocityX = velA.x;
-        objA.velocityY = velA.y;
-        objB.velocityX = -velB.x;
-        objB.velocityY = -velB.y;
+        let Normal = new Vector2D((pointA.x - pointB.x) / depth, (pointA.y - pointB.y) / depth);
 
-        console.log("NORMAL: ", normalVector);
-        // objA.velocityX = normalVector.x / objA.mass / (deltaTime * 1000);
-        // objA.velocityY = normalVector.y / objA.mass / (deltaTime * 1000);
-        // objB.velocityX = -normalVector.x / objA.mass / (deltaTime * 1000);
-        // objB.velocityY = -normalVector.y / objA.mass / (deltaTime * 1000);
+        let velocityRelative = Vectors.dotProduct(Vectors.subtractVect(velocityA, velocityB), Normal);
+        let impulseMag = -(1.0 + restitution) * velocityRelative / ((1 / massA) + (1 / massB));
+
+        let impulseA = Vectors.multiplyScalar(Normal, impulseMag);
+        let impulseB = Vectors.multiplyScalar(Normal, -impulseMag);
+
+        objA.velocity = Vectors.addVect(objA.velocity, Vectors.divideScalar(impulseA, massA));
+        objB.velocity = Vectors.addVect(objB.velocity, Vectors.divideScalar(impulseB, massB));
     }
 }
 

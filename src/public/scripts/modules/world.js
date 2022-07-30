@@ -1,4 +1,4 @@
-import { Vector2D } from './objects/vector2D.js';
+import { Vector2D, Vectors } from './objects/vector2D.js';
 import { Collision } from './physics/collisions.js';
 
 /**
@@ -45,17 +45,6 @@ class World {
         }
 
         collisions.forEach(collision => {
-            let pointA = collision.collisionPoint.pointA;
-            let pointB = collision.collisionPoint.pointB;
-
-            canvas.line(pointA.x, pointA.y, pointB.x, pointB.y);
-            canvas.strokeWeight(4);
-            canvas.stroke(canvas.color(0, 0, 255))
-
-            canvas.point(pointA.x, pointA.y)
-            canvas.stroke('rgba(100%,0%,100%,0.5)')
-            canvas.point(pointB.x, pointB.y)
-
             this.#solvers.forEach(solver => {
                 solver.solve(collision, deltaTime);
             })
@@ -83,16 +72,18 @@ class World {
                 physObj.draw(canvas);
             
                 if (physObj.isDynamic() && !physObj.followingMouse) {
-                    physObj.forceY = this.#properties.gravity * physObj.mass;
-
                     // // v+1 = v + F/m * t
                     physObj.velocityX = physObj.velocityX + physObj.forceX / physObj.mass * seconds;
                     physObj.velocityY = physObj.velocityY + physObj.forceY / physObj.mass * seconds;
+                    canvas.print(seconds)
 
                     // // s+1 = s + vt
                     physObj.x = physObj.x + physObj.velocityX * seconds;
                     physObj.y = physObj.y + physObj.velocityY * seconds;
                     // console.log(physObj)
+                    physObj.forceY = this.#properties.gravity * physObj.mass;
+                    physObj.forceX = 0;
+                    // physObj.forceY = 0;
                 }
             }
 

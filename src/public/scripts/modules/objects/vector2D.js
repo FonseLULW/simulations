@@ -24,6 +24,14 @@ class Vector2D {
         return this.#y;
     }
 
+    set x(x) {
+        this.#x = x;
+    }
+
+    set y(y) {
+        this.#y = y;
+    }
+
     toString() {
         return `Vector2D(${this.#x}, ${this.#y})`
     }
@@ -57,6 +65,10 @@ const Vectors = {
 
     distance: (a, b) => {
         return ((b.x - a.x) ** 2 + (b.y - a.y) ** 2) ** (1/2);
+    },
+
+    dotProduct: (vectorA, vectorB) => {
+        return (vectorA.x * vectorB.x) + (vectorA.y * vectorB.y);
     },
 
     /**

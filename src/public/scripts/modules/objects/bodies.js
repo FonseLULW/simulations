@@ -103,14 +103,6 @@ class Body {
         return this.#collider;
     }
 
-    get velocity() {
-        return this.velocity;
-    }
-
-    get force() {
-        return this.force;
-    }
-
     /**
      * Returns false.
      * @returns false
@@ -146,9 +138,9 @@ class Rigidbody extends Body {
         this.force = force;
         this.mass = 1000;
 
-        console.log(velocity);
+        // console.log(velocity);
 
-        console.log(this.toString());
+        console.log(this);
     }
 
     /**

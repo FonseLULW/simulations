@@ -30,13 +30,13 @@ let simulation = new p5((p) => {
     p.windowResized = () => { p.resizeCanvas(p.windowWidth, p.windowHeight); }
 
     p.spawn = (spawnPoint, startingVelocity, factory) => {
-        let mass = 0;
+        let mass = 100;
         let size = 100;
 
         let shape = new factory.graphic(spawnPoint, p.color(104, 240, 237, 100), size);
         let collider = new factory.collider(spawnPoint, size);
 
-        let body = new factory.body(shape, collider, mass, startingVelocity, new Vector2D(0 * mass, 0 * mass));
+        let body = new factory.body(shape, collider, mass, startingVelocity, new Vector2D(0, 0));
         p.world.add(body)
     }
 
