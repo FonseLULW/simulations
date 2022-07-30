@@ -75,15 +75,13 @@ class World {
                     // // v+1 = v + F/m * t
                     physObj.velocityX = physObj.velocityX + physObj.forceX / physObj.mass * seconds;
                     physObj.velocityY = physObj.velocityY + physObj.forceY / physObj.mass * seconds;
-                    canvas.print(seconds)
 
                     // // s+1 = s + vt
                     physObj.x = physObj.x + physObj.velocityX * seconds;
                     physObj.y = physObj.y + physObj.velocityY * seconds;
-                    // console.log(physObj)
+
                     physObj.forceY = this.#properties.gravity * physObj.mass;
                     physObj.forceX = 0;
-                    // physObj.forceY = 0;
                 }
             }
 

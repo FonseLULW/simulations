@@ -23,9 +23,6 @@ class Body {
         this.lifetime = 0;
         this.velocity = new Vector2D(0, 0);
         this.force = new Vector2D(0, 0);
-        
-
-        console.log(this)
     }
 
     /**
@@ -137,10 +134,6 @@ class Rigidbody extends Body {
         this.velocity = velocity;
         this.force = force;
         this.mass = 1000;
-
-        // console.log(velocity);
-
-        console.log(this);
     }
 
     /**
