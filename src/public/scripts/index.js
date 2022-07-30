@@ -6,7 +6,7 @@
 
 import { Vector2D } from './modules/objects/vector2D.js';
 import { World } from './modules/world.js';
-import { ForceSolver, PositionSolver, VelocitySolver } from './modules/physics/solvers.js';
+import { ForceSolver, PositionSolver } from './modules/physics/solvers.js';
 import { Toolbar } from './ui/toolContainers/toolbar.js';
 import { CanvasManipulator } from './ui/managers/canvasManipulator.js';
 import { ToolManager } from './ui/managers/toolManager.js';
@@ -21,7 +21,6 @@ let simulation = new p5((p) => {
         p.createCanvas(p.windowWidth, p.windowHeight);
         p.world.addSolver(new PositionSolver());
         p.world.addSolver(new ForceSolver());
-        // p.world.addSolver(new VelocitySolver());
         setupUI(p);
     };
 

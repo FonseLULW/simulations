@@ -59,50 +59,6 @@ class PositionSolver extends Solver {
     }
 }
 
-class VelocitySolver extends Solver {
-    solve(collision, deltaTime) {
-        let { objA, objB, collisionPoint } = collision; 
-
-        let velInitialA = new Vector2D(objA.velocityX, objA.velocityY);
-        let velInitialB = new Vector2D(objB.velocityX, objB.velocityY);
-        let massA = objA.mass;
-        let massB = objB.mass;
-
-        if (!objA.isDynamic() && !objB.isDynamic()) {
-            return;
-        } else if (!objA.isDynamic()) {
-            velInitialA = Vectors.multiplyScalar(velInitialB, -1);
-            massA = massB;
-        } else if (!objB.isDynamic()) {
-            velInitialB = Vectors.multiplyScalar(velInitialA, -1);
-            massB = massA;
-        }
-
-        let velFinalA = Vectors.addVect(
-            Vectors.multiplyScalar(velInitialA, ((massA - massB) / (massA + massB))),
-            Vectors.multiplyScalar(velInitialB, (2 * massB / (massA + massB)))
-        );
-
-        let velFinalB = Vectors.addVect(
-            Vectors.multiplyScalar(velInitialB, ((massB - massA) / (massA + massB))),
-            Vectors.multiplyScalar(velInitialA, (2 * massA / (massA + massB)))
-        );
-
-        if (objA.isDynamic()) {
-            objA.velocityX = velFinalA.x;
-            objA.velocityY = velFinalA.y;
-        }
-        
-        if (objB.isDynamic()) {
-            objB.velocityX = velFinalB.x;
-            objB.velocityY = velFinalB.y;
-        }
-
-        console.log("BEFORE: ", velFinalA, velInitialB, massA, massB)
-        console.log("AFTER: ", velFinalA, velFinalB)
-    }
-}
-
 class ForceSolver extends Solver {
     solve(collision, deltaTime) {
         let { objA, objB, collisionPoint } = collision;
@@ -127,4 +83,4 @@ class ForceSolver extends Solver {
     }
 }
 
-export { SimpleSolver, PositionSolver, VelocitySolver, ForceSolver };
+export { SimpleSolver, PositionSolver, ForceSolver };
