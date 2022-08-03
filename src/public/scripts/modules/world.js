@@ -1,6 +1,6 @@
 import { Vector2D, Vectors } from './objects/vector2D.js';
 import { Collision } from './physics/collisions.js';
-import { SimpleCollisionDetectionStrategy } from './physics/collisionStrategies.js'
+import { SimpleCollisionDetectionStrategy, SweepAndPruneCollisionDetectionStrategy } from './physics/collisionStrategies.js'
 
 /**
  * A World class.
@@ -32,7 +32,9 @@ class World {
      * @param {Number} deltaTime the time between frames in milliseconds 
      */
     resolveCollisions(deltaTime, canvas) {
-        let collisions = new SimpleCollisionDetectionStrategy().execute(this.#objects);
+        let collisions = new SweepAndPruneCollisionDetectionStrategy().execute(this.#objects);
+
+        if (canvas.keyIsPressed) { console.log("Amount of objects in world: ", this.#objects.length, "Frame Rate: ", canvas.frameRate()); }
 
         collisions.forEach(collision => {
             this.#solvers.forEach(solver => {

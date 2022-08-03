@@ -15,6 +15,7 @@ import { Vector2D } from './vector2D.js';
  */
 class Collider {
     #position;
+    #distancesFromCenter;
 
     /**
      * Creates a new Collider object.
@@ -22,11 +23,12 @@ class Collider {
      * @abstract
      * @param {Vector2D} position the position of the Collider object 
      */
-    constructor(position) {
+    constructor(position, distancesFromCenter) {
         if (this.constructor === Collider) {
             throw new AbstractObjectInstantiationError();
         }
         this.#position = position;
+        this.#distancesFromCenter = distancesFromCenter;
     }
 
     /**
@@ -104,6 +106,10 @@ class Collider {
     set y(y) {
         this.#position.y = y;
     }
+
+    get distancesFromCenter() {
+        return this.#distancesFromCenter;
+    }
 }
 
 /**
@@ -119,7 +125,12 @@ class CircleCollider extends Collider {
      * @param {Number} diameter the diameter of the CircleCollider object
      */
     constructor(position, diameter) {
-        super(position);
+        super(position, {
+            "top": -diameter,
+            "right": diameter,
+            "bottom": diameter,
+            "left": -diameter
+        });
         this.#diameter = diameter;
     }
 
@@ -182,7 +193,12 @@ class SquareCollider extends Collider {
      * @param {Number} side the length of one side of the SquareCollider object
      */
     constructor(position, side) {
-        super(position);
+        super(position, {
+            "top": -side,
+            "right": side,
+            "bottom": side,
+            "left": -side
+        });
         this.#side = side;
     }
 
