@@ -108,6 +108,28 @@ class Body {
         return false;
     }
 
+    isInView(canvas) {
+        let bounds = this.#collider.distancesFromCenter;
+        let edges = {
+            top: this.y + bounds.top, 
+            right: this.x + bounds.right,
+            bottom: this.y + bounds.bottom, 
+            left: this.x + bounds.left
+        }
+
+        let windowBounds = {
+            top: 0,
+            right: canvas.width,
+            bottom: canvas.height,
+            left: 0
+        }
+
+        return (windowBounds.top <= edges.top && edges.top <= windowBounds.bottom
+        || windowBounds.top <= edges.bottom && edges.bottom <= windowBounds.bottom)
+        && (windowBounds.left <= edges.left && edges.left <= windowBounds.right
+        || windowBounds.left <= edges.right && edges.right <= windowBounds.right)
+    }
+
     toString() {
         return `${this.constructor.name}
         ${this.#graphic.toString()}

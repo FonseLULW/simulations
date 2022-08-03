@@ -34,8 +34,6 @@ class World {
     resolveCollisions(deltaTime, canvas) {
         let collisions = new SweepAndPruneCollisionDetectionStrategy().execute(this.#objects);
 
-        if (canvas.keyIsPressed) { console.log("Amount of objects in world: ", this.#objects.length, "Frame Rate: ", canvas.frameRate()); }
-
         collisions.forEach(collision => {
             this.#solvers.forEach(solver => {
                 solver.solve(collision, deltaTime);
@@ -61,7 +59,9 @@ class World {
         
         this.#objects.forEach(physObj => {
             if (physObj.lifetime >= 0) {
-                physObj.draw(canvas);
+                if (physObj.isInView(canvas)) {
+                    physObj.draw(canvas);
+                }
             
                 if (physObj.isDynamic() && !physObj.followingMouse) {
                     // // v+1 = v + F/m * t
