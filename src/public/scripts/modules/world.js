@@ -17,7 +17,7 @@ class World {
      * Creates a World object.
      */
     constructor() {
-        this.#objects = new Set();
+        this.#objects = new Array();
         this.#solvers = new Array();
         this.#properties = {
             "timeIsMoving": 1, 
@@ -32,7 +32,6 @@ class World {
      * @param {Number} deltaTime the time between frames in milliseconds 
      */
     resolveCollisions(deltaTime, canvas) {
-        // let collisions = new Strategy().run(); // returns a Set
         let collisions = new SimpleCollisionDetectionStrategy().execute(this.#objects);
 
         collisions.forEach(collision => {
@@ -88,7 +87,7 @@ class World {
      * @param {Body} physObj a Body object
      */
     add(physObj) {
-        this.#objects.add(physObj);
+        this.#objects.push(physObj);
     }
 
     /**
@@ -97,14 +96,17 @@ class World {
      * @param {Body} physObj a Body object
      */
     remove(physObj) {
-        this.#objects.delete(physObj);
+        let index = this.#objects.indexOf(physObj);
+
+        if (index < 0) { return; }
+        this.#objects.splice(index, 1);
     }
 
     /**
      * Removes all objects in the World.
      */
     clear() {
-        this.#objects.clear();
+        this.#objects.splice(0);
     }
 
     /**
@@ -113,11 +115,7 @@ class World {
      * @returns 
      */
     findObject(pos) {
-        for (let obj of this.#objects) {
-            if (obj.lifetime >= 0 && obj.collider.testCollision(pos)) {
-                return obj;
-            }
-        }
+        return this.#objects.find(obj => obj.lifetime >= 0 && obj.collider.testCollision(pos));
     }
 
     /**

@@ -32,4 +32,14 @@ class SimpleCollisionDetectionStrategy extends CollisionDetectionStrategy {
     }
 }
 
-export { SimpleCollisionDetectionStrategy };
+class SweepAndPruneCollisionDetectionStrategy extends CollisionDetectionStrategy {
+    execute(physicsObjects) {
+        let result = new Set();
+
+        
+
+        return result;
+    }
+}
+
+export { SimpleCollisionDetectionStrategy, SweepAndPruneCollisionDetectionStrategy };
