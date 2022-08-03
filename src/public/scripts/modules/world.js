@@ -1,5 +1,6 @@
 import { Vector2D, Vectors } from './objects/vector2D.js';
 import { Collision } from './physics/collisions.js';
+import { SimpleCollisionDetectionStrategy } from './physics/collisionStrategies.js'
 
 /**
  * A World class.
@@ -31,18 +32,8 @@ class World {
      * @param {Number} deltaTime the time between frames in milliseconds 
      */
     resolveCollisions(deltaTime, canvas) {
-        let collisions = new Set();
-
-        for (let objA of this.#objects) {
-            for (let objB of this.#objects) {
-                if (objA === objB) { break; }
-
-                let collided = objA.collider.testCollision(objB.collider);
-                if (collided) {
-                    collisions.add(new Collision(objA, objB, collided));
-                }
-            }
-        }
+        // let collisions = new Strategy().run(); // returns a Set
+        let collisions = new SimpleCollisionDetectionStrategy().execute(this.#objects);
 
         collisions.forEach(collision => {
             this.#solvers.forEach(solver => {
