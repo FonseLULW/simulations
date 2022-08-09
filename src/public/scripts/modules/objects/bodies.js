@@ -130,6 +130,29 @@ class Body {
         || windowBounds.left <= edges.right && edges.right <= windowBounds.right)
     }
 
+    transport(canvas) {
+        let bounds = this.#collider.distancesFromCenter;
+        let edges = {
+            top: this.y + bounds.top, 
+            right: this.x + bounds.right,
+            bottom: this.y + bounds.bottom, 
+            left: this.x + bounds.left
+        }
+
+        let windowBounds = {
+            top: 0,
+            right: canvas.width,
+            bottom: canvas.height,
+            left: 0
+        }
+
+        if (windowBounds.top > edges.bottom) { this.y = windowBounds.bottom; this.x = windowBounds.right - this.x; }
+        else if (windowBounds.bottom < edges.top) { this.y = windowBounds.top; this.x = windowBounds.right - this.x; }
+
+        if (windowBounds.left > edges.right) { this.x = windowBounds.right; this.y = windowBounds.bottom - this.y; }
+        else if (windowBounds.right < edges.left) { this.x = windowBounds.left; this.y = windowBounds.bottom - this.y; }
+    }
+
     toString() {
         return `${this.constructor.name}
         ${this.#graphic.toString()}

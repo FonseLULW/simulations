@@ -22,7 +22,7 @@ class World {
         this.#properties = {
             "timeIsMoving": 1, 
             "rateOfTime": 1,
-            "gravity": 400
+            "gravity": 0
         };
     }
 
@@ -61,7 +61,7 @@ class World {
             if (physObj.lifetime >= 0) {
                 if (physObj.isInView(canvas)) {
                     physObj.draw(canvas);
-                }
+                } else { physObj.transport(canvas) }
             
                 if (physObj.isDynamic() && !physObj.followingMouse) {
                     // // v+1 = v + F/m * t
