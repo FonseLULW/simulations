@@ -32,7 +32,7 @@ class World {
      * @param {Number} deltaTime the time between frames in milliseconds 
      */
     resolveCollisions(deltaTime, canvas) {
-        let collisions = new SweepAndPruneCollisionDetectionStrategy().execute(this.#objects);
+        let collisions = new SimpleCollisionDetectionStrategy().execute(this.#objects);
 
         collisions.forEach(collision => {
             this.#solvers.forEach(solver => {
