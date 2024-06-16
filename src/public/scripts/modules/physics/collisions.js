@@ -133,4 +133,4 @@ class CollisionTester {
     }
 }
 
-export { CollisionTester, Collision};
+export { CollisionTester, Collision };

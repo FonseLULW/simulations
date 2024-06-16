@@ -20,7 +20,7 @@ class World {
         this.#objects = new Array();
         this.#solvers = new Array();
         this.#properties = {
-            "timeIsMoving": 1, 
+            "timeIsMoving": 1,
             "rateOfTime": 1,
             "gravity": 0
         };
@@ -37,6 +37,7 @@ class World {
         collisions.forEach(collision => {
             this.#solvers.forEach(solver => {
                 solver.solve(collision, deltaTime);
+
             })
         })
     }
@@ -56,13 +57,13 @@ class World {
 
         canvas.strokeWeight(1);
         canvas.stroke('black');
-        
+
         this.#objects.forEach(physObj => {
             if (physObj.lifetime >= 0) {
                 if (physObj.isInView(canvas)) {
                     physObj.draw(canvas);
                 } else { physObj.transport(canvas) }
-            
+
                 if (physObj.isDynamic() && !physObj.followingMouse) {
                     // // v+1 = v + F/m * t
                     physObj.velocityX = physObj.velocityX + physObj.forceX / physObj.mass * seconds;

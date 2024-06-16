@@ -23,7 +23,11 @@ class SimpleCollisionDetectionStrategy extends CollisionDetectionStrategy {
 
                 let collided = objA.collider.testCollision(objB.collider);
                 if (collided) {
-                    result.add(new Collision(objA, objB, collided));
+                    let col = new Collision(objA, objB, collided)
+                    result.add(col);
+                    console.log("Found collision: ", col);
+                    console.log("Before col objA: ", objA.toString());
+                    console.log("Before col objB: ", objB.toString());
                 }
             }
         }
@@ -41,35 +45,35 @@ class SweepAndPruneCollisionDetectionStrategy extends CollisionDetectionStrategy
 
         physicsObjects.sort((a, b) => {
             // sort left to right of x-axis
-            return a.x - b.x; 
+            return a.x - b.x;
         })
-        .forEach(element => {
-            distancesFromCenter = element.collider.distancesFromCenter;
-            elementBounds = {left: element.x + distancesFromCenter.left, right: element.x + distancesFromCenter.right};
-            
-            if (!activeIntervalBounds || physicsObjects.at(-1) == element ||
-                elementBounds.right < activeIntervalBounds.left || elementBounds.left > activeIntervalBounds.right) {
-                if (activeIntervals.length > 0) {
-                    // testCollision for every pair of activeIntervals
-                    // console.log("ACTIVE INTERVAL: ", activeIntervals, "BOUNDS: ", activeIntervalBounds)
-                    for (let objA of activeIntervals) {
-                        for (let objB of activeIntervals) {
-                            if (objA === objB) { break; }
-            
-                            let collided = objA.collider.testCollision(objB.collider);
-                            if (collided) {
-                                result.add(new Collision(objA, objB, collided));
+            .forEach(element => {
+                distancesFromCenter = element.collider.distancesFromCenter;
+                elementBounds = { left: element.x + distancesFromCenter.left, right: element.x + distancesFromCenter.right };
+
+                if (!activeIntervalBounds || physicsObjects.at(-1) == element ||
+                    elementBounds.right < activeIntervalBounds.left || elementBounds.left > activeIntervalBounds.right) {
+                    if (activeIntervals.length > 0) {
+                        // testCollision for every pair of activeIntervals
+                        // console.log("ACTIVE INTERVAL: ", activeIntervals, "BOUNDS: ", activeIntervalBounds)
+                        for (let objA of activeIntervals) {
+                            for (let objB of activeIntervals) {
+                                if (objA === objB) { break; }
+
+                                let collided = objA.collider.testCollision(objB.collider);
+                                if (collided) {
+                                    result.add(new Collision(objA, objB, collided));
+                                }
                             }
                         }
-                    }
 
-                    activeIntervals.splice(0);
+                        activeIntervals.splice(0);
+                    }
+                    activeIntervalBounds = { left: elementBounds.left, right: elementBounds.right };
                 }
-                activeIntervalBounds = {left: elementBounds.left, right: elementBounds.right};
-            }
-            activeIntervalBounds.right = elementBounds.right;
-            activeIntervals.push(element);
-        });
+                activeIntervalBounds.right = elementBounds.right;
+                activeIntervals.push(element);
+            });
 
         return result;
     }

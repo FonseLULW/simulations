@@ -40,22 +40,38 @@ class PositionSolver extends Solver {
         let bodyA = collision.objA
         let bodyB = collision.objB;
 
-        let offset = collision.collisionPoint.depth / 2;
+        let offset = (collision.collisionPoint.depth / 2) + 1;
         let distance = Vectors.distance(collision.collisionPoint.pointA, collision.collisionPoint.pointB);
         let direction = Vectors.divideScalar(Vectors.subtractVect(collision.collisionPoint.pointA, collision.collisionPoint.pointB), distance);
-        let offsetVector = Vectors.multiplyScalar(direction, offset)
 
-        if (bodyA.isDynamic() || !bodyA.isDynamic()) {
+
+        // if (bodyA.isDynamic() || !bodyA.isDynamic()) {
+        if (bodyA.isDynamic() && !bodyB.isDynamic()) {
+            // Reposition only A
+            let offsetVector = Vectors.multiplyScalar(direction, offset * 2)
             let newPosA = Vectors.addVect(bodyA, offsetVector);
             bodyA.x = newPosA.x;
             bodyA.y = newPosA.y;
-        }
-        
-        if (bodyB.isDynamic() || !bodyA.isDynamic()) {
+        } else if (!bodyA.isDynamic() && bodyB.isDynamic()) {
+            // Reposition only B
+            let offsetVector = Vectors.multiplyScalar(direction, offset * 2)
+            let newPosB = Vectors.subtractVect(bodyB, offsetVector);
+            bodyB.x = newPosB.x;
+            bodyB.y = newPosB.y;
+        } else {
+            // Reposition both objects (Both are static or dynamic)
+            let offsetVector = Vectors.multiplyScalar(direction, offset)
+            let newPosA = Vectors.addVect(bodyA, offsetVector);
+            bodyA.x = newPosA.x;
+            bodyA.y = newPosA.y;
+
             let newPosB = Vectors.subtractVect(bodyB, offsetVector);
             bodyB.x = newPosB.x;
             bodyB.y = newPosB.y;
         }
+
+        console.log("Position solved objA: ", bodyA.toString());
+        console.log("Position solved objB: ", bodyB.toString());
     }
 }
 
@@ -80,6 +96,9 @@ class ForceSolver extends Solver {
 
         objA.velocity = Vectors.addVect(objA.velocity, Vectors.divideScalar(impulseA, massA));
         objB.velocity = Vectors.addVect(objB.velocity, Vectors.divideScalar(impulseB, massB));
+
+        console.log("Force solved objA: ", objA.toString());
+        console.log("Force solved objB: ", objB.toString());
     }
 }
 

@@ -9,7 +9,7 @@ class Body {
     #graphic; // graphics
     #collider; // physics
     #mass;
-    
+
     /**
      * Creates a new Body object.
      * 
@@ -36,6 +36,9 @@ class Body {
             this.y = canvas.mouseY;
         }
         this.#graphic.render(canvas);
+        this.#collider.showHitbox(canvas);
+
+        // console.log(this.velocity);
     }
 
     get x() {
@@ -111,9 +114,9 @@ class Body {
     isInView(canvas) {
         let bounds = this.#collider.distancesFromCenter;
         let edges = {
-            top: this.y + bounds.top, 
+            top: this.y + bounds.top,
             right: this.x + bounds.right,
-            bottom: this.y + bounds.bottom, 
+            bottom: this.y + bounds.bottom,
             left: this.x + bounds.left
         }
 
@@ -125,17 +128,17 @@ class Body {
         }
 
         return (windowBounds.top <= edges.top && edges.top <= windowBounds.bottom
-        || windowBounds.top <= edges.bottom && edges.bottom <= windowBounds.bottom)
-        && (windowBounds.left <= edges.left && edges.left <= windowBounds.right
-        || windowBounds.left <= edges.right && edges.right <= windowBounds.right)
+            || windowBounds.top <= edges.bottom && edges.bottom <= windowBounds.bottom)
+            && (windowBounds.left <= edges.left && edges.left <= windowBounds.right
+                || windowBounds.left <= edges.right && edges.right <= windowBounds.right)
     }
 
     transport(canvas) {
         let bounds = this.#collider.distancesFromCenter;
         let edges = {
-            top: this.y + bounds.top, 
+            top: this.y + bounds.top,
             right: this.x + bounds.right,
-            bottom: this.y + bounds.bottom, 
+            bottom: this.y + bounds.bottom,
             left: this.x + bounds.left
         }
 
@@ -159,7 +162,7 @@ class Body {
         Mass: ${this.#mass}
         Collider: ${this.#collider}`;
     }
-    
+
 }
 
 /**
@@ -178,7 +181,8 @@ class Rigidbody extends Body {
         super(graphic, collider, mass);
         this.velocity = velocity;
         this.force = force;
-        this.mass = 1000;
+        // this.mass = 1000;
+
     }
 
     /**

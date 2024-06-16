@@ -12,6 +12,7 @@ import { CanvasManipulator } from './ui/managers/canvasManipulator.js';
 import { ToolManager } from './ui/managers/toolManager.js';
 import { toolManagerConfig, manipulatorTools } from './ui/config/config.js';
 import { Toolset } from './ui/toolContainers/toolset.js';
+import { Body, Rigidbody } from './modules/objects/bodies.js';
 
 let simulation = new p5((p) => {
     p.world = new World();
@@ -37,6 +38,7 @@ let simulation = new p5((p) => {
 
         let body = new factory.body(shape, collider, mass, startingVelocity, new Vector2D(0, 0));
         p.world.add(body)
+        console.log("Added to world: ", body);
     }
 
     p.despawn = (mousePosition) => {
@@ -89,7 +91,7 @@ function setupUI(canvas) {
     propertiesTools.buttons.forEach(btn => {
         btn.value = canvas.world.properties[btn.id];
     })
-    
+
     propertiesTools.initButtons();
 
     let controlTools = new Toolset(mainToolbar.element.querySelector(".controls"), mainToolbar.element);
