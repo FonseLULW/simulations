@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scalar JS</title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <link rel="stylesheet" href="styles/index.css">
-    <link rel="icon" href="img/logo.png"> 
+    <link rel="icon" href="img/logo.png">
 
     <style>
         .material-symbols-outlined {
-          font-variation-settings:
-          'FILL' 0,
-          'wght' 400,
-          'GRAD' 0,
-          'opsz' 48
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 48
         }
     </style>
 </head>
+
 <body>
     <div class="interface" id="toolbar">
         <div class="toolbox">
@@ -29,7 +32,7 @@
                 <figure class="control-btn btn image-container nogradient" id="rewind" title="Toggle rewind">
                     <img class="tools" src="./img/rewind.png">
                 </figure>
-                
+
                 <figure class="control-btn btn image-container nogradient" id="stop" title="Pause">
                     <img class="tools" src="./img/pause.png">
                 </figure>
@@ -56,7 +59,7 @@
                 <figure class="control-btn btn image-container nogradient" id="reload" title="Clear all objects">
                     <img class="tools" src="./img/reload.png">
                 </figure>
-                
+
             </div>
 
             <!-- TOOL SELECTION -->
@@ -88,7 +91,8 @@
             </span>
         </div>
 
-        <div class="attrib">Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>    
+        <div class="attrib">Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
+                href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
     </div>
 
     <div class="sub interface hide" id="objectSelect">
@@ -104,7 +108,7 @@
                 <img class="tools" src="./img/square.png">
             </figure>
         </div>
-        
+
         <!-- TRIGGER ELEMENT -->
         <div class="trigger">
             <span class="material-symbols-outlined">
@@ -128,7 +132,23 @@
         </div>
     </div>
 
+    <div class="sub interface hide" id="saveState">
+        <div class="toolbox">
+            <div class="nogradient field" id="save" title="save">
+                <label for="world-state-file">File:</label>
+                <input type="file" id="world-state-file" name="world-state-file" class="world-state-btn btn">
+            </div>
+        </div>
+
+        <div class="trigger">
+            <span class="material-symbols-outlined">
+                chevron_left
+            </span>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
     <script type="module" src="scripts/index.js"></script>
 </body>
+
 </html>

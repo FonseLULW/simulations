@@ -20,7 +20,7 @@ function closeSubToolbars(except) {
         if (elem != except) {
             elem.classList.remove("show");
             elem.classList.add("hide");
-        }        
+        }
     })
 }
 
@@ -70,8 +70,9 @@ const toolManagerConfig = {
         openToolbar(document.querySelector("#worldProperties"));
     },
 
-    "gallery": () => {
-        closeSubToolbars();
+    "gallery": (toolset) => {
+        closeSubToolbars(toolset.toolbar);
+        openToolbar(document.querySelector("#saveState"));
     },
 
     // Shapes Toolset
@@ -82,7 +83,7 @@ const toolManagerConfig = {
     "circle": () => {
         CanvasManipulator.getInstance().tools.get("SPAWN").placing = "circle";
     },
-    
+
     "square": () => {
         CanvasManipulator.getInstance().tools.get("SPAWN").placing = "square";
     },
@@ -91,7 +92,7 @@ const toolManagerConfig = {
     "gravity": () => {
         let input = document.querySelector("#gravity");
 
-        if (!input.value || input.value == "") { 
+        if (!input.value || input.value == "") {
             input.value = CanvasManipulator.getInstance().canvas.world.properties.gravity;
         }
 

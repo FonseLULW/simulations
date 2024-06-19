@@ -1,141 +1,178 @@
-@use 'mixins';
+@use "mixins";
 
 .interface {
-    opacity: 0.95;
-    background-color: rgb(216, 216, 216);
-    transition: 0.5s;
-    transition-delay: 250ms;
+  opacity: 0.95;
+  background-color: rgb(216, 216, 216);
+  transition: 0.5s;
+  transition-delay: 250ms;
 }
 
 #toolbar {
-    $width: 90vw;
-    $height: 10vh;
+  $width: 90vw;
+  $height: 10vh;
 
-    @include mixins.nonstatic-position($width, $height);
-    top: -$height;
-    left: 2vh;
+  @include mixins.nonstatic-position($width, $height);
+  top: -$height;
+  left: 2vh;
 
-    &.show {
-        transform: translateY($height);
+  &.show {
+    transform: translateY($height);
+  }
+
+  .trigger {
+    $widthT: 50px;
+    $heightT: 50px;
+
+    @include mixins.nonstatic-position($widthT, $heightT);
+    left: 0px;
+    bottom: -$heightT;
+    background-color: silver;
+
+    @include mixins.center-align();
+  }
+
+  .toolbox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .controls,
+  .toolset {
+    @include mixins.center-align();
+  }
+
+  .image-container {
+    width: 128px;
+    height: 100%;
+    margin: 0px;
+  }
+
+  .attrib {
+    text-align: center;
+    @include mixins.nonstatic-position(100%, auto);
+    top: $height + 0.5;
+    z-index: -1;
+
+    a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
     }
-
-    .trigger {
-        $widthT: 50px;
-        $heightT: 50px;
-
-        @include mixins.nonstatic-position($widthT, $heightT);
-        left: 0px;
-        bottom: -$heightT;
-        background-color: silver;
-
-        @include mixins.center-align();
-    }
-
-    .toolbox {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .controls, .toolset {
-        @include mixins.center-align();
-    }
-
-    .image-container {
-        width: 128px;
-        height: 100%;
-        margin: 0px;
-    }
-
-    .attrib {
-        text-align: center;
-        @include mixins.nonstatic-position(100%, auto);
-        top: $height + 0.5;
-        z-index: -1;
-
-        a {
-            text-decoration: none;
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
+  }
 }
 
 #objectSelect {
-    $width: 5vw;
-    $height: 100vh;
-    @include mixins.sub-interface($width, $height);
+  $width: 5vw;
+  $height: 100vh;
+  @include mixins.sub-interface($width, $height);
 
-    .image-container.selected {
-        background: rgb(19,112,231);
-        background: linear-gradient(360deg, rgba(19,112,231,0.8519782913165266) 0%, rgba(0,212,255,1) 27%, rgba(0,227,191,1) 97%);
-    }
+  .image-container.selected {
+    background: rgb(19, 112, 231);
+    background: linear-gradient(
+      360deg,
+      rgba(19, 112, 231, 0.8519782913165266) 0%,
+      rgba(0, 212, 255, 1) 27%,
+      rgba(0, 227, 191, 1) 97%
+    );
+  }
 }
 
 #worldProperties {
-    $width: 10vw;
-    $height: 100vh;
-    
-    @include mixins.sub-interface($width, $height);
+  $width: 10vw;
+  $height: 100vh;
 
-    .toolbox {
-        justify-content: center;
-        row-gap: 1rem;
-    }
+  @include mixins.sub-interface($width, $height);
 
-    .field {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        font-size: larger;
-    }
+  .toolbox {
+    justify-content: center;
+    row-gap: 1rem;
+  }
 
-    label {
-        margin-left: 1em;
-    }
+  .field {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: larger;
+  }
 
-    input {
-        margin-right: 1rem;
-    }
+  label {
+    margin-left: 1em;
+  }
 
-    #gravity {
-        width: 30%;
-    }
+  input {
+    margin-right: 1rem;
+  }
 
-    #fps {
-        width: 20%;
-    }
+  #gravity {
+    width: 30%;
+  }
+
+  #fps {
+    width: 20%;
+  }
+}
+
+#saveState {
+  $width: 10vw;
+  $height: 100vh;
+
+  @include mixins.sub-interface($width, $height);
+
+  .toolbox {
+    justify-content: center;
+    row-gap: 1rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: larger;
+  }
+
+  label {
+    margin-left: 1em;
+  }
+
+  input {
+    margin-right: 1rem;
+  }
 }
 
 .image-container {
-    @include mixins.center-align();
+  @include mixins.center-align();
 
-    &:hover {
-        transition: 0.2s;
-        background-color: white;
-    }
+  &:hover {
+    transition: 0.2s;
+    background-color: white;
+  }
 
-    &.control-btn.selected {
-        background-color: white;
-    }
+  &.control-btn.selected {
+    background-color: white;
+  }
 
-    &.main-btn.selected {
-        background: rgb(63,94,251);
-        background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,0.7063200280112045) 100%);
-    }
+  &.main-btn.selected {
+    background: rgb(63, 94, 251);
+    background: linear-gradient(
+      90deg,
+      rgba(63, 94, 251, 1) 0%,
+      rgba(252, 70, 107, 0.7063200280112045) 100%
+    );
+  }
 }
 
 #toggleStaticSwitch {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .flipped {
-    transform: scaleX(-1);
+  transform: scaleX(-1);
 }

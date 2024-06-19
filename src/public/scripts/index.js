@@ -48,6 +48,14 @@ let simulation = new p5((p) => {
   p.setWorldProperty = (property, value) => {
     p.world.properties[property] = value;
   }
+
+  p.loadWorldState = () => {
+    return;
+  }
+
+  p.saveWorldState = () => {
+    return;
+  }
 });
 
 document.addEventListener("keydown", (e) => {
@@ -77,6 +85,9 @@ function setupUI(canvas) {
 
   const propertiesToolbar = new Toolbar(document.querySelector("#worldProperties"));
   propertiesToolbar.init();
+
+  const saveStateToolbar = new Toolbar(document.querySelector("#saveState"));
+  saveStateToolbar.init();
 
   // Toolsets
   let mainTools = new Toolset(mainToolbar.element.querySelector(".toolset"), mainToolbar.element);
