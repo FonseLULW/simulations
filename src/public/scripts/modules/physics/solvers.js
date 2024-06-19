@@ -46,13 +46,13 @@ class PositionSolver extends Solver {
 
 
         // if (bodyA.isDynamic() || !bodyA.isDynamic()) {
-        if (bodyA.isDynamic() && !bodyB.isDynamic()) {
+        if (!bodyA.static && bodyB.static) {
             // Reposition only A
             let offsetVector = Vectors.multiplyScalar(direction, offset * 2)
             let newPosA = Vectors.addVect(bodyA, offsetVector);
             bodyA.x = newPosA.x;
             bodyA.y = newPosA.y;
-        } else if (!bodyA.isDynamic() && bodyB.isDynamic()) {
+        } else if (bodyA.static && !bodyB.static) {
             // Reposition only B
             let offsetVector = Vectors.multiplyScalar(direction, offset * 2)
             let newPosB = Vectors.subtractVect(bodyB, offsetVector);

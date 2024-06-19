@@ -5,10 +5,12 @@ import { Vector2D } from "./vector2D.js";
  * 
  * @author FonseLULW
  */
-class Body {
+class Rigidbody {
     #graphic; // graphics
     #collider; // physics
     #mass;
+
+    #static;
 
     /**
      * Creates a new Body object.
@@ -16,13 +18,14 @@ class Body {
      * @param {Graphic} graphic a Graphic object
      * @param {Collider} collider a Collider object
      */
-    constructor(graphic, collider, mass) {
+    constructor(graphic, collider, mass, velocity, force) {
         this.#graphic = graphic;
         this.#collider = collider;
         this.#mass = mass;
         this.lifetime = 0;
-        this.velocity = new Vector2D(0, 0);
-        this.force = new Vector2D(0, 0);
+        this.velocity = velocity;
+        this.force = force;
+        this.#static = false;
     }
 
     /**
@@ -103,12 +106,12 @@ class Body {
         return this.#collider;
     }
 
-    /**
-     * Returns false.
-     * @returns false
-     */
-    isDynamic() {
-        return false;
+    get static() {
+        return this.#static;
+    }
+
+    set static(isStatic) {
+        this.#static = isStatic;
     }
 
     isInView(canvas) {
@@ -160,7 +163,10 @@ class Body {
         return `${this.constructor.name}
         ${this.#graphic.toString()}
         Mass: ${this.#mass}
-        Collider: ${this.#collider}`;
+        Collider: ${this.#collider}
+        Velocity: ${this.velocity.toString()}
+        Force: ${this.force.toString()}
+        Static?: ${this.#static}`;
     }
 
 }
@@ -168,36 +174,46 @@ class Body {
 /**
  * A Rigidbody class representing a dynamic Body.
  */
-class Rigidbody extends Body {
+// class Rigidbody extends Body {
 
 
-    /**
-     * Creates a new Rigidbody object.
-     * 
-     * @param {Graphic} graphic a Graphic object
-     * @param {Collider} collider a Collider object
-     */
-    constructor(graphic, collider, mass, velocity, force) {
-        super(graphic, collider, mass);
-        this.velocity = velocity;
-        this.force = force;
-        // this.mass = 1000;
+//     /**
+//      * Creates a new Rigidbody object.
+//      * 
+//      * @param {Graphic} graphic a Graphic object
+//      * @param {Collider} collider a Collider object
+//      */
+//     constructor(graphic, collider, mass, velocity, force) {
+//         super(graphic, collider, mass);
+//         this.velocity = velocity;
+//         this.force = force;
+//         // this.mass = 1000;
 
-    }
+//     }
 
-    /**
-     * Returns true.
-     * @returns true
-     */
-    isDynamic() {
-        return true;
-    }
+//     /**
+//      * Returns true.
+//      * @returns true
+//      */
+//     isDynamic() {
+//         return true;
+//     }
 
-    toString() {
-        return `${super.toString()}
-        Velocity: ${this.velocity.toString()}
-        Force: ${this.force.toString()}`;
-    }
+//     toString() {
+//         return `${super.toString()}
+//         Velocity: ${this.velocity.toString()}
+//         Force: ${this.force.toString()}`;
+//     }
+// }
+
+function createStaticRigidbody(graphic, collider, mass) {
+    let body = new Rigidbody(graphic, collider, mass, new Vector2D(0, 0), new Vector2D(0, 0));
+    body.static = true;
+    return body;
 }
 
-export { Body, Rigidbody };
+function createDynamicRigidbody(graphic, collider, mass, velocity, force) {
+    return new Rigidbody(graphic, collider, mass, velocity, force);
+}
+
+export { Rigidbody, createStaticRigidbody, createDynamicRigidbody };

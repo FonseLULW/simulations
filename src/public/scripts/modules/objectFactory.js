@@ -6,7 +6,7 @@
 
 import { CircleCollider, SquareCollider } from './objects/colliders.js';
 import { Circle, Square } from './objects/graphics.js';
-import { Body, Rigidbody } from './objects/bodies.js';
+import { Rigidbody, createStaticRigidbody, createDynamicRigidbody } from './objects/bodies.js';
 
 /**
  * Configures the Body to spawn in the World.
@@ -32,9 +32,9 @@ function getObject(shape, isStatic) {
     }
 
     if (isStatic) {
-        newObject.body = Body;
+        newObject.body = createStaticRigidbody;
     } else {
-        newObject.body = Rigidbody;
+        newObject.body = createDynamicRigidbody;
     }
 
     return newObject;

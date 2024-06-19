@@ -17,8 +17,11 @@ class SimpleCollisionDetectionStrategy extends CollisionDetectionStrategy {
     execute(physicsObjects) {
         let result = new Set();
 
-        for (let objA of physicsObjects) {
-            for (let objB of physicsObjects) {
+        let j = 0;
+        for (let i = 0; i < physicsObjects.length; i++) {
+            let objA = physicsObjects[i];
+            for (j = i + 1; j < physicsObjects.length; j++) {
+                let objB = physicsObjects[j];
                 if (objA === objB) { break; }
 
                 let collided = objA.collider.testCollision(objB.collider);

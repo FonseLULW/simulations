@@ -64,7 +64,7 @@ class World {
                     physObj.draw(canvas);
                 } else { physObj.transport(canvas) }
 
-                if (physObj.isDynamic() && !physObj.followingMouse) {
+                if (!physObj.static && !physObj.followingMouse) {
                     // // v+1 = v + F/m * t
                     physObj.velocityX = physObj.velocityX + physObj.forceX / physObj.mass * seconds;
                     physObj.velocityY = physObj.velocityY + physObj.forceY / physObj.mass * seconds;
