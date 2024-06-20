@@ -176,6 +176,20 @@ const toolManagerConfig = {
         toggleIcons(["cursor", "shapes", "eraser", "settings"]);
 
         document.querySelector("#stopRewind").id = "rewind";
+    },
+
+    // Save State Toolset
+    "loadWorld": async () => {
+        let fileHandle;
+        [fileHandle] = await window.showOpenFilePicker();
+        const file = await fileHandle.getFile();
+        const contents = await file.text();
+        console.log(contents);
+    },
+    "downloadWorld": () => {
+        let manipulator = CanvasManipulator.getInstance();
+        let canvas = manipulator.canvas;
+        canvas.saveWorldState();
     }
 };
 

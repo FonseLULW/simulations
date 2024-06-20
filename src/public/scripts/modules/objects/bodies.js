@@ -169,6 +169,10 @@ class Rigidbody {
         Static?: ${this.#static}`;
     }
 
+    toJSON() {
+
+    }
+
 }
 
 /**

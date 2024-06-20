@@ -132,6 +132,18 @@ class World {
     get properties() {
         return this.#properties;
     }
+
+    saveState() {
+        return {
+            worldProperties: this.#properties,
+            objects: this.#objects,
+            solvers: this.#solvers
+        }
+    }
+
+    restoreState() {
+
+    }
 }
 
 export { World };

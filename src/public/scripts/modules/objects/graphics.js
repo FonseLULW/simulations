@@ -70,6 +70,14 @@ class Graphic {
         return `${this.#position.toString()}
         Color: ${this.#color}`;
     }
+
+    toJSON() {
+        return {
+            x: this.#position.x,
+            y: this.#position.y,
+            color: this.#color
+        }
+    }
 }
 
 /**
@@ -104,6 +112,10 @@ class Circle extends Graphic {
     toString() {
         return `${super.toString()}
         Diameter: ${this.#diameter}`;
+    }
+
+    toJSON() {
+        return { ...super.toJSON(), diameter: this.#diameter };
     }
 }
 

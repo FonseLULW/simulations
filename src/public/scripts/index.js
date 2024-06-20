@@ -54,7 +54,13 @@ let simulation = new p5((p) => {
   }
 
   p.saveWorldState = () => {
-    return;
+    let elem = document.createElement('a');
+    elem.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(p.world.saveState())));
+    elem.setAttribute('download', 'test.json');
+    elem.style.display = 'none';
+    document.body.appendChild(elem);
+    elem.click();
+    document.body.removeChild(elem);
   }
 });
 
@@ -104,6 +110,9 @@ function setupUI(canvas) {
   })
 
   propertiesTools.initButtons();
+
+  let saveStateTools = new Toolset(saveStateToolbar.element.querySelector(".toolbox"), saveStateToolbar.element);
+  saveStateTools.initButtons();
 
   let controlTools = new Toolset(mainToolbar.element.querySelector(".controls"), mainToolbar.element);
   controlTools.initButtons();
